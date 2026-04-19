@@ -1,9 +1,13 @@
-import type { Metadata } from "next";
-import { Bricolage_Grotesque, DM_Sans, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { ViewTransition } from "react";
+import { Geist, DM_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { SiteHeader } from "./components/site-header";
+import { SiteFooter } from "./components/site-footer";
+import { CommandPalette } from "./components/command-palette";
 
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
   display: "swap",
 });
@@ -20,34 +24,50 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+const siteUrl = "https://vvr.dev";
+
 export const metadata: Metadata = {
-  title: "Vishnuvardhan Reddy — Software Engineer",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Vishnuvardhan Reddy — Software Engineer",
+    template: "%s · vvr.dev",
+  },
   description:
-    "Full-stack software engineer building AI-powered systems and scalable web applications. 3+ years at FactSet.",
+    "Software engineer building systems where every decision can be defended. Three years at FactSet. RAG, voice AI, and full-stack.",
   keywords: [
+    "Vishnuvardhan Reddy",
     "software engineer",
-    "full-stack developer",
-    "AI",
     "RAG",
+    "AI engineer",
     "Next.js",
-    "React",
-    "Node.js",
+    "FactSet",
   ],
-  authors: [{ name: "Vishnuvardhan Reddy" }],
+  authors: [{ name: "Vishnuvardhan Reddy", url: siteUrl }],
+  creator: "Vishnuvardhan Reddy",
   openGraph: {
+    type: "website",
+    url: siteUrl,
     title: "Vishnuvardhan Reddy — Software Engineer",
     description:
-      "Full-stack software engineer building AI-powered systems and scalable web applications.",
-    type: "website",
-    locale: "en_US",
+      "I build systems where every decision can be defended. RAG, voice AI, full-stack at scale.",
+    siteName: "vvr.dev",
   },
   twitter: {
     card: "summary_large_image",
     title: "Vishnuvardhan Reddy — Software Engineer",
     description:
-      "Full-stack software engineer building AI-powered systems and scalable web applications.",
+      "I build systems where every decision can be defended. RAG, voice AI, full-stack at scale.",
   },
+  robots: { index: true, follow: true },
 };
+
+export const viewport: Viewport = {
+  themeColor: "#0a0a0b",
+  width: "device-width",
+  initialScale: 1,
+};
+
+// TODO: add /notes route here when writing is ready to ship.
 
 export default function RootLayout({
   children,
@@ -57,9 +77,26 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${bricolage.variable} ${dmSans.variable} ${geistMono.variable} antialiased`}
+      className={`${geistSans.variable} ${dmSans.variable} ${geistMono.variable}`}
     >
-      <body className="bg-background text-foreground">{children}</body>
+      {/*
+        — built with judgment, not with a template.
+        — if you're reading the source, drop a line: hello@vvr.dev
+      */}
+      <body>
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-[var(--color-accent)] focus:px-3 focus:py-2 focus:text-[var(--color-canvas)] focus:font-mono focus:text-xs"
+        >
+          skip to content
+        </a>
+        <SiteHeader />
+        <ViewTransition>
+          <main id="main">{children}</main>
+        </ViewTransition>
+        <SiteFooter />
+        <CommandPalette />
+      </body>
     </html>
   );
 }
