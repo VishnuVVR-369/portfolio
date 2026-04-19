@@ -1,5 +1,3 @@
-"use client";
-
 // Pages can pass their own "last edited" date via a custom event,
 // but for now we use a single build constant.
 const LAST_EDITED = "2026-04-19";

@@ -1,9 +1,14 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { MobileMenu } from "./mobile-menu";
+
+const MobileMenu = dynamic(
+  () => import("./mobile-menu").then((mod) => mod.MobileMenu),
+  { ssr: false }
+);
 
 const NAV = [
   { href: "/", label: "home", chord: "g h" },
@@ -165,7 +170,9 @@ export function SiteHeader() {
         </div>
       </header>
 
-      <MobileMenu open={mobileMenuOpen} onClose={closeMenu} />
+      {mobileMenuOpen ? (
+        <MobileMenu open={mobileMenuOpen} onClose={closeMenu} />
+      ) : null}
     </>
   );
 }
