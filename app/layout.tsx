@@ -5,6 +5,7 @@ import "./globals.css";
 import { SiteHeader } from "./components/site-header";
 import { SiteFooter } from "./components/site-footer";
 import { CommandPalette } from "./components/command-palette";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -96,6 +97,7 @@ export default function RootLayout({
         </ViewTransition>
         <SiteFooter />
         <CommandPalette />
+        <Analytics />
       </body>
     </html>
   );
