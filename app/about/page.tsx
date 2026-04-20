@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Reveal } from "../components/reveal";
 import { DiffRow } from "../components/diff";
 import { CopyButton } from "../components/copy-button";
@@ -90,19 +91,23 @@ export default function AboutPage() {
                 className="relative aspect-[4/5] w-full overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-border-strong)] bg-[var(--color-surface-inset)]"
                 aria-label="Portrait placeholder"
               >
-                {/*
-                  TODO(vishnu): replace this placeholder with your headshot.
-                  Suggested: <Image src="/portrait.jpg" alt="Vishnuvardhan Reddy" fill className="object-cover" />
-                */}
-                <div className="absolute inset-0 grid place-items-center">
+                <Image
+                  src="/image.png"
+                  alt="Vishnuvardhan Reddy"
+                  fill
+                  sizes="(max-width: 640px) 10rem, (max-width: 768px) 12rem, 16rem"
+                  loading="eager"
+                  className="object-cover"
+                />
+                {/* <div className="absolute inset-0 grid place-items-center">
                   <span className="font-display text-[3.5rem] font-medium leading-none tracking-tight text-[var(--color-text-muted)] md:text-[6rem]">
                     vvr
                   </span>
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-tr from-[var(--color-canvas)]/60 via-transparent to-transparent" />
-                <span className="absolute bottom-2 left-2 font-mono text-[10px] uppercase tracking-wider text-[var(--color-text-subtle)]">
+                </div> */}
+                {/* <div className="absolute inset-0 bg-gradient-to-tr from-[var(--color-canvas)]/60 via-transparent to-transparent" /> */}
+                {/* <span className="absolute bottom-2 left-2 font-mono text-[10px] uppercase tracking-wider text-[var(--color-text-subtle)]">
                   portrait · placeholder
-                </span>
+                </span> */}
               </div>
               <figcaption className="font-mono text-[10px] text-[var(--color-text-subtle)] md:text-[11px]">
                 bangalore · ist
@@ -358,10 +363,10 @@ export default function AboutPage() {
                 open to
               </p>
               <ul className="mt-5 space-y-2.5">
-                {/* TODO(vishnu): adjust to match your real preferences. */}
                 {[
-                  "senior IC roles at AI-first product companies",
-                  "infra / devtools companies (linear, vercel, stripe-shape)",
+                  "software engineering roles at product based companies",
+                  "senior IC roles at AI-first companies",
+                  "infra / devtools companies",
                   "early-stage startups (series A–B) building real systems",
                   "remote-first or bay area teams",
                 ].map((line) => (

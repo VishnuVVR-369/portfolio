@@ -4,6 +4,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+const logoMaskStyle = {
+  WebkitMaskImage: "url(/logo.svg)",
+  maskImage: "url(/logo.svg)",
+  WebkitMaskRepeat: "no-repeat",
+  maskRepeat: "no-repeat",
+  WebkitMaskPosition: "center",
+  maskPosition: "center",
+  WebkitMaskSize: "contain",
+  maskSize: "contain",
+} as const;
+
 const NAV = [
   { href: "/", label: "home", index: "00" },
   { href: "/projects", label: "projects", index: "01" },
@@ -94,10 +105,9 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
         <div className="flex items-center gap-2.5 font-mono text-[12px] text-[var(--color-text)]">
           <span
             aria-hidden
-            className="grid h-7 w-7 place-items-center rounded-[5px] border border-[var(--color-accent-dim)] bg-[var(--color-surface-inset)] text-[12px] font-semibold text-[var(--color-accent)]"
-          >
-            v
-          </span>
+            className="block h-7 w-[56px] flex-shrink-0 bg-[var(--color-accent)]"
+            style={logoMaskStyle}
+          />
           <span>~/vvr.dev</span>
         </div>
         <button

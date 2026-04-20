@@ -5,6 +5,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+const logoMaskStyle = {
+  WebkitMaskImage: "url(/logo.svg)",
+  maskImage: "url(/logo.svg)",
+  WebkitMaskRepeat: "no-repeat",
+  maskRepeat: "no-repeat",
+  WebkitMaskPosition: "center",
+  maskPosition: "center",
+  WebkitMaskSize: "contain",
+  maskSize: "contain",
+} as const;
+
 const MobileMenu = dynamic(
   () => import("./mobile-menu").then((mod) => mod.MobileMenu),
   { ssr: false }
@@ -66,16 +77,14 @@ export function SiteHeader() {
           <div className="flex min-w-0 items-center gap-3 overflow-hidden">
             <Link
               href="/"
-              className="flex items-center gap-2 text-[var(--color-text)] transition-colors hover:text-[var(--color-accent)]"
+              className="group flex items-center gap-2.5 text-[var(--color-text)] transition-colors hover:text-[var(--color-accent)]"
               aria-label="Home"
             >
               <span
                 aria-hidden
-                className="grid h-6 w-6 flex-shrink-0 place-items-center rounded-[5px] border border-[var(--color-accent-dim)] bg-[var(--color-surface-inset)] text-[11px] font-semibold text-[var(--color-accent)]"
-              >
-                {/* TODO(vishnu): replace this monogram with brand mark when ready. */}
-                v
-              </span>
+                className="block h-7 w-[56px] flex-shrink-0 bg-[var(--color-accent)] transition-opacity group-hover:opacity-85"
+                style={logoMaskStyle}
+              />
               <span className="hidden sm:inline">~/vvr.dev</span>
             </Link>
             <span

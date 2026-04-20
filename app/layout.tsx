@@ -45,6 +45,11 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Vishnuvardhan Reddy", url: siteUrl }],
   creator: "Vishnuvardhan Reddy",
+  icons: {
+    icon: "/logo.svg",
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
+  },
   openGraph: {
     type: "website",
     url: siteUrl,

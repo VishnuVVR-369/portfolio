@@ -18,8 +18,7 @@ const THESIS_OPTIONS = [
   // "Every tool here, I can defend. Every tradeoff, I can name.",
 ];
 
-// TODO(vishnu): replace with your actual filter.
-const OPEN_TO = "senior IC roles at AI-first product companies";
+const OPEN_TO = "software engineering roles at product based companies";
 
 const TIMELINE = [
   {
