@@ -67,12 +67,8 @@ const JOURNEY = [
   },
 ];
 
-// TODO(vishnu): tighten or replace these to match how you actually filter inbound.
 const NOT_LOOKING_FOR = [
-  "agency / contract gigs",
-  "generic full-stack roles with no judgment surface",
-  "blockchain, web3, or crypto",
-  "anything that requires relocating before late 2027",
+  ""
 ];
 
 export default function AboutPage() {
@@ -266,8 +262,7 @@ export default function AboutPage() {
               last verified · apr 2026
             </span>
             <a
-              // TODO(vishnu): replace with your leetcode profile url
-              href="https://leetcode.com/u/your-username/"
+              href="https://leetcode.com/u/vishnuvardhanganji"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex min-h-[44px] items-center gap-2 rounded-md border border-[var(--color-border-strong)] px-4 py-3 font-mono text-[13px] text-[var(--color-text)] transition-colors hover:border-[var(--color-accent-dim)] hover:text-[var(--color-accent)] sm:py-2.5"
@@ -380,7 +375,7 @@ export default function AboutPage() {
             </div>
 
             <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
+              {/* <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
                 not looking for
               </p>
               <ul className="mt-5 space-y-2.5">
@@ -391,7 +386,7 @@ export default function AboutPage() {
                     </DiffRow>
                   </li>
                 ))}
-              </ul>
+              </ul> */}
             </div>
           </div>
         </Reveal>

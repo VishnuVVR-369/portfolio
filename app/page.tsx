@@ -10,12 +10,8 @@ import { StackSection } from "./components/stack-section";
 
 const EMAIL = "vishnuvardhanganji@gmail.com";
 
-// Hero thesis. Three drafts; pick one and remove the others.
-// TODO(vishnu): choose the thesis line that sounds most like you.
 const THESIS_OPTIONS = [
-  "I build systems where every decision can be defended.",
-  // "I build software the way I'd want to inherit it: opinionated and explained.",
-  // "Every tool here, I can defend. Every tradeoff, I can name.",
+  "I build systems where every decision serves the user."
 ];
 
 const OPEN_TO = "software engineering roles at product based companies";

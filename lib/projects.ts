@@ -107,9 +107,8 @@ export const projects: Project[] = [
     headline: { metric: "150+", label: "documents indexed" },
     featured: true,
     links: {
-      // TODO(vishnu): paste live + GitHub links when ready.
-      live: undefined,
-      github: undefined,
+      live: "https://chatwithpdf.pro",
+      github: "https://github.com/VishnuVVR-369/chat-pdf",
     },
   },
   {
@@ -170,7 +169,7 @@ export const projects: Project[] = [
     links: {
       // TODO(vishnu): paste live + GitHub links when ready.
       live: undefined,
-      github: undefined,
+      github: "https://github.com/VishnuVVR-369/voice-flow",
     },
   },
 ];
