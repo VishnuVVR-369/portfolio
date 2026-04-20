@@ -200,6 +200,81 @@ export default function AboutPage() {
 
       <div className="border-t border-[var(--color-border)]" />
 
+      {/* ─── Practice (algorithms, daily) ───────────────────────── */}
+      <section
+        data-source="app/about/page.tsx › Practice"
+        className="container-page py-20 md:py-28"
+      >
+        <Reveal>
+          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
+            §02 · the practice
+          </p>
+        </Reveal>
+        <Reveal delay={60}>
+          <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-[var(--color-text)] md:text-5xl">
+            The obsession,
+            <br />
+            <span className="text-[var(--color-accent)]">in numbers.</span>
+          </h2>
+        </Reveal>
+
+        <Reveal delay={120}>
+          <p className="mt-6 max-w-2xl text-pretty text-[var(--color-text-muted)] md:text-lg md:leading-relaxed">
+            Daily reps. For a year. Unbroken. Algorithms aren&apos;t the work
+            — but a year of uninterrupted daily practice is the kind of
+            evidence I can&apos;t fake, and it shows up in the work that is.
+          </p>
+        </Reveal>
+
+        <Reveal delay={180}>
+          <div className="mt-12 grid gap-4 md:grid-cols-3">
+            <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] p-7">
+              <div className="font-display text-5xl font-medium tracking-tight text-[var(--color-accent)] md:text-6xl">
+                365
+              </div>
+              <div className="mt-3 font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--color-text-subtle)]">
+                days of consecutive practice
+              </div>
+            </div>
+            <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] p-7">
+              <div className="font-display text-5xl font-medium tracking-tight text-[var(--color-accent)] md:text-6xl">
+                guardian
+              </div>
+              <div className="mt-3 font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--color-text-subtle)]">
+                top 1% · 2150+ contest rating
+              </div>
+            </div>
+            <div className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] p-7">
+              <div className="font-display text-5xl font-medium tracking-tight text-[var(--color-accent)] md:text-6xl">
+                1,200+
+              </div>
+              <div className="mt-3 font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--color-text-subtle)]">
+                problems solved across difficulties
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal delay={260}>
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+            <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
+              last verified · apr 2026
+            </span>
+            <a
+              // TODO(vishnu): replace with your leetcode profile url
+              href="https://leetcode.com/u/your-username/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-md border border-[var(--color-border-strong)] px-4 py-3 font-mono text-[13px] text-[var(--color-text)] transition-colors hover:border-[var(--color-accent-dim)] hover:text-[var(--color-accent)] sm:py-2.5"
+            >
+              verify on leetcode →
+            </a>
+          </div>
+        </Reveal>
+      </section>
+
+      <div className="border-t border-[var(--color-border)]" />
+
       {/* ─── Journey ────────────────────────────────────────────── */}
       <section
         data-source="app/about/page.tsx › Journey"
@@ -207,7 +282,7 @@ export default function AboutPage() {
       >
         <Reveal>
           <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
-            §02 · the path
+            §03 · the path
           </p>
         </Reveal>
         <Reveal delay={60}>
@@ -263,7 +338,7 @@ export default function AboutPage() {
       >
         <Reveal>
           <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
-            §03 · the bar
+            §04 · the bar
           </p>
         </Reveal>
         <Reveal delay={60}>
