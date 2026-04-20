@@ -1,9 +1,12 @@
+import { Fragment } from "react";
 import Link from "next/link";
 import { featuredProjects, tagLabels } from "@/lib/projects";
+import { heroStack, stackSkillCount } from "@/lib/stack";
 import { Reveal } from "./components/reveal";
 import { DiffRow } from "./components/diff";
 import { CopyButton } from "./components/copy-button";
 import { HeroClock } from "./components/hero-clock";
+import { StackSection } from "./components/stack-section";
 
 const EMAIL = "vishnuvardhanganji@gmail.com";
 
@@ -104,8 +107,47 @@ export default function Home() {
                 </p>
               </Reveal>
 
-              <Reveal delay={200}>
-                <div className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-3">
+              <Reveal delay={180}>
+                <div className="mt-7 flex flex-wrap items-center gap-x-2.5 gap-y-1.5 font-mono text-[12px] text-[var(--color-text-muted)]">
+                  <span className="text-[var(--color-text-subtle)]">stack</span>
+                  <span aria-hidden className="text-[var(--color-text-subtle)]">
+                    ›
+                  </span>
+                  {heroStack.map((name, i) => (
+                    <Fragment key={name}>
+                      {i > 0 && (
+                        <span
+                          aria-hidden
+                          className="text-[var(--color-text-subtle)]"
+                        >
+                          ·
+                        </span>
+                      )}
+                      <span className="text-[var(--color-text)]">
+                        {name.toLowerCase()}
+                      </span>
+                    </Fragment>
+                  ))}
+                  <span aria-hidden className="text-[var(--color-text-subtle)]">
+                    ·
+                  </span>
+                  <Link
+                    href="#stack"
+                    className="group inline-flex items-center gap-1 text-[var(--color-text-subtle)] transition-colors hover:text-[var(--color-accent)]"
+                  >
+                    +{stackSkillCount - heroStack.length} more
+                    <span
+                      aria-hidden
+                      className="transition-transform group-hover:translate-y-0.5"
+                    >
+                      ↓
+                    </span>
+                  </Link>
+                </div>
+              </Reveal>
+
+              <Reveal delay={240}>
+                <div className="mt-7 flex flex-wrap items-center gap-x-3 gap-y-3">
                   <Link
                     href="/projects"
                     className="group inline-flex min-h-[44px] items-center gap-2 rounded-md bg-[var(--color-accent)] px-4 py-3 font-mono text-[13px] text-[var(--color-canvas)] transition-all hover:bg-[var(--color-text)] sm:py-2.5"
@@ -139,7 +181,7 @@ export default function Home() {
 
             {/* Right: status panel — desktop counterweight; hidden on mobile
                 to avoid duplicating info already in the eyebrow + bio. */}
-            <Reveal delay={240} className="hidden min-w-0 lg:block">
+            <Reveal delay={300} className="hidden min-w-0 lg:block">
               <aside
                 aria-label="Status"
                 className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)]/70 p-5"
@@ -165,9 +207,14 @@ export default function Home() {
                   <dd className="text-[var(--color-text)]">3+ years</dd>
                   <dt className="text-[var(--color-accent)]">open to</dt>
                   <dd className="text-[var(--color-text)]">{OPEN_TO}</dd>
-                  <dt className="text-[var(--color-text-subtle)]">writes</dt>
+                  <dt className="text-[var(--color-text-subtle)]">stack</dt>
                   <dd className="text-[var(--color-text)]">
-                    typescript · python · rust
+                    <Link
+                      href="#stack"
+                      className="underline-offset-4 transition-colors hover:text-[var(--color-accent)] hover:underline"
+                    >
+                      {stackSkillCount} tools → §02
+                    </Link>
                   </dd>
                 </dl>
               </aside>
@@ -243,6 +290,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── Stack ───────────────────────────────────────────────── */}
+      <StackSection />
+
       {/* ─── Featured Projects ───────────────────────────────────── */}
       <section
         data-source="app/page.tsx › FeaturedProjects"
@@ -253,7 +303,7 @@ export default function Home() {
             <div className="flex items-end justify-between gap-6">
               <div>
                 <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
-                  §02 · selected work
+                  §03 · selected work
                 </p>
                 <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-[var(--color-text)] md:text-5xl">
                   Two systems.
@@ -388,7 +438,7 @@ export default function Home() {
         <div className="container-page">
           <Reveal>
             <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
-              §03 · the path
+              §04 · the path
             </p>
           </Reveal>
           <Reveal delay={60}>
@@ -433,7 +483,7 @@ export default function Home() {
           <div className="grid gap-10 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] p-8 md:grid-cols-[1fr_auto] md:items-end md:p-12">
             <Reveal>
               <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-accent)]">
-                §04 · let&apos;s talk
+                §05 · let&apos;s talk
               </p>
               <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-[var(--color-text)] md:text-[2.5rem]">
                 The bar to reach out is lower than you think.

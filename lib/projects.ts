@@ -52,7 +52,15 @@ export const projects: Project[] = [
     role: "Designed, built, shipped",
     status: "live",
     tags: ["ai", "full-stack"],
-    tech: ["Next.js", "Convex", "Google Document AI", "Gemini Embedding 2"],
+    tech: [
+      "Next.js",
+      "Convex",
+      "Google Document AI",
+      "TypeScript",
+      "React",
+      "Tailwind",
+      "Gemini Embedding 2",
+    ],
     pipeline: [
       "upload",
       "ocr",
@@ -113,7 +121,15 @@ export const projects: Project[] = [
     role: "Designed, built, shipped",
     status: "live",
     tags: ["ai", "desktop", "systems"],
-    tech: ["Electron", "Rust", "Whisper-1", "GPToss-120b"],
+    tech: [
+      "Electron",
+      "Rust",
+      "Whisper-1",
+      "TypeScript",
+      "React",
+      "Node.js",
+      "GPToss-120b",
+    ],
     pipeline: ["hotkey", "capture", "transcribe", "clean-up", "inject"],
     problem:
       "Voice input on desktop is broken. System dictation produces transcripts the writer disowns. Per-app integrations make the universal case impossible. Power users who think faster than they type have no good option.",
