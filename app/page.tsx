@@ -1,7 +1,15 @@
+import type { Metadata } from "next";
 import { Fragment } from "react";
 import Link from "next/link";
 import { featuredProjects, tagLabels } from "@/lib/projects";
 import { heroStack, stackSkillCount } from "@/lib/stack";
+import {
+  DEFAULT_DESCRIPTION,
+  JsonLd,
+  personJsonLd,
+  routeMetadata,
+  websiteJsonLd,
+} from "@/lib/seo";
 import { Reveal } from "./components/reveal";
 import { DiffRow } from "./components/diff";
 import { CopyButton } from "./components/copy-button";
@@ -9,6 +17,12 @@ import { HeroClock } from "./components/hero-clock";
 import { StackSection } from "./components/stack-section";
 
 const EMAIL = "vishnuvardhanganji@gmail.com";
+
+export const metadata: Metadata = routeMetadata({
+  title: "Vishnuvardhan Reddy - Software Engineer",
+  description: DEFAULT_DESCRIPTION,
+  path: "/",
+});
 
 const THESIS_OPTIONS = [
   "I build systems where every decision serves the user."
@@ -52,6 +66,7 @@ export default function Home() {
 
   return (
     <>
+      <JsonLd data={[personJsonLd(), websiteJsonLd()]} />
       {/* ─── Hero ─────────────────────────────────────────────────── */}
       <section
         data-source="app/page.tsx › Hero"
@@ -69,7 +84,7 @@ export default function Home() {
                 available for inbound
               </span>
               <span aria-hidden>·</span>
-              <span>bangalore</span>
+              <span>hyderabad</span>
               <span aria-hidden>·</span>
               <HeroClock />
             </div>

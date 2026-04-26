@@ -6,6 +6,16 @@ import { SiteHeader } from "./components/site-header";
 import { SiteFooter } from "./components/site-footer";
 import { CommandPalette } from "./components/command-palette";
 import { Analytics } from "@vercel/analytics/next";
+import {
+  DEFAULT_DESCRIPTION,
+  GITHUB_URL,
+  LINKEDIN_URL,
+  OG_IMAGE,
+  PERSON_NAME,
+  PERSON_TITLE,
+  SITE_NAME,
+  SITE_URL,
+} from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,26 +35,32 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-const siteUrl = "https://vvr.dev";
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE_URL),
+  applicationName: SITE_NAME,
+  referrer: "origin-when-cross-origin",
   title: {
-    default: "Vishnuvardhan Reddy — Software Engineer",
-    template: "%s · vvr.dev",
+    default: `${PERSON_NAME} - ${PERSON_TITLE}`,
+    template: `%s · ${SITE_NAME}`,
   },
-  description:
-    "Software engineer building systems where every decision can be defended. Three years at FactSet. RAG, voice AI, and full-stack.",
+  description: DEFAULT_DESCRIPTION,
   keywords: [
-    "Vishnuvardhan Reddy",
+    PERSON_NAME,
+    "Vishnu VVR",
     "software engineer",
+    "software engineer portfolio",
+    "full-stack engineer",
     "RAG",
+    "voice AI",
     "AI engineer",
+    "TypeScript",
     "Next.js",
     "FactSet",
   ],
-  authors: [{ name: "Vishnuvardhan Reddy", url: siteUrl }],
-  creator: "Vishnuvardhan Reddy",
+  authors: [{ name: PERSON_NAME, url: SITE_URL }],
+  creator: PERSON_NAME,
+  publisher: PERSON_NAME,
+  category: "portfolio",
   icons: {
     icon: "/logo.svg",
     shortcut: "/favicon.ico",
@@ -52,19 +68,37 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: siteUrl,
-    title: "Vishnuvardhan Reddy — Software Engineer",
-    description:
-      "I build systems where every decision can be defended. RAG, voice AI, full-stack at scale.",
-    siteName: "vvr.dev",
+    url: SITE_URL,
+    title: `${PERSON_NAME} - ${PERSON_TITLE}`,
+    description: DEFAULT_DESCRIPTION,
+    siteName: SITE_NAME,
+    locale: "en_US",
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vishnuvardhan Reddy — Software Engineer",
-    description:
-      "I build systems where every decision can be defended. RAG, voice AI, full-stack at scale.",
+    title: `${PERSON_NAME} - ${PERSON_TITLE}`,
+    description: DEFAULT_DESCRIPTION,
+    images: [OG_IMAGE.url],
   },
-  robots: { index: true, follow: true },
+  archives: [GITHUB_URL],
+  other: {
+    "profile:first_name": "Vishnuvardhan",
+    "profile:last_name": "Reddy",
+    "profile:username": "VishnuVVR-369",
+    "profile:linkedin": LINKEDIN_URL,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
 };
 
 export const viewport: Viewport = {

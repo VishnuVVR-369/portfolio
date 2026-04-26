@@ -46,7 +46,7 @@ export function SiteHeader() {
   useEffect(() => {
     const tick = () => {
       const d = new Date();
-      // Bangalore time — the user's actual locale, not the visitor's.
+      // Hyderabad time — the user's actual locale, not the visitor's.
       setNow(
         new Intl.DateTimeFormat("en-GB", {
           timeZone: "Asia/Kolkata",

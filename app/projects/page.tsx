@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { projects } from "@/lib/projects";
+import { routeMetadata } from "@/lib/seo";
 import { ProjectsIndex } from "./projects-index";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = routeMetadata({
   title: "Projects",
   description:
-    "Selected work — case studies of systems built with explicit tradeoffs and defended decisions.",
-};
+    "Case studies by Vishnuvardhan Reddy covering RAG, voice AI, desktop systems, and full-stack products built with explicit engineering tradeoffs.",
+  path: "/projects",
+});
 
 export default function ProjectsPage() {
   return (

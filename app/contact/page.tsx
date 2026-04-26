@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
+import { routeMetadata } from "@/lib/seo";
 import { Reveal } from "../components/reveal";
 import { CopyButton } from "../components/copy-button";
 import { ContactForm } from "./contact-form";
 
 const EMAIL = "vishnuvardhanganji@gmail.com";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = routeMetadata({
   title: "Contact",
   description:
-    "Reach out about engineering work, collaborations, or interesting problems.",
-};
+    "Contact Vishnuvardhan Reddy about software engineering roles, product engineering work, collaborations, or interesting technical problems.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

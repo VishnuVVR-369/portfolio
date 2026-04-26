@@ -282,7 +282,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
             <span>open to inbound</span>
           </span>
           <span aria-hidden>·</span>
-          <span>bangalore</span>
+          <span>hyderabad</span>
           <span aria-hidden>·</span>
           <span suppressHydrationWarning className="tabular-nums">
             {time || "··:·· ist"}

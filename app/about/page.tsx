@@ -1,17 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import { routeMetadata } from "@/lib/seo";
 import { Reveal } from "../components/reveal";
 import { DiffRow } from "../components/diff";
 import { CopyButton } from "../components/copy-button";
 
 const EMAIL = "vishnuvardhanganji@gmail.com";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = routeMetadata({
   title: "About",
   description:
-    "Vishnuvardhan Reddy — software engineer at FactSet, building systems with explicit tradeoffs.",
-};
+    "About Vishnuvardhan Reddy, a software engineer at FactSet focused on data-intensive systems, AI products, and defensible engineering decisions.",
+  path: "/about",
+});
 
 const BELIEFS = [
   {
@@ -67,10 +69,6 @@ const JOURNEY = [
   },
 ];
 
-const NOT_LOOKING_FOR = [
-  ""
-];
-
 export default function AboutPage() {
   return (
     <>
@@ -106,7 +104,7 @@ export default function AboutPage() {
                 </span> */}
               </div>
               <figcaption className="font-mono text-[10px] text-[var(--color-text-subtle)] md:text-[11px]">
-                bangalore · ist
+                hyderabad · ist
               </figcaption>
             </figure>
           </Reveal>

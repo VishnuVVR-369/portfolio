@@ -8,6 +8,7 @@ import {
   readingTime,
   tagLabels,
 } from "@/lib/projects";
+import { JsonLd, projectJsonLd, routeMetadata } from "@/lib/seo";
 import { Reveal } from "../../components/reveal";
 import { DiffRow } from "../../components/diff";
 
@@ -25,15 +26,23 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) return { title: "Project not found" };
-  return {
-    title: project.name,
-    description: project.tagline,
-    openGraph: {
-      title: `${project.name} — Case study`,
-      description: project.tagline,
-      type: "article",
-    },
-  };
+  return routeMetadata({
+    title: `${project.name} Case Study`,
+    description: `${project.tagline} Built with ${project.tech
+      .slice(0, 4)
+      .join(", ")} by Vishnuvardhan Reddy.`,
+    path: `/projects/${project.slug}`,
+    type: "article",
+  });
+}
+
+function ProjectStructuredData({ slug }: { slug: string }) {
+  const data = projectJsonLd(slug);
+  if (!data) {
+    return null;
+  }
+
+  return <JsonLd data={data} />;
 }
 
 export default async function ProjectPage({
@@ -52,6 +61,7 @@ export default async function ProjectPage({
 
   return (
     <article>
+      <ProjectStructuredData slug={project.slug} />
       {/* ─── Header ─────────────────────────────────────────────── */}
       <header
         data-source={`app/projects/[slug]/page.tsx › ${project.slug}`}
