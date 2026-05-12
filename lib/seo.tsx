@@ -11,7 +11,7 @@ export const LINKEDIN_URL = "https://www.linkedin.com/in/vishnu-vvr";
 export const GITHUB_URL = "https://github.com/VishnuVVR-369";
 
 export const DEFAULT_DESCRIPTION =
-  "Vishnuvardhan Reddy is a software engineer at FactSet building data-intensive systems, RAG products, voice AI tools, and full-stack applications.";
+  "Vishnuvardhan Reddy — Software Engineer III at FactSet. Building AI products and data-intensive systems. LeetCode Guardian (top 1%). Two products live: chatwithpdf.pro and VoiceFlow.";
 
 export const OG_IMAGE = {
   url: "/opengraph-image",

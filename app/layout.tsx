@@ -61,11 +61,8 @@ export const metadata: Metadata = {
   creator: PERSON_NAME,
   publisher: PERSON_NAME,
   category: "portfolio",
-  icons: {
-    icon: "/logo.svg",
-    shortcut: "/favicon.ico",
-    apple: "/apple-icon.png",
-  },
+  // Icons are resolved via Next 16 file-convention from app/icon.tsx and
+  // app/apple-icon.tsx — no manual overrides needed.
   openGraph: {
     type: "website",
     url: SITE_URL,

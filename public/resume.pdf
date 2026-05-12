@@ -1,0 +1,280 @@
+%PDF-1.4
+%ÿÿÿÿ
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R /F2 6 0 R /F3 7 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 4322 >>
+stream
+0.039 0.039 0.043 rg
+0 0 612 792 re f
+0.96 0.71 0.33 rg
+56 752 500 0.6 re f
+BT
+/F2 22 Tf
+0.92 0.92 0.91 rg
+56 728 Td
+(Vishnuvardhan Reddy) Tj
+ET
+BT
+/F1 11 Tf
+0.96 0.71 0.33 rg
+56 706 Td
+(Software Engineer III \267 FactSet \267 Hyderabad, IN) Tj
+ET
+BT
+/F1 9.5 Tf
+0.6 0.6 0.58 rg
+56 688 Td
+(vishnuvardhanganji@gmail.com   \267   vvr.dev   \267   github.com/VishnuVVR-369   \267   linkedin.com/in/vishnu-vvr) Tj
+ET
+0.36 0.36 0.34 rg
+56 674 500 0.4 re f
+BT
+/F2 8.5 Tf
+0.96 0.71 0.33 rg
+56 650 Td
+(SUMMARY) Tj
+ET
+BT
+/F1 9.5 Tf
+0.92 0.92 0.91 rg
+56 636 Td
+(Software engineer with three years building data-intensive systems and AI products at FactSet.) Tj
+ET
+BT
+/F1 9.5 Tf
+0.92 0.92 0.91 rg
+56 624 Td
+(Intern to SWE III in three years. Ships side products that real users use:) Tj
+ET
+BT
+/F1 9.5 Tf
+0.92 0.92 0.91 rg
+56 612 Td
+(chatwithpdf.pro \(RAG, 100+ users\) and VoiceFlow \(system-level desktop dictation, 3 platforms\).) Tj
+ET
+BT
+/F1 9.5 Tf
+0.92 0.92 0.91 rg
+56 600 Td
+(LeetCode Guardian \(top ~1%, 2150+ rating, 365-day streak, 1,200+ problems solved\).) Tj
+ET
+BT
+/F2 8.5 Tf
+0.96 0.71 0.33 rg
+56 576 Td
+(EXPERIENCE) Tj
+ET
+BT
+/F2 10 Tf
+0.92 0.92 0.91 rg
+56 560 Td
+(FactSet) Tj
+ET
+BT
+/F1 9 Tf
+0.6 0.6 0.58 rg
+456 560 Td
+(Jan 2023 \261 Present) Tj
+ET
+BT
+/F1 9.5 Tf
+0.96 0.71 0.33 rg
+56 548 Td
+(Software Engineer III  \(Apr 2026 \\261 Present\)) Tj
+ET
+BT
+/F1 9 Tf
+0.6 0.6 0.58 rg
+56 537 Td
+(\\267 Starting to lead architecture conversations for data-intensive pipeline components.) Tj
+ET
+BT
+/F1 9 Tf
+0.6 0.6 0.58 rg
+56 526 Td
+(\\267 Mentoring engineers who joined after me.) Tj
+ET
+BT
+/F1 9.5 Tf
+0.96 0.71 0.33 rg
+56 512 Td
+(Software Engineer II  \(Aug 2024 \\261 Apr 2026\)) Tj
+ET
+BT
+/F1 9 Tf
+0.6 0.6 0.58 rg
+56 501 Td
+(\\267 Owned and scaled critical pipeline components; cut a recurring on-call page at the root.) Tj
+ET
+BT
+/F1 9 Tf
+0.6 0.6 0.58 rg
+56 490 Td
+(\\267 Made system-design calls that improved throughput and reduced operator load.) Tj
+ET
+BT
+/F1 9.5 Tf
+0.96 0.71 0.33 rg
+56 476 Td
+(Software Engineer I  \(Jun 2023 \\261 Aug 2024\)) Tj
+ET
+BT
+/F1 9 Tf
+0.6 0.6 0.58 rg
+56 465 Td
+(\\267 Shipped production features across the core platform; developed deep expertise in) Tj
+ET
+BT
+/F1 9 Tf
+0.6 0.6 0.58 rg
+56 454 Td
+(  financial-data systems and API design.) Tj
+ET
+BT
+/F1 9.5 Tf
+0.96 0.71 0.33 rg
+56 440 Td
+(Software Engineer Intern  \(Jan 2023 \\261 Jun 2023\)) Tj
+ET
+BT
+/F1 9 Tf
+0.6 0.6 0.58 rg
+56 429 Td
+(\\267 Delivered production-ready features within the first month. Converted to full-time.) Tj
+ET
+BT
+/F2 8.5 Tf
+0.96 0.71 0.33 rg
+56 405 Td
+(SELECTED PROJECTS) Tj
+ET
+BT
+/F2 10 Tf
+0.92 0.92 0.91 rg
+56 389 Td
+(Chat with PDF  \267  chatwithpdf.pro) Tj
+ET
+BT
+/F1 9 Tf
+0.6 0.6 0.58 rg
+56 377 Td
+(RAG system for any PDF, including scanned. 100+ active users, 150+ documents indexed.) Tj
+ET
+BT
+/F1 9 Tf
+0.6 0.6 0.58 rg
+56 366 Td
+(Stack: Next.js, Convex, Google Document AI, Gemini Embedding 2, TypeScript.) Tj
+ET
+BT
+/F2 10 Tf
+0.92 0.92 0.91 rg
+56 348 Td
+(VoiceFlow) Tj
+ET
+BT
+/F1 9 Tf
+0.6 0.6 0.58 rg
+56 336 Td
+(System-level voice-to-text desktop app. Hotkey \\247 speak \\247 polished text in any app.) Tj
+ET
+BT
+/F1 9 Tf
+0.6 0.6 0.58 rg
+56 325 Td
+(Stack: Electron, Rust \(OS-layer hotkey\), Whisper-1, GPToss-120b. macOS / Windows / Linux.) Tj
+ET
+BT
+/F2 8.5 Tf
+0.96 0.71 0.33 rg
+56 301 Td
+(STACK) Tj
+ET
+BT
+/F1 9.5 Tf
+0.92 0.92 0.91 rg
+56 287 Td
+(Languages   TypeScript \(daily\) \\267 Python \(shipped-with\)) Tj
+ET
+BT
+/F1 9.5 Tf
+0.92 0.92 0.91 rg
+56 275 Td
+(Frontend    React \\267 Next.js \\267 Tailwind) Tj
+ET
+BT
+/F1 9.5 Tf
+0.92 0.92 0.91 rg
+56 263 Td
+(Backend     Node.js \\267 Express \\267 REST/RPC APIs) Tj
+ET
+BT
+/F1 9.5 Tf
+0.92 0.92 0.91 rg
+56 251 Td
+(Data \\046 AI  Postgres \\267 Convex \\267 LangChain \\267 RAG \\267 Vector search \\267 OCR pipelines) Tj
+ET
+BT
+/F1 9.5 Tf
+0.92 0.92 0.91 rg
+56 239 Td
+(Infra       Docker \\267 Git \\267 CI/CD \\267 Vercel \\267 Cloud Run) Tj
+ET
+BT
+/F2 8.5 Tf
+0.96 0.71 0.33 rg
+56 217 Td
+(ALGORITHMS) Tj
+ET
+BT
+/F1 9.5 Tf
+0.92 0.92 0.91 rg
+56 203 Td
+(LeetCode Guardian \(top ~1%\) \\267 2150+ contest rating \\267 365-day streak \\267 1,200+ problems.) Tj
+ET
+BT
+/F1 9 Tf
+0.6 0.6 0.58 rg
+56 191 Td
+(Profile: leetcode.com/u/vishnuvardhanganji) Tj
+ET
+BT
+/F3 8 Tf
+0.36 0.36 0.34 rg
+56 56 Td
+(Placeholder version. Full PDF available on request \261 short email replies fast.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Oblique /Encoding /WinAnsiEncoding >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000267 00000 n 
+0000004641 00000 n 
+0000004738 00000 n 
+0000004840 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+4945
+%%EOF

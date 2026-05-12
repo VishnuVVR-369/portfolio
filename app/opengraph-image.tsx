@@ -6,7 +6,8 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 // Programmatic OG image — every shareable URL gets a typography-driven
-// preview card in the site's palette. No image asset needed.
+// preview card in the site's palette. Mirrors the homepage hero:
+// name → role → proof line → Guardian credential. No image asset.
 export default async function OG() {
   return new ImageResponse(
     (
@@ -17,99 +18,146 @@ export default async function OG() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          padding: "72px 80px",
+          padding: "64px 72px",
           background:
-            "radial-gradient(ellipse 70% 60% at 18% 12%, rgba(245,180,84,0.16) 0%, transparent 60%), #0a0a0b",
+            "radial-gradient(ellipse 70% 60% at 18% 12%, rgba(245,180,84,0.18) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 95% 100%, rgba(245,180,84,0.06) 0%, transparent 55%), #0a0a0b",
           color: "#eceae6",
           fontFamily: "sans-serif",
         }}
       >
-        {/* Header */}
+        {/* Top bar — logo + status */}
         <div
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 14,
-            fontSize: 22,
-            color: "#9a9a95",
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
+            justifyContent: "space-between",
+            fontSize: 20,
           }}
         >
           <div
             style={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
-              width: 40,
-              height: 40,
-              borderRadius: 8,
-              background: "#18181b",
-              border: "1px solid #8a6024",
-              color: "#f5b454",
-              fontSize: 22,
-              fontWeight: 600,
+              gap: 14,
+              color: "#9a9a95",
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
             }}
           >
-            v
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 42,
+                height: 42,
+                borderRadius: 8,
+                background: "#060607",
+                border: "1px solid #8a6024",
+                color: "#f5b454",
+                fontSize: 22,
+                fontWeight: 700,
+              }}
+            >
+              v
+            </div>
+            <span>~/vvr.dev</span>
           </div>
-          <span>~/vvr.dev</span>
-        </div>
-
-        {/* Body */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 30 }}>
+          {/* Guardian pill */}
           <div
             style={{
-              fontSize: 110,
-              lineHeight: 0.95,
-              letterSpacing: "-0.04em",
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+              padding: "6px 14px",
+              borderRadius: 999,
+              border: "1px solid #8a6024",
+              background: "#131315",
+              color: "#f5b454",
+              fontSize: 18,
+              letterSpacing: "0.06em",
+              textTransform: "uppercase",
+            }}
+          >
+            <span
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 32,
+                height: 22,
+                borderRadius: 4,
+                background: "#060607",
+                fontSize: 14,
+                fontWeight: 700,
+              }}
+            >
+              LC
+            </span>
+            <span>guardian · 2150+</span>
+          </div>
+        </div>
+
+        {/* Body — name + role + proof */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+          <div
+            style={{
+              fontSize: 108,
+              lineHeight: 0.98,
+              letterSpacing: "-0.035em",
               fontWeight: 600,
               color: "#eceae6",
             }}
           >
-            vishnuvardhan
+            vishnuvardhan reddy
+            <span style={{ color: "#f5b454" }}>.</span>
           </div>
+
           <div
             style={{
-              fontSize: 110,
-              lineHeight: 0.95,
-              letterSpacing: "-0.04em",
-              fontWeight: 600,
+              fontSize: 36,
+              lineHeight: 1.2,
+              letterSpacing: "-0.01em",
+              fontWeight: 500,
               color: "#9a9a95",
+              maxWidth: 900,
+              display: "flex",
             }}
           >
-            reddy.
+            software engineer — building AI products &amp; data-intensive
+            systems.
           </div>
 
           <div
             style={{
               display: "flex",
+              gap: 16,
               alignItems: "center",
-              gap: 18,
-              marginTop: 24,
-              fontSize: 30,
-              color: "#eceae6",
+              marginTop: 8,
+              fontSize: 22,
+              color: "#9a9a95",
             }}
           >
-            <span style={{ color: "#5c5c58" }}>›</span>
-            <span style={{ color: "#9a9a95" }}>thesis ·</span>
-            <span>i build systems where every decision can be defended.</span>
+            <span style={{ color: "#5c5c58" }}>now ›</span>
+            <span style={{ color: "#eceae6" }}>SWE III at FactSet</span>
+            <span style={{ color: "#5c5c58" }}>·</span>
+            <span>intern → swe III in 3 years</span>
           </div>
         </div>
 
-        {/* Footer */}
+        {/* Footer — credentials strip */}
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            fontSize: 22,
+            fontSize: 20,
             color: "#5c5c58",
-            letterSpacing: "0.16em",
+            letterSpacing: "0.18em",
             textTransform: "uppercase",
           }}
         >
-          <span>software engineer · factset · 3+ years</span>
+          <span>live · chatwithpdf.pro · voiceflow · 3 platforms</span>
           <span style={{ color: "#f5b454" }}>vvr.dev</span>
         </div>
       </div>

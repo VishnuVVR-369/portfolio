@@ -3,6 +3,21 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import {
+  EMAIL,
+  GITHUB_URL,
+  LEETCODE_URL,
+  LEETCODE_RATING,
+  LINKEDIN_URL,
+  RESUME_URL,
+} from "@/lib/identity";
+import {
+  DocumentIcon,
+  GitHubIcon,
+  LeetCodeIcon,
+  LinkedInIcon,
+  MailIcon,
+} from "./social-icons";
 
 const logoMaskStyle = {
   WebkitMaskImage: "url(/logo.svg)",
@@ -16,13 +31,10 @@ const logoMaskStyle = {
 } as const;
 
 const NAV = [
-  { href: "/", label: "home", index: "00" },
-  { href: "/projects", label: "projects", index: "01" },
+  { href: "/projects", label: "work", index: "01" },
   { href: "/about", label: "about", index: "02" },
   { href: "/contact", label: "contact", index: "03" },
 ];
-
-const EMAIL = "vishnuvardhanganji@gmail.com";
 
 interface MobileMenuProps {
   open: boolean;
@@ -34,7 +46,6 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
   const [time, setTime] = useState<string>("");
   const [emailCopied, setEmailCopied] = useState(false);
 
-  // Close on Escape.
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -44,7 +55,6 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
     return () => document.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
-  // Lock body scroll while open.
   useEffect(() => {
     if (!open) return;
     const prev = document.body.style.overflow;
@@ -54,7 +64,6 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
     };
   }, [open]);
 
-  // Tick the clock when open.
   useEffect(() => {
     if (!open) return;
     const tick = () => {
@@ -82,13 +91,6 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
     }
   };
 
-  const openPalette = () => {
-    onClose();
-    // wait for the close animation so focus moves cleanly.
-    window.setTimeout(() => {
-      window.dispatchEvent(new CustomEvent("vvr:palette:open"));
-    }, 80);
-  };
 
   if (!open) return null;
 
@@ -100,7 +102,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
       className="fixed inset-0 z-50 flex flex-col bg-[var(--color-canvas)]"
       style={{ animation: "vvr-fade-in 180ms ease-out" }}
     >
-      {/* Top bar — mirrors the desktop status line so the chrome feels continuous. */}
+      {/* Top bar — mirrors the desktop status line so chrome feels continuous. */}
       <header className="flex h-14 items-center justify-between border-b border-[var(--color-border)] px-5">
         <div className="flex items-center gap-2.5 font-mono text-[12px] text-[var(--color-text)]">
           <span
@@ -133,15 +135,14 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
         </button>
       </header>
 
-      {/* Scrollable content */}
       <div className="flex-1 overflow-y-auto overscroll-contain">
-        {/* Primary nav — large tappable rows, indexed. */}
-        <nav aria-label="Primary" className="border-b border-[var(--color-border)]">
+        {/* Primary nav — large tappable rows, indexed */}
+        <nav
+          aria-label="Primary"
+          className="border-b border-[var(--color-border)]"
+        >
           {NAV.map((item) => {
-            const active =
-              item.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(item.href);
+            const active = pathname.startsWith(item.href);
             return (
               <Link
                 key={item.href}
@@ -184,13 +185,36 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
             actions
           </p>
           <div className="space-y-2">
+            {/* Resume — promoted to first action (matches desktop header) */}
+            <a
+              href={RESUME_URL}
+              target="_blank"
+              rel="noreferrer"
+              onClick={onClose}
+              className="flex w-full items-center justify-between gap-3 rounded-md border border-[var(--color-accent-dim)] bg-[var(--color-accent-glow)] px-4 py-3.5 text-left font-mono text-[13px] text-[var(--color-accent)] transition-colors active:bg-[var(--color-accent-wash)]"
+            >
+              <span className="inline-flex items-center gap-2.5">
+                <DocumentIcon size={14} />
+                <span>download resume</span>
+              </span>
+              <span
+                aria-hidden
+                className="flex-shrink-0 font-mono text-[10px] uppercase tracking-wider text-[var(--color-accent-dim)]"
+              >
+                pdf ↗
+              </span>
+            </a>
+
             <button
               type="button"
               onClick={copyEmail}
               className="flex w-full items-center justify-between gap-3 rounded-md border border-[var(--color-border-strong)] bg-[var(--color-surface)] px-4 py-3.5 text-left font-mono text-[13px] text-[var(--color-text)] transition-colors active:border-[var(--color-accent-dim)]"
             >
-              <span className="min-w-0 truncate">
-                {emailCopied ? "copied to clipboard" : "copy email"}
+              <span className="inline-flex items-center gap-2.5">
+                <MailIcon size={14} />
+                <span>
+                  {emailCopied ? "copied to clipboard" : "copy email"}
+                </span>
               </span>
               <span
                 aria-hidden
@@ -204,65 +228,59 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
               </span>
             </button>
 
-            <button
-              type="button"
-              onClick={openPalette}
-              className="flex w-full items-center justify-between gap-3 rounded-md border border-[var(--color-border-strong)] bg-[var(--color-surface)] px-4 py-3.5 text-left font-mono text-[13px] text-[var(--color-text)] transition-colors active:border-[var(--color-accent-dim)]"
-            >
-              <span>open command palette</span>
-              <span
-                aria-hidden
-                className="flex-shrink-0 font-mono text-[11px] uppercase tracking-wider text-[var(--color-text-subtle)]"
-              >
-                ⌘k
-              </span>
-            </button>
-
-            <a
-              // TODO(vishnu): swap to your real resume URL.
-              href="/resume.pdf"
-              target="_blank"
-              rel="noreferrer"
-              onClick={onClose}
-              className="flex w-full items-center justify-between gap-3 rounded-md border border-[var(--color-border-strong)] bg-[var(--color-surface)] px-4 py-3.5 text-left font-mono text-[13px] text-[var(--color-text)] transition-colors active:border-[var(--color-accent-dim)]"
-            >
-              <span>download resume</span>
-              <span
-                aria-hidden
-                className="flex-shrink-0 text-[var(--color-text-subtle)]"
-              >
-                ↗
-              </span>
-            </a>
           </div>
         </section>
 
-        {/* Social */}
+        {/* Elsewhere */}
         <section className="border-b border-[var(--color-border)] px-5 py-6">
           <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
             elsewhere
           </p>
           <div className="grid grid-cols-2 gap-2">
             <a
-              href="https://github.com/VishnuVVR-369"
+              href={GITHUB_URL}
               target="_blank"
               rel="noreferrer"
               onClick={onClose}
               className="flex items-center justify-between rounded-md border border-[var(--color-border-strong)] bg-[var(--color-surface)] px-4 py-3.5 font-mono text-[13px] text-[var(--color-text)] transition-colors active:border-[var(--color-accent-dim)]"
             >
-              <span>github</span>
+              <span className="inline-flex items-center gap-2.5">
+                <GitHubIcon size={14} />
+                <span>github</span>
+              </span>
               <span aria-hidden className="text-[var(--color-text-subtle)]">
                 ↗
               </span>
             </a>
             <a
-              href="https://www.linkedin.com/in/vishnu-vvr"
+              href={LINKEDIN_URL}
               target="_blank"
               rel="noreferrer"
               onClick={onClose}
               className="flex items-center justify-between rounded-md border border-[var(--color-border-strong)] bg-[var(--color-surface)] px-4 py-3.5 font-mono text-[13px] text-[var(--color-text)] transition-colors active:border-[var(--color-accent-dim)]"
             >
-              <span>linkedin</span>
+              <span className="inline-flex items-center gap-2.5">
+                <LinkedInIcon size={14} />
+                <span>linkedin</span>
+              </span>
+              <span aria-hidden className="text-[var(--color-text-subtle)]">
+                ↗
+              </span>
+            </a>
+            <a
+              href={LEETCODE_URL}
+              target="_blank"
+              rel="noreferrer"
+              onClick={onClose}
+              className="col-span-2 flex items-center justify-between rounded-md border border-[var(--color-border-strong)] bg-[var(--color-surface)] px-4 py-3.5 font-mono text-[13px] text-[var(--color-text)] transition-colors active:border-[var(--color-accent-dim)]"
+            >
+              <span className="inline-flex items-center gap-2.5">
+                <LeetCodeIcon size={14} className="text-[var(--color-accent)]" />
+                <span>leetcode</span>
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-accent)]">
+                  guardian · {LEETCODE_RATING}
+                </span>
+              </span>
               <span aria-hidden className="text-[var(--color-text-subtle)]">
                 ↗
               </span>
@@ -282,7 +300,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
             <span>open to inbound</span>
           </span>
           <span aria-hidden>·</span>
-          <span>hyderabad</span>
+          <span>hyderabad/india</span>
           <span aria-hidden>·</span>
           <span suppressHydrationWarning className="tabular-nums">
             {time || "··:·· ist"}
