@@ -37,8 +37,7 @@ export function ContactForm() {
   return (
     <form
       onSubmit={onSubmit}
-      data-source="contact › Form"
-      className="space-y-7 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] p-7 md:p-9"
+      className="surface space-y-7 p-6 md:p-8"
     >
       <header className="flex items-baseline justify-between border-b border-[var(--color-border)] pb-5">
         <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-accent)]">
@@ -107,7 +106,7 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="inline-flex min-h-[44px] items-center gap-2 rounded-md bg-[var(--color-accent)] px-5 py-3 font-mono text-[13px] text-[var(--color-canvas)] transition-all hover:bg-[var(--color-text)] disabled:cursor-wait disabled:opacity-50 sm:py-2.5"
+          className="cta-accent min-h-[44px] px-5 text-[13px] disabled:cursor-wait disabled:opacity-50"
         >
           <span>
             {status === "submitting"

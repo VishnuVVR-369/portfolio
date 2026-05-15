@@ -1,8 +1,20 @@
 import type { Metadata } from "next";
-import { Fragment } from "react";
 import Link from "next/link";
-import { featuredProjects, tagLabels } from "@/lib/projects";
-import { heroStack, stackSkillCount } from "@/lib/stack";
+import { featuredProjects } from "@/lib/projects";
+import {
+  COMPANY,
+  HERO_PROOF,
+  HERO_SUBPROOF,
+  LEETCODE_PROBLEMS,
+  LEETCODE_RATING,
+  LEETCODE_STREAK,
+  LEETCODE_TIER,
+  LEETCODE_URL,
+  LOCATION,
+  NAME,
+  ROLE_NOW,
+  ROLE_TAGLINE,
+} from "@/lib/identity";
 import {
   DEFAULT_DESCRIPTION,
   JsonLd,
@@ -11,172 +23,196 @@ import {
   websiteJsonLd,
 } from "@/lib/seo";
 import { Reveal } from "./components/reveal";
-import { DiffRow } from "./components/diff";
-import { CopyButton } from "./components/copy-button";
 import { HeroClock } from "./components/hero-clock";
-import { StackSection } from "./components/stack-section";
-
-const EMAIL = "vishnuvardhanganji@gmail.com";
+import { GuardianBadge } from "./components/guardian-badge";
+import { ResumeButton } from "./components/resume-button";
+import { HeroProofCard } from "./components/hero-proof-card";
+import { FeaturedProjectCard } from "./components/featured-project-card";
+import { CopyButton } from "./components/copy-button";
 
 export const metadata: Metadata = routeMetadata({
-  title: "Vishnuvardhan Reddy - Software Engineer",
+  title: `${NAME} — ${ROLE_NOW}`,
   description: DEFAULT_DESCRIPTION,
   path: "/",
 });
 
-const THESIS_OPTIONS = [
-  "I build systems where every decision serves the user."
-];
-
-const OPEN_TO = "software engineering roles at product based companies";
-
 const TIMELINE = [
   {
     period: "apr 2026 — present",
-    title: "software engineer iii",
+    title: "swe iii",
     company: "factset",
     note:
-      "Leading architecture for data-intensive systems. Mentoring across the team. Owning the long-term shape of the platform.",
+      "Starting to lead architecture conversations on data-intensive pipeline components. Mentoring engineers who joined after me.",
   },
   {
     period: "aug 2024 — apr 2026",
-    title: "software engineer ii",
+    title: "swe ii",
     company: "factset",
     note:
       "Owned and scaled critical pipeline components. Made the system-design calls that improved throughput and cut on-call pages.",
   },
   {
     period: "jun 2023 — aug 2024",
-    title: "software engineer i",
+    title: "swe i",
     company: "factset",
     note:
       "Shipped production features across the core platform. Developed deep expertise in financial-data systems and API design.",
   },
   {
     period: "jan 2023 — jun 2023",
-    title: "software engineer intern",
+    title: "intern",
     company: "factset",
     note:
-      "Rapid ramp on enterprise systems. Delivered production-ready features within the first month and converted to a full-time offer.",
+      "Delivered production-ready features within the first month. Converted to full-time.",
   },
 ];
 
 export default function Home() {
   const projects = featuredProjects();
+  // Pair each featured project with the visualization variant that
+  // best matches its data shape (pipeline-flow vs. input/process/output).
+  const featuredPairs = projects.map((p, i) => ({
+    project: p,
+    variant: (i === 0 ? "pipeline" : "rack") as "pipeline" | "rack",
+  }));
 
   return (
     <>
       <JsonLd data={[personJsonLd(), websiteJsonLd()]} />
-      {/* ─── Hero ─────────────────────────────────────────────────── */}
-      <section
-        data-source="app/page.tsx › Hero"
-        className="relative overflow-hidden border-b border-[var(--color-border)] pt-20 pb-20 md:pt-28 md:pb-24"
-      >
-        <div className="container-page">
-          {/* Eyebrow */}
+
+      {/* ═══ HERO ════════════════════════════════════════════════════ */}
+      <section className="relative overflow-hidden border-b border-[var(--color-border)] pt-12 pb-10 md:pt-20 md:pb-28">
+        {/* Atmospheric sweep — single ambient motion above the fold */}
+        <div className="sweep" aria-hidden />
+
+        <div className="mx-auto max-w-[76rem] px-5 md:px-6">
+          {/* Eyebrow — status pills */}
           <Reveal>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--color-text-subtle)]">
               <span className="inline-flex items-center gap-2 text-[var(--color-signal)]">
                 <span
                   aria-hidden
                   className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--color-signal)]"
+                  style={{ boxShadow: "0 0 6px rgba(74,222,128,0.6)" }}
                 />
                 available for inbound
               </span>
-              <span aria-hidden>·</span>
-              <span>hyderabad</span>
-              <span aria-hidden>·</span>
+              <span aria-hidden className="text-[var(--color-text-subtle)]">
+                ·
+              </span>
+              <span>{LOCATION.toLowerCase()}</span>
+              <span aria-hidden className="text-[var(--color-text-subtle)]">
+                ·
+              </span>
               <HeroClock />
+              {/* Guardian badge mirrors the header — visible on mobile too */}
+              <span className="ml-auto md:hidden">
+                <GuardianBadge variant="compact" />
+              </span>
             </div>
           </Reveal>
 
-          {/* Title + status panel */}
-          <div className="mt-8 grid gap-x-12 gap-y-10 md:mt-10 lg:grid-cols-[minmax(0,1fr)_18rem]">
+          {/* Title + status panel grid */}
+          <div className="mt-9 grid gap-x-12 gap-y-10 md:mt-12 lg:grid-cols-[minmax(0,1fr)_19rem]">
             <div>
-              <Reveal delay={60}>
-                <h1 className="font-display text-[2.75rem] font-medium leading-[0.95] tracking-[-0.035em] text-[var(--color-text)] sm:text-[4.5rem] md:text-[6rem] lg:text-[6.5rem]">
-                  software
-                  <br />
-                  engineer<span className="text-[var(--color-accent)]">.</span>
+              {/* NAME — the first specific signal a skimmer hits */}
+              <Reveal delay={40}>
+                <h1 className="font-display text-[2.4rem] font-medium leading-[0.98] tracking-[-0.035em] text-[var(--color-text)] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5.25rem]">
+                  {NAME}
+                  <span className="text-[var(--color-accent)]">.</span>
                 </h1>
               </Reveal>
 
-              <Reveal delay={140}>
-                <p className="mt-8 max-w-xl text-pretty text-[var(--color-text-muted)] md:text-[1.125rem] md:leading-relaxed">
-                  I&apos;m{" "}
-                  <span className="text-[var(--color-text)]">
-                    Vishnuvardhan Reddy
-                  </span>
-                  —a software engineer at FactSet, three years in. I build
-                  systems where{" "}
-                  <span className="text-[var(--color-text)]">
-                    every decision can be defended
-                  </span>
-                  . The work is RAG, voice AI, and the unglamorous backbone
-                  underneath.
+              {/* TAGLINE — concrete, not abstract */}
+              <Reveal delay={100}>
+                <p className="mt-5 max-w-xl text-pretty font-display text-[1.1rem] font-medium tracking-[-0.01em] text-[var(--color-text-muted)] sm:text-[1.25rem] md:text-[1.4rem] md:leading-snug">
+                  {ROLE_TAGLINE}
                 </p>
               </Reveal>
 
-              <Reveal delay={180}>
-                <div className="mt-7 flex flex-wrap items-center gap-x-2.5 gap-y-1.5 font-mono text-[12px] text-[var(--color-text-muted)]">
-                  <span className="text-[var(--color-text-subtle)]">stack</span>
-                  <span aria-hidden className="text-[var(--color-text-subtle)]">
-                    ›
-                  </span>
-                  {heroStack.map((name, i) => (
-                    <Fragment key={name}>
-                      {i > 0 && (
-                        <span
-                          aria-hidden
-                          className="text-[var(--color-text-subtle)]"
-                        >
-                          ·
-                        </span>
-                      )}
+              {/* PROOF — promotion velocity stated as fact */}
+              <Reveal delay={160}>
+                <dl className="mt-6 grid grid-cols-[auto_1fr] gap-x-4 gap-y-4 text-[var(--color-text-muted)] sm:gap-x-5">
+                  <dt className="font-mono text-[13px] text-[var(--color-text-subtle)]">
+                    now ›
+                  </dt>
+                  <dd className="space-y-1">
+                    <p>
                       <span className="text-[var(--color-text)]">
-                        {name.toLowerCase()}
+                        {ROLE_NOW}
+                      </span>{" "}
+                      <span className="text-[var(--color-text-subtle)]">
+                        at
+                      </span>{" "}
+                      <span className="text-[var(--color-text)]">
+                        {COMPANY}
                       </span>
-                    </Fragment>
-                  ))}
-                  <span aria-hidden className="text-[var(--color-text-subtle)]">
-                    ·
-                  </span>
-                  <Link
-                    href="#stack"
-                    className="group inline-flex items-center gap-1 text-[var(--color-text-subtle)] transition-colors hover:text-[var(--color-accent)]"
-                  >
-                    +{stackSkillCount - heroStack.length} more
-                    <span
-                      aria-hidden
-                      className="transition-transform group-hover:translate-y-0.5"
-                    >
-                      ↓
-                    </span>
-                  </Link>
-                </div>
+                    </p>
+                    <p>
+                      <span className="text-[var(--color-text-subtle)]">
+                        intern → swe III in
+                      </span>{" "}
+                      <span className="text-[var(--color-text)]">3 years</span>
+                      <span className="text-[var(--color-text-subtle)]">.</span>
+                    </p>
+                  </dd>
+
+                  <dt className="font-mono text-[13px] text-[var(--color-text-subtle)]">
+                    live ›
+                  </dt>
+                  <dd className="space-y-1">
+                    <p>
+                      <a
+                        href="https://chatwithpdf.pro"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="link"
+                      >
+                        chatwithpdf.pro
+                      </a>{" "}
+                      <span className="text-[var(--color-text-subtle)]">·</span>{" "}
+                      <span className="text-[var(--color-text)]">
+                        100+ users
+                      </span>
+                    </p>
+                    <p>
+                      <Link href="/projects/voiceflow" className="link">
+                        voiceflow
+                      </Link>{" "}
+                      <span className="text-[var(--color-text-subtle)]">·</span>{" "}
+                      <span className="text-[var(--color-text)]">
+                        3 platforms
+                      </span>
+                    </p>
+                  </dd>
+
+                  <dd className="sr-only col-span-2">{HERO_SUBPROOF}</dd>
+                </dl>
               </Reveal>
 
-              <Reveal delay={240}>
-                <div className="mt-7 flex flex-wrap items-center gap-x-3 gap-y-3">
+              {/* CTAs */}
+              <Reveal delay={220}>
+                <div className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-3">
                   <Link
                     href="/projects"
-                    className="group inline-flex min-h-[44px] items-center gap-2 rounded-md bg-[var(--color-accent)] px-4 py-3 font-mono text-[13px] text-[var(--color-canvas)] transition-all hover:bg-[var(--color-text)] sm:py-2.5"
+                    className="cta-accent min-h-[44px] px-5 text-[13px]"
                   >
-                    <span>read the case studies</span>
-                    <span
-                      aria-hidden
-                      className="transition-transform group-hover:translate-x-0.5"
-                    >
-                      →
-                    </span>
+                    <span>view projects</span>
+                    <span aria-hidden>→</span>
                   </Link>
+                  <ResumeButton
+                    variant="ghost"
+                    size="md"
+                    label="resume"
+                    className="!min-h-[44px]"
+                  />
                   <Link
                     href="/about"
-                    className="inline-flex min-h-[44px] items-center gap-2 rounded-md border border-[var(--color-border-strong)] bg-transparent px-4 py-3 font-mono text-[13px] text-[var(--color-text)] transition-colors hover:border-[var(--color-accent-dim)] hover:text-[var(--color-accent)] sm:py-2.5"
+                    className="hidden font-mono text-[12px] text-[var(--color-text-muted)] underline-offset-4 transition-colors hover:text-[var(--color-accent)] hover:underline sm:inline"
                   >
-                    who is this
+                    more about me →
                   </Link>
-                  <span className="ml-1 hidden font-mono text-[11px] text-[var(--color-text-subtle)] sm:inline">
+                  <span className="ml-auto hidden font-mono text-[11px] text-[var(--color-text-subtle)] sm:inline">
                     or press{" "}
                     <span className="kbd" style={{ minWidth: "auto" }}>
                       ⌘
@@ -189,214 +225,47 @@ export default function Home() {
               </Reveal>
             </div>
 
-            {/* Right: status panel — desktop counterweight; hidden on mobile
-                to avoid duplicating info already in the eyebrow + bio. */}
-            <Reveal delay={300} className="hidden min-w-0 lg:block">
-              <aside
-                aria-label="Status"
-                className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)]/70 p-5"
-              >
-                <div className="flex items-center justify-between border-b border-[var(--color-border)] pb-3">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
-                    system_status
-                  </span>
-                  <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-accent)]">
-                    v1.0.0
-                  </span>
-                </div>
-                <dl className="mt-4 grid grid-cols-[5.5rem_1fr] gap-x-4 gap-y-3 font-mono text-[12px]">
-                  <dt className="text-[var(--color-text-subtle)]">thesis</dt>
-                  <dd className="text-[var(--color-text)]">
-                    {THESIS_OPTIONS[0].toLowerCase()}
-                  </dd>
-                  <dt className="text-[var(--color-text-subtle)]">role</dt>
-                  <dd className="text-[var(--color-text)]">
-                    swe iii @ factset
-                  </dd>
-                  <dt className="text-[var(--color-text-subtle)]">tenure</dt>
-                  <dd className="text-[var(--color-text)]">3+ years</dd>
-                  <dt className="text-[var(--color-accent)]">open to</dt>
-                  <dd className="text-[var(--color-text)]">{OPEN_TO}</dd>
-                  <dt className="text-[var(--color-text-subtle)]">stack</dt>
-                  <dd className="text-[var(--color-text)]">
-                    <Link
-                      href="#stack"
-                      className="underline-offset-4 transition-colors hover:text-[var(--color-accent)] hover:underline"
-                    >
-                      {stackSkillCount} tools → §02
-                    </Link>
-                  </dd>
-                </dl>
-              </aside>
+            {/* Right column — proof card */}
+            <Reveal delay={280}>
+              <HeroProofCard />
             </Reveal>
           </div>
         </div>
-
-        {/* Subtle base-line numerals — bottom-edge ornament. */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute bottom-3 left-0 right-0 flex justify-between px-6 font-mono text-[10px] tracking-widest text-[var(--color-text-subtle)] opacity-40"
-        >
-          <span>vvr.dev</span>
-          <span>est. 2026</span>
-        </div>
       </section>
 
-      {/* ─── Manifesto / Beliefs ─────────────────────────────────── */}
-      <section
-        data-source="app/page.tsx › Manifesto"
-        className="relative py-20 md:py-28"
-      >
-        <div className="container-page">
-          <Reveal>
-            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
-              §01 · how i work
-            </p>
-          </Reveal>
-
-          <Reveal delay={60}>
-            <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-[var(--color-text)] md:text-5xl">
-              Engineering is the art
-              <br />
-              of{" "}
-              <span className="text-[var(--color-accent)]">
-                defending choices.
-              </span>
-            </h2>
-          </Reveal>
-
-          <Reveal delay={140}>
-            <p className="mt-6 max-w-2xl text-pretty text-[var(--color-text-muted)] md:text-lg md:leading-relaxed">
-              Most code can be written two ways. Most architectures have a
-              shadow architecture beneath them. The job isn&apos;t to ship —
-              it&apos;s to ship the version of the system that you can still
-              defend a year later, when the constraints have changed and the
-              alternative looks tempting.
-            </p>
-          </Reveal>
-
-          <Reveal delay={200}>
-            <div className="mt-10 grid gap-x-10 gap-y-6 md:grid-cols-2">
-              <div className="space-y-1.5">
-                <DiffRow type="add">taste compounds</DiffRow>
-                <DiffRow type="remove">
-                  &quot;we&apos;ll fix it later&quot;
-                </DiffRow>
-              </div>
-              <div className="space-y-1.5">
-                <DiffRow type="add">boring tech where it matters</DiffRow>
-                <DiffRow type="remove">resume-driven architecture</DiffRow>
-              </div>
-              <div className="space-y-1.5">
-                <DiffRow type="add">defend every primitive</DiffRow>
-                <DiffRow type="remove">cargo-culted abstractions</DiffRow>
-              </div>
-              <div className="space-y-1.5">
-                <DiffRow type="add">name the tradeoff out loud</DiffRow>
-                <DiffRow type="remove">silent compromises</DiffRow>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ─── Stack ───────────────────────────────────────────────── */}
-      <StackSection />
-
-      {/* ─── Featured Projects ───────────────────────────────────── */}
-      <section
-        data-source="app/page.tsx › FeaturedProjects"
-        className="relative py-20 md:py-28"
-      >
-        <div className="container-page">
+      {/* ═══ FEATURED WORK ══════════════════════════════════════════════ */}
+      <section className="relative py-20 md:py-28">
+        <div className="mx-auto max-w-[76rem] px-5 md:px-6">
           <Reveal>
             <div className="flex items-end justify-between gap-6">
               <div>
                 <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
-                  §03 · selected work
+                  §01 · selected work
                 </p>
-                <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-[var(--color-text)] md:text-5xl">
-                  Two systems.
+                <h2 className="mt-3 font-display text-[2rem] font-medium tracking-tight text-[var(--color-text)] md:text-[2.75rem]">
+                  Two products live.
                   <br />
                   <span className="text-[var(--color-text-muted)]">
-                    Both shipped. Both defensible.
+                    Both with real users.
                   </span>
                 </h2>
               </div>
               <Link
                 href="/projects"
-                className="hidden font-mono text-[12px] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-accent)] md:inline"
+                className="hidden font-mono text-[12px] text-[var(--color-text-muted)] underline-offset-4 transition-colors hover:text-[var(--color-accent)] hover:underline md:inline"
               >
-                all projects →
+                full case studies →
               </Link>
             </div>
           </Reveal>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
-            {projects.map((p, i) => (
-              <Reveal key={p.slug} delay={120 + i * 80}>
-                <Link
-                  href={`/projects/${p.slug}`}
-                  className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] p-7 transition-all hover:border-[var(--color-accent-dim)] hover:bg-[var(--color-surface-inset)] md:p-8"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-signal)]">
-                      <span
-                        aria-hidden
-                        className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--color-signal)]"
-                      />
-                      {p.status}
-                    </span>
-                    <span className="font-mono text-[11px] text-[var(--color-text-subtle)]">
-                      {p.year}
-                    </span>
-                  </div>
-
-                  <h3 className="mt-6 font-display text-2xl font-medium tracking-tight text-[var(--color-text)] md:text-[1.75rem]">
-                    {p.name}
-                  </h3>
-                  <p className="mt-2 max-w-md text-[var(--color-text-muted)]">
-                    {p.tagline}
-                  </p>
-
-                  <div className="mt-6 space-y-1.5 rounded-md border border-dashed border-[var(--color-border-strong)] bg-[var(--color-canvas)]/40 p-4">
-                    <DiffRow type="add">{p.decisions[0].chose}</DiffRow>
-                    <DiffRow type="remove">{p.decisions[0].rejected}</DiffRow>
-                  </div>
-
-                  <div className="mt-6 flex items-end justify-between gap-4">
-                    <div>
-                      <div className="font-display text-3xl font-medium text-[var(--color-accent)] md:text-4xl">
-                        {p.headline.metric}
-                      </div>
-                      <div className="font-mono text-[11px] text-[var(--color-text-subtle)]">
-                        {p.headline.label}
-                      </div>
-                    </div>
-                    <div className="flex flex-wrap justify-end gap-1.5">
-                      {p.tags.map((t) => (
-                        <span
-                          key={t}
-                          className="rounded-full border border-[var(--color-border-strong)] px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-[var(--color-text-muted)]"
-                        >
-                          {tagLabels[t]}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="mt-auto pt-7">
-                    <div className="flex items-center justify-between border-t border-[var(--color-border)] pt-4 font-mono text-[12px]">
-                      <span className="text-[var(--color-text-subtle)]">
-                        {p.tech.slice(0, 3).join(" · ")}
-                        {p.tech.length > 3 && " · …"}
-                      </span>
-                      <span className="text-[var(--color-text-muted)] transition-colors group-hover:text-[var(--color-accent)]">
-                        read case study →
-                      </span>
-                    </div>
-                  </div>
-                </Link>
+          <div className="mt-10 grid gap-6 md:mt-14 md:grid-cols-2">
+            {featuredPairs.map(({ project, variant }, i) => (
+              <Reveal key={project.slug} delay={120 + i * 80}>
+                <FeaturedProjectCard
+                  project={project}
+                  visualVariant={variant}
+                />
               </Reveal>
             ))}
           </div>
@@ -405,122 +274,196 @@ export default function Home() {
             <div className="mt-8 text-center">
               <Link
                 href="/projects"
-                className="inline-flex items-center gap-2 font-mono text-[12px] text-[var(--color-text-muted)] hover:text-[var(--color-accent)]"
+                className="inline-flex items-center gap-2 font-mono text-[12px] text-[var(--color-text-muted)] underline-offset-4 hover:text-[var(--color-accent)] hover:underline"
               >
-                all projects →
+                full case studies →
               </Link>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* ─── Pull-quote epigraph ────────────────────────────────── */}
-      <section
-        data-source="app/page.tsx › Epigraph"
-        className="relative py-24 md:py-32"
-      >
-        <div className="container-narrow text-center">
-          <Reveal>
-            <div className="mx-auto mb-6 h-px w-12 bg-[var(--color-accent-dim)]" />
-          </Reveal>
-          <Reveal delay={80}>
-            <blockquote className="font-display text-3xl font-medium leading-[1.15] tracking-tight text-[var(--color-text)] md:text-5xl">
-              <span className="text-[var(--color-accent)]">&ldquo;</span>
-              Simple is harder than complex.
-              <br />
-              But it&apos;s worth it.
-              <span className="text-[var(--color-accent)]">&rdquo;</span>
-            </blockquote>
-          </Reveal>
-          <Reveal delay={160}>
-            <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
-              — guiding principle
-            </p>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ─── Experience timeline ─────────────────────────────────── */}
-      <section
-        data-source="app/page.tsx › Timeline"
-        className="relative py-20 md:py-28"
-      >
-        <div className="container-page">
-          <Reveal>
-            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
-              §04 · the path
-            </p>
-          </Reveal>
-          <Reveal delay={60}>
-            <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-[var(--color-text)] md:text-5xl">
-              Intern to swe iii.
-              <br />
-              <span className="text-[var(--color-text-muted)]">
-                Three years. Each rung earned.
-              </span>
-            </h2>
-          </Reveal>
-
-          <div className="mt-12 divide-y divide-[var(--color-border)] border-y border-[var(--color-border)]">
-            {TIMELINE.map((item, i) => (
-              <Reveal key={i} delay={i * 60}>
-                <div className="grid gap-3 py-6 md:grid-cols-[10rem_14rem_1fr] md:gap-8 md:py-7">
-                  <div className="font-mono text-[12px] uppercase tracking-wider text-[var(--color-text-subtle)]">
-                    {item.period}
-                  </div>
-                  <div>
-                    <div className="font-display text-lg font-medium text-[var(--color-text)]">
-                      {item.title}
-                    </div>
-                    <div className="font-mono text-[12px] text-[var(--color-accent)]">
-                      {item.company}
-                    </div>
-                  </div>
-                  <p className="text-[var(--color-text-muted)]">{item.note}</p>
+      {/* ═══ ABOUT-STRIP ═══════════════════════════════════════════════ */}
+      <section className="relative border-t border-[var(--color-border)] py-20 md:py-28">
+        <div className="mx-auto max-w-[76rem] px-5 md:px-6">
+          <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
+            {/* Left — quick bio */}
+            <div>
+              <Reveal>
+                <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
+                  §02 · who
+                </p>
+              </Reveal>
+              <Reveal delay={60}>
+                <h2 className="mt-3 font-display text-[2rem] font-medium tracking-tight text-[var(--color-text)] md:text-[2.5rem]">
+                  Three years in,
+                  <br />
+                  still curious.
+                </h2>
+              </Reveal>
+              <Reveal delay={120}>
+                <div className="mt-5 max-w-lg space-y-4 text-pretty text-[var(--color-text-muted)] md:text-[1.05rem] md:leading-relaxed">
+                  <p>
+                    Software engineer at {COMPANY}, working on data-intensive
+                    systems financial professionals use to do their actual
+                    jobs. Intern to {ROLE_NOW.split(" ").pop()} in three
+                    years — each rung earned, not gifted.
+                  </p>
+                  <p>
+                    I build the version of the system I can still defend a
+                    year later. Side projects (
+                    <a
+                      href="https://chatwithpdf.pro"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="link"
+                    >
+                      Chat with PDF
+                    </a>
+                    ,{" "}
+                    <Link href="/projects/voiceflow" className="link">
+                      VoiceFlow
+                    </Link>
+                    ) are where I test the version of myself I want at work.
+                  </p>
                 </div>
               </Reveal>
-            ))}
+              <Reveal delay={180}>
+                <div className="mt-7 flex flex-wrap items-center gap-x-3 gap-y-2">
+                  <Link
+                    href="/about"
+                    className="cta-ghost min-h-[40px] px-4"
+                  >
+                    <span>about · stack · leetcode</span>
+                    <span aria-hidden>→</span>
+                  </Link>
+                  <a
+                    href={LEETCODE_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 font-mono text-[12px] text-[var(--color-text-muted)] underline-offset-4 transition-colors hover:text-[var(--color-accent)] hover:underline"
+                  >
+                    leetcode {LEETCODE_TIER.toLowerCase()} ·{" "}
+                    <span className="tabular">{LEETCODE_RATING}</span> ↗
+                  </a>
+                </div>
+              </Reveal>
+            </div>
+
+            {/* Right — micro-timeline */}
+            <div>
+              <Reveal>
+                <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
+                  the path
+                </p>
+              </Reveal>
+              <Reveal delay={60}>
+                <div className="mt-3 surface overflow-hidden">
+                  <ol className="divide-y divide-[var(--color-border)]">
+                    {TIMELINE.map((item) => (
+                      <li
+                        key={item.period}
+                        className="grid gap-1 px-5 py-4 sm:grid-cols-[auto_1fr] sm:items-baseline sm:gap-5 md:px-6 md:py-5"
+                      >
+                        <div className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-[var(--color-text-subtle)] sm:w-[10.5rem]">
+                          {item.period}
+                        </div>
+                        <div className="min-w-0">
+                          <div className="flex items-baseline gap-2">
+                            <span className="font-display text-[1.05rem] font-medium tracking-tight text-[var(--color-text)]">
+                              {item.title}
+                            </span>
+                            <span className="font-mono text-[11px] text-[var(--color-accent-dim)]">
+                              · {item.company}
+                            </span>
+                          </div>
+                          <p className="mt-1 text-pretty text-[13.5px] leading-relaxed text-[var(--color-text-muted)]">
+                            {item.note}
+                          </p>
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </Reveal>
+
+              {/* LeetCode micro-card under the timeline */}
+              <Reveal delay={140}>
+                <a
+                  href={LEETCODE_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group surface mt-4 flex items-center justify-between gap-4 p-4 transition-colors hover:bg-[var(--color-surface-2)] md:p-5"
+                >
+                  <div className="flex items-center gap-3">
+                    <span
+                      aria-hidden
+                      className="flex h-9 w-9 items-center justify-center rounded-md border border-[var(--color-accent-dim)] bg-[var(--color-canvas-deep)] font-mono text-[11px] font-semibold tracking-wider text-[var(--color-accent)]"
+                    >
+                      LC
+                    </span>
+                    <div>
+                      <div className="font-display text-[15px] font-medium text-[var(--color-text)]">
+                        {LEETCODE_TIER}{" "}
+                        <span className="text-[var(--color-accent)] tabular">
+                          {LEETCODE_RATING}
+                        </span>
+                      </div>
+                      <div className="font-mono text-[11px] text-[var(--color-text-subtle)]">
+                        {LEETCODE_STREAK}-day streak · {LEETCODE_PROBLEMS}{" "}
+                        problems
+                      </div>
+                    </div>
+                  </div>
+                  <span
+                    aria-hidden
+                    className="font-mono text-[11px] uppercase tracking-wider text-[var(--color-text-muted)] transition-colors group-hover:text-[var(--color-accent)]"
+                  >
+                    verify ↗
+                  </span>
+                </a>
+              </Reveal>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ─── Contact CTA ─────────────────────────────────────────── */}
-      <section
-        data-source="app/page.tsx › ContactCTA"
-        className="relative py-24 md:py-32"
-      >
-        <div className="container-page">
-          <div className="grid gap-10 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] p-8 md:grid-cols-[1fr_auto] md:items-end md:p-12">
-            <Reveal>
-              <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-accent)]">
-                §05 · let&apos;s talk
-              </p>
-              <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-[var(--color-text)] md:text-[2.5rem]">
-                The bar to reach out is lower than you think.
-              </h2>
-              <p className="mt-4 max-w-xl text-[var(--color-text-muted)]">
-                If you&apos;re building something where judgment matters,
-                I&apos;d like to hear about it. Direct messages are read,
-                signals are noticed, and short emails get short replies fast.
-              </p>
-              <div className="mt-7">
-                <CopyButton value={EMAIL} />
+      {/* ═══ CONTACT-STRIP ═══════════════════════════════════════════════ */}
+      <section className="relative pt-14 pb-20 md:pt-20 md:pb-28">
+        <div className="mx-auto max-w-[76rem] px-5 md:px-6">
+          <Reveal>
+            <div className="surface lit-edge relative grid items-center gap-8 overflow-hidden p-6 md:grid-cols-[1.5fr_1fr] md:gap-12 md:p-10">
+              <div>
+                <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-accent)]">
+                  §03 · contact
+                </p>
+                <h2 className="mt-3 font-display text-[1.8rem] font-medium tracking-tight text-[var(--color-text)] md:text-[2.25rem]">
+                  Building something where judgment matters?
+                </h2>
+                <p className="mt-3 max-w-xl text-[var(--color-text-muted)]">
+                  Best way to reach me — email gets a reply within a day.
+                  Use the form for a longer pitch.
+                </p>
+                <div className="mt-6">
+                  <CopyButton value="vishnuvardhanganji@gmail.com" />
+                </div>
               </div>
-            </Reveal>
-            <Reveal delay={120}>
               <div className="flex flex-col items-stretch gap-3 md:items-end">
                 <Link
                   href="/contact"
-                  className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-md bg-[var(--color-accent)] px-5 py-3 font-mono text-[13px] text-[var(--color-canvas)] transition-colors hover:bg-[var(--color-text)]"
+                  className="cta-accent min-h-[44px] px-5 text-[13px]"
                 >
-                  open the contact form →
+                  <span>open contact form</span>
+                  <span aria-hidden>→</span>
                 </Link>
-                <span className="text-center font-mono text-[11px] text-[var(--color-text-subtle)] md:text-right">
-                  i respond to every message that doesn&apos;t look bulk-sent.
-                </span>
+                <ResumeButton
+                  variant="ghost"
+                  size="md"
+                  className="!min-h-[44px]"
+                />
               </div>
-            </Reveal>
-          </div>
+            </div>
+          </Reveal>
         </div>
       </section>
     </>

@@ -1,18 +1,29 @@
 @import "tailwindcss";
 
 @theme inline {
+  /* — Engineering Bureau palette: cool canvas, warming as it lifts ————— */
   --color-canvas: #0a0a0b;
+  --color-canvas-deep: #060607;
   --color-surface: #131315;
+  --color-surface-2: #18181b;
+  --color-surface-3: #1f1f23;
   --color-surface-inset: #18181b;
   --color-border: #1f1f23;
   --color-border-strong: #2a2a2f;
+  --color-border-lit: rgba(245, 180, 84, 0.22);
+
   --color-text: #eceae6;
   --color-text-muted: #9a9a95;
   --color-text-subtle: #5c5c58;
+
+  /* The single identity color. Lamplight, instruments, calibration LEDs. */
   --color-accent: #f5b454;
+  --color-accent-soft: #e6a449;
   --color-accent-dim: #8a6024;
   --color-accent-glow: rgba(245, 180, 84, 0.12);
+  --color-accent-wash: rgba(245, 180, 84, 0.04);
   --color-signal: #4ade80;
+  --color-danger: #f57e54;
 
   --font-display: var(--font-geist-sans);
   --font-body: var(--font-dm-sans);
@@ -20,6 +31,13 @@
 
   --radius-card: 14px;
   --radius-pill: 999px;
+  --radius-chip: 6px;
+
+  /* Shadow language — depth from light, not from drop shadows. */
+  --edge-light-top: inset 0 1px 0 0 rgba(255, 255, 255, 0.045);
+  --edge-light-bottom: inset 0 -1px 0 0 rgba(0, 0, 0, 0.4);
+  --shadow-lift: 0 1px 0 rgba(255, 255, 255, 0.03), 0 12px 32px -16px rgba(0, 0, 0, 0.6);
+  --shadow-recess: inset 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 * {
@@ -40,15 +58,47 @@ body {
   font-family: var(--font-body), system-ui, sans-serif;
   font-size: 16px;
   line-height: 1.6;
+  /* Atmospheric base. Two warm pools — one above the fold, one anchoring
+     the bottom — so the page never reads as a flat slab of black. */
   background:
     radial-gradient(
-      ellipse 80% 50% at 50% -10%,
+      ellipse 90% 55% at 50% -12%,
       var(--color-accent-glow) 0%,
-      transparent 60%
+      transparent 55%
     ),
-    var(--color-canvas);
+    radial-gradient(
+      ellipse 70% 40% at 100% 100%,
+      rgba(245, 180, 84, 0.04) 0%,
+      transparent 50%
+    ),
+    linear-gradient(180deg, var(--color-canvas) 0%, var(--color-canvas-deep) 100%);
   background-attachment: fixed;
   min-height: 100vh;
+  position: relative;
+}
+
+/* Subtle film-grain over the entire body. SVG turbulence, ~6% opacity,
+   tiles cheaply. Adds tactile texture to flat dark surfaces — the
+   single most under-rated trick in dark UI.
+   ⚠ Critical: keep `pointer-events: none` so it never intercepts
+   clicks, and a small negative z-index so it sits BEHIND every body
+   child (sticky header, modals, command palette). Higher z-indices
+   on this pseudo would force-elevate it above modals and break
+   `position: sticky`/`fixed` on sibling DOM elements via the layout
+   tree. We render the grain via mix-blend-mode against content
+   above it — even at z=-1 the blend works as long as nothing in the
+   stack opaquely covers it (the body's gradient is transparent
+   enough). */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.055;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='5' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1, 0 0 0 0 1, 0 0 0 0 0.95, 0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 220px 220px;
 }
 
 ::selection {
@@ -203,38 +253,34 @@ select:focus {
   transform: translateY(0);
 }
 
-/* ─── Engineer mode — overlays file paths on sections ──────────── */
+/* ─── Engineer mode — cosmetic dotted-grid overlay ──────────────── */
+/* Toggled via ⌘. — purely atmospheric, no information layer.
+   Adds a faint 32px dotted grid across the entire viewport so the
+   page reads as graph paper for a moment. Honors prefers-reduced-motion. */
 
-[data-source]::after {
-  content: attr(data-source);
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  padding: 2px 6px;
-  font-family: var(--font-mono), monospace;
-  font-size: 10px;
-  letter-spacing: 0.02em;
-  color: var(--color-accent);
-  background: var(--color-surface-inset);
-  border: 1px solid var(--color-accent-dim);
-  border-radius: 3px;
-  opacity: 0;
-  transition: opacity 150ms ease;
+html[data-engineer="on"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
   pointer-events: none;
-  z-index: 50;
+  background-image:
+    radial-gradient(
+      circle at 1px 1px,
+      rgba(245, 180, 84, 0.22) 1px,
+      transparent 0
+    );
+  background-size: 32px 32px;
+  background-position: 0 0;
+  mix-blend-mode: screen;
+  opacity: 0;
+  animation: vvr-grid-in 240ms ease-out forwards;
 }
 
-html[data-engineer="on"] [data-source] {
-  position: relative;
-}
-
-html[data-engineer="on"] [data-source]::after {
-  opacity: 1;
-}
-
-html[data-engineer="on"] [data-source] {
-  outline: 1px dashed var(--color-accent-dim);
-  outline-offset: -1px;
+@keyframes vvr-grid-in {
+  to {
+    opacity: 1;
+  }
 }
 
 /* ─── View transitions (Next.js 16 + React) ──────────────────── */
@@ -389,4 +435,254 @@ select:focus {
   max-width: 44rem;
   margin-inline: auto;
   padding-inline: 1.5rem;
+}
+
+.container-wide {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+/* ─── Surface system — depth from light, not from shadow ────────── */
+
+/* Base card surface. Hue-shifted warmer than canvas. Inset highlight
+   on the top edge catches the ambient light pool and makes the panel
+   feel embedded rather than flat. */
+.surface {
+  background: linear-gradient(
+    180deg,
+    var(--color-surface-2) 0%,
+    var(--color-surface) 100%
+  );
+  border: 1px solid var(--color-border);
+  box-shadow: var(--edge-light-top), var(--edge-light-bottom);
+  border-radius: var(--radius-card);
+}
+
+.surface-flat {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--edge-light-top);
+  border-radius: var(--radius-card);
+}
+
+.surface-recess {
+  background: var(--color-canvas-deep);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-recess);
+  border-radius: 10px;
+}
+
+/* Lit edge — the single focal-element treatment per screen.
+   1px gradient border that brightens diagonally as if catching
+   the amber pool. Use sparingly (one per page). */
+.lit-edge {
+  position: relative;
+  isolation: isolate;
+}
+
+.lit-edge::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(245, 180, 84, 0.55) 0%,
+    rgba(245, 180, 84, 0.08) 22%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(245, 180, 84, 0.04) 78%,
+    rgba(245, 180, 84, 0.35) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Hairline — a single decorative rule, used as a vertical or
+   horizontal accent on a section. */
+.rule-amber {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-accent-dim) 50%,
+    transparent 100%
+  );
+  height: 1px;
+}
+
+.rule-amber-vert {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--color-accent-dim) 50%,
+    transparent 100%
+  );
+  width: 1px;
+}
+
+/* ─── Oscilloscope sweep — the one ambient motion ──────────────── */
+/* A 1px amber line that slowly drifts down the hero every ~14s.
+   Atmosphere only — never interactive, never rewards attention. */
+
+.sweep {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.sweep::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -2px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(245, 180, 84, 0.05) 20%,
+    rgba(245, 180, 84, 0.5) 50%,
+    rgba(245, 180, 84, 0.05) 80%,
+    transparent 100%
+  );
+  filter: blur(0.5px);
+  animation: vvr-sweep 14s linear infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes vvr-sweep {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  6% {
+    opacity: 0.4;
+  }
+  92% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
+}
+
+/* ─── Instrument pill — calibration-readout micro-component ────── */
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 22px;
+  padding: 0 8px 0 6px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-surface-2);
+  font-family: var(--font-mono), monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  box-shadow: var(--edge-light-top);
+  transition: border-color 180ms ease, color 180ms ease;
+}
+
+.pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-text-subtle);
+  box-shadow: 0 0 0 0 transparent;
+}
+
+.pill-signal .pill-dot {
+  background: var(--color-signal);
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.6);
+}
+
+.pill-accent {
+  color: var(--color-accent);
+  border-color: var(--color-accent-dim);
+}
+
+.pill-accent .pill-dot {
+  background: var(--color-accent);
+  box-shadow: 0 0 8px rgba(245, 180, 84, 0.6);
+}
+
+/* ─── Tabular numerals helper — used everywhere data appears ──── */
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum", "ss01";
+}
+
+/* ─── Accent CTA — the resume / primary action ─────────────────── */
+
+.cta-accent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 38px;
+  padding: 0 14px;
+  border-radius: 8px;
+  background: linear-gradient(
+    180deg,
+    var(--color-accent) 0%,
+    var(--color-accent-soft) 100%
+  );
+  color: var(--color-canvas);
+  font-family: var(--font-mono), monospace;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18),
+    0 4px 14px -6px rgba(245, 180, 84, 0.5);
+  transition: transform 120ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+.cta-accent:hover {
+  filter: brightness(1.06);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 6px 22px -8px rgba(245, 180, 84, 0.7);
+}
+
+.cta-accent:active {
+  transform: translateY(0.5px);
+}
+
+.cta-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 38px;
+  padding: 0 14px;
+  border-radius: 8px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-mono), monospace;
+  font-size: 12.5px;
+  border: 1px solid var(--color-border-strong);
+  box-shadow: var(--edge-light-top);
+  transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+}
+
+.cta-ghost:hover {
+  border-color: var(--color-accent-dim);
+  color: var(--color-accent);
+  background: var(--color-surface-2);
 }

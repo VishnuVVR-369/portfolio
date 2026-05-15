@@ -2,6 +2,13 @@
 
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  EMAIL,
+  GITHUB_URL,
+  LEETCODE_URL,
+  LINKEDIN_URL,
+  RESUME_URL,
+} from "@/lib/identity";
 
 type Action = {
   id: string;
@@ -11,8 +18,6 @@ type Action = {
   run: () => void;
   keywords?: string;
 };
-
-const EMAIL = "vishnuvardhanganji@gmail.com";
 
 interface CommandPaletteDialogProps {
   onClose: () => void;
@@ -56,11 +61,11 @@ export function CommandPaletteDialog({
         run: () => router.push("/"),
       },
       {
-        id: "nav-projects",
-        label: "go to projects",
+        id: "nav-work",
+        label: "go to work",
         hint: "g p",
         group: "navigate",
-        keywords: "/projects work case studies",
+        keywords: "/projects work case studies projects",
         run: () => router.push("/projects"),
       },
       {
@@ -92,7 +97,7 @@ export function CommandPaletteDialog({
         label: "toggle engineer mode",
         hint: "⌘ .",
         group: "actions",
-        keywords: "debug source paths overlay",
+        keywords: "grid overlay graph paper debug",
         run: toggleEngineerMode,
       },
       {
@@ -101,12 +106,7 @@ export function CommandPaletteDialog({
         hint: "↗",
         group: "external",
         keywords: "git code source",
-        run: () =>
-          window.open(
-            "https://github.com/VishnuVVR-369",
-            "_blank",
-            "noreferrer"
-          ),
+        run: () => window.open(GITHUB_URL, "_blank", "noreferrer"),
       },
       {
         id: "ext-linkedin",
@@ -114,12 +114,15 @@ export function CommandPaletteDialog({
         hint: "↗",
         group: "external",
         keywords: "social profile work",
-        run: () =>
-          window.open(
-            "https://www.linkedin.com/in/vishnu-vvr",
-            "_blank",
-            "noreferrer"
-          ),
+        run: () => window.open(LINKEDIN_URL, "_blank", "noreferrer"),
+      },
+      {
+        id: "ext-leetcode",
+        label: "open leetcode",
+        hint: "guardian · 2150+",
+        group: "external",
+        keywords: "leetcode guardian algorithms practice",
+        run: () => window.open(LEETCODE_URL, "_blank", "noreferrer"),
       },
       {
         id: "ext-resume",
@@ -127,7 +130,7 @@ export function CommandPaletteDialog({
         hint: "↗",
         group: "external",
         keywords: "cv resume hire",
-        run: () => window.open("/resume.pdf", "_blank", "noreferrer"),
+        run: () => window.open(RESUME_URL, "_blank", "noreferrer"),
       },
     ],
     [router, copyEmail, toggleEngineerMode]

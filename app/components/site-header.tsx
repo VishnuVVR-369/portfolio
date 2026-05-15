@@ -4,6 +4,8 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { GuardianBadge } from "./guardian-badge";
+import { ResumeButton } from "./resume-button";
 
 const logoMaskStyle = {
   WebkitMaskImage: "url(/logo.svg)",
@@ -22,14 +24,13 @@ const MobileMenu = dynamic(
 );
 
 const NAV = [
-  { href: "/", label: "home", chord: "g h" },
-  { href: "/projects", label: "projects", chord: "g p" },
-  { href: "/about", label: "about", chord: "g a" },
-  { href: "/contact", label: "contact", chord: "g c" },
+  { href: "/projects", label: "work" },
+  { href: "/about", label: "about" },
+  { href: "/contact", label: "contact" },
 ];
 
-// Status-line header. Reads like a terminal prompt — sets the
-// engineering-auteur tone before any content loads.
+// Status-line header. Reads like an instrument panel — slim, dense,
+// honest. Three regions: identity left, nav center, action+signal right.
 export function SiteHeader() {
   const pathname = usePathname();
   const [now, setNow] = useState<string>("");
@@ -46,7 +47,6 @@ export function SiteHeader() {
   useEffect(() => {
     const tick = () => {
       const d = new Date();
-      // Hyderabad time — the user's actual locale, not the visitor's.
       setNow(
         new Intl.DateTimeFormat("en-GB", {
           timeZone: "Asia/Kolkata",
@@ -61,7 +61,6 @@ export function SiteHeader() {
     return () => window.clearInterval(id);
   }, []);
 
-  // Open the command palette by dispatching a window event.
   const openPalette = () => {
     window.dispatchEvent(new CustomEvent("vvr:palette:open"));
   };
@@ -70,10 +69,10 @@ export function SiteHeader() {
     <>
       <header
         style={{ viewTransitionName: "site-header" }}
-        className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[color:rgba(10,10,11,0.78)] backdrop-blur-md"
+        className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[color:rgba(10,10,11,0.82)] backdrop-blur-md"
       >
-        <div className="container-page flex h-14 items-center justify-between gap-3 font-mono text-[12px] text-[var(--color-text-muted)] md:h-12 md:gap-6">
-          {/* Left: identity + path */}
+        <div className="mx-auto flex h-14 max-w-[76rem] items-center justify-between gap-3 px-5 font-mono text-[12px] text-[var(--color-text-muted)] md:h-14 md:px-6">
+          {/* Left: identity + breadcrumb path */}
           <div className="flex min-w-0 items-center gap-3 overflow-hidden">
             <Link
               href="/"
@@ -87,20 +86,24 @@ export function SiteHeader() {
               />
               <span className="hidden sm:inline">~/vvr.dev</span>
             </Link>
-            <span
-              aria-hidden
-              className="hidden text-[var(--color-text-subtle)] sm:inline"
-            >
-              ·
-            </span>
-            <span className="hidden truncate text-[var(--color-text-subtle)] sm:inline">
-              {pathname === "/" ? "" : pathname}
-            </span>
+            {pathname !== "/" && (
+              <>
+                <span
+                  aria-hidden
+                  className="hidden text-[var(--color-text-subtle)] sm:inline"
+                >
+                  ›
+                </span>
+                <span className="hidden truncate text-[var(--color-text-subtle)] sm:inline">
+                  {pathname.replace(/^\//, "")}
+                </span>
+              </>
+            )}
           </div>
 
-          {/* Center: nav (desktop only) */}
+          {/* Center: nav (desktop only) — 3 items, no chord chrome */}
           <nav
-            className="hidden items-center gap-5 md:flex"
+            className="hidden items-center gap-7 md:flex"
             aria-label="Primary"
           >
             {NAV.map((item) => {
@@ -112,50 +115,65 @@ export function SiteHeader() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`group flex items-center gap-1.5 transition-colors ${
+                  className={`group relative flex h-14 items-center transition-colors ${
                     active
                       ? "text-[var(--color-accent)]"
                       : "text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
                   }`}
                 >
                   <span>{item.label}</span>
-                  <span
-                    aria-hidden
-                    className="kbd hidden lg:inline-flex"
-                    style={{ minWidth: "auto" }}
-                  >
-                    {item.chord}
-                  </span>
+                  {/* underline accent — only on active route */}
+                  {active && (
+                    <span
+                      aria-hidden
+                      className="absolute -bottom-px left-0 right-0 h-[1px] bg-[var(--color-accent)]"
+                      style={{ boxShadow: "0 0 8px rgba(245,180,84,0.6)" }}
+                    />
+                  )}
                 </Link>
               );
             })}
           </nav>
 
-          {/* Right: time + palette + mobile menu */}
-          <div className="flex flex-shrink-0 items-center gap-2">
+          {/* Right: signal cluster — guardian, resume, palette, time */}
+          <div className="flex flex-shrink-0 items-center gap-2 md:gap-3">
+            {/* Guardian badge — visible from md up. Highest-density signal. */}
+            <div className="hidden md:inline-flex">
+              <GuardianBadge variant="compact" />
+            </div>
+
+            {/* Resume CTA — visible md+, the primary action for skimmers */}
+            <div className="hidden lg:inline-flex">
+              <ResumeButton size="sm" />
+            </div>
+
+            {/* Command palette — desktop only */}
+            <button
+              type="button"
+              onClick={openPalette}
+              className="hidden h-8 items-center gap-1 rounded-md border border-[var(--color-border-strong)] bg-[var(--color-surface)] px-2 text-[var(--color-text-muted)] transition-colors hover:border-[var(--color-accent-dim)] hover:text-[var(--color-accent)] md:inline-flex"
+              style={{ boxShadow: "inset 0 1px 0 0 rgba(255,255,255,0.045)" }}
+              aria-label="Open command palette"
+              title="Open command palette (⌘K)"
+            >
+              <span aria-hidden>⌘</span>
+              <span aria-hidden>k</span>
+            </button>
+
+            {/* Locale clock — hidden on very narrow viewports */}
             <span
-              className="hidden text-[var(--color-text-subtle)] tabular-nums sm:inline"
+              className="hidden text-[var(--color-text-subtle)] tabular-nums md:inline"
               suppressHydrationWarning
             >
               {now || "··:·· ist"}
             </span>
 
-            {/* Command palette — desktop emphasises the kbd hint */}
-            <button
-              type="button"
-              onClick={openPalette}
-              className="hidden h-8 items-center gap-1.5 rounded-md border border-[var(--color-border-strong)] bg-[var(--color-surface)] px-2 text-[var(--color-text-muted)] transition-colors hover:border-[var(--color-accent-dim)] hover:text-[var(--color-accent)] md:inline-flex"
-              aria-label="Open command palette"
-            >
-              <span>⌘</span>
-              <span>k</span>
-            </button>
-
-            {/* Mobile: full-screen menu trigger — 44px touch target. */}
+            {/* Mobile menu trigger — 44px touch target */}
             <button
               type="button"
               onClick={openMenu}
               className="flex h-11 w-11 items-center justify-center rounded-md border border-[var(--color-border-strong)] bg-[var(--color-surface)] text-[var(--color-text)] transition-colors active:border-[var(--color-accent-dim)] active:text-[var(--color-accent)] md:hidden"
+              style={{ boxShadow: "inset 0 1px 0 0 rgba(255,255,255,0.045)" }}
               aria-label="Open menu"
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-menu"
