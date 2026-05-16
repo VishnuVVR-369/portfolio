@@ -82,14 +82,14 @@ export default function Home() {
       <JsonLd data={[personJsonLd(), websiteJsonLd()]} />
 
       {/* ═══ HERO ════════════════════════════════════════════════════ */}
-      <section className="relative overflow-hidden border-b border-[var(--color-border)] pt-12 pb-10 md:pt-20 md:pb-28">
+      <section className="relative overflow-hidden border-b border-[var(--color-border)] pt-10 pb-12 md:pt-20 md:pb-28">
         {/* Atmospheric sweep — single ambient motion above the fold */}
         <div className="sweep" aria-hidden />
 
         <div className="mx-auto max-w-[76rem] px-5 md:px-6">
           {/* Eyebrow — status pills */}
           <Reveal>
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--color-text-subtle)]">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--color-text-subtle)]">
               <span className="inline-flex items-center gap-2 text-[var(--color-signal)]">
                 <span
                   aria-hidden
@@ -98,7 +98,7 @@ export default function Home() {
                 />
                 available for inbound
               </span>
-              <span aria-hidden className="text-[var(--color-text-subtle)]">
+              <span aria-hidden className="hidden text-[var(--color-text-subtle)] sm:inline">
                 ·
               </span>
               <span>{LOCATION.toLowerCase()}</span>
@@ -106,15 +106,17 @@ export default function Home() {
                 ·
               </span>
               <HeroClock />
-              {/* Guardian badge mirrors the header — visible on mobile too */}
-              <span className="ml-auto md:hidden">
+              {/* Guardian badge mirrors the header — visible on mobile too.
+                  No ml-auto so it flows inline with the other pills and
+                  doesn't force its own line on narrow screens. */}
+              <span className="md:hidden">
                 <GuardianBadge variant="compact" />
               </span>
             </div>
           </Reveal>
 
           {/* Title + status panel grid */}
-          <div className="mt-9 grid gap-x-12 gap-y-10 md:mt-12 lg:grid-cols-[minmax(0,1fr)_19rem]">
+          <div className="mt-9 grid gap-y-8 md:mt-12 md:gap-y-10 lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-x-12">
             <div>
               {/* NAME — the first specific signal a skimmer hits */}
               <Reveal delay={40}>
@@ -235,7 +237,7 @@ export default function Home() {
       </section>
 
       {/* ═══ FEATURED WORK ══════════════════════════════════════════════ */}
-      <section className="relative py-20 md:py-28">
+      <section className="relative py-14 md:py-24">
         <div className="mx-auto max-w-[76rem] px-5 md:px-6">
           <Reveal>
             <div className="flex items-end justify-between gap-6">
@@ -285,9 +287,9 @@ export default function Home() {
       </section>
 
       {/* ═══ ABOUT-STRIP ═══════════════════════════════════════════════ */}
-      <section className="relative border-t border-[var(--color-border)] py-20 md:py-28">
+      <section className="relative border-t border-[var(--color-border)] py-14 md:py-24">
         <div className="mx-auto max-w-[76rem] px-5 md:px-6">
-          <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
             {/* Left — quick bio */}
             <div>
               <Reveal>
@@ -394,16 +396,16 @@ export default function Home() {
                   href={LEETCODE_URL}
                   target="_blank"
                   rel="noreferrer"
-                  className="group surface mt-4 flex items-center justify-between gap-4 p-4 transition-colors hover:bg-[var(--color-surface-2)] md:p-5"
+                  className="group surface mt-4 flex items-center justify-between gap-3 p-4 transition-colors hover:bg-[var(--color-surface-2)] active:bg-[var(--color-surface-3)] md:gap-4 md:p-5"
                 >
-                  <div className="flex items-center gap-3">
+                  <div className="flex min-w-0 items-center gap-3">
                     <span
                       aria-hidden
-                      className="flex h-9 w-9 items-center justify-center rounded-md border border-[var(--color-accent-dim)] bg-[var(--color-canvas-deep)] text-[var(--color-accent)] transition-colors group-hover:border-[var(--color-accent)]"
+                      className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md border border-[var(--color-accent-dim)] bg-[var(--color-canvas-deep)] text-[var(--color-accent)] transition-colors group-hover:border-[var(--color-accent)]"
                     >
                       <LeetCodeIcon size={21} />
                     </span>
-                    <div>
+                    <div className="min-w-0">
                       <div className="font-display text-[15px] font-medium text-[var(--color-text)]">
                         {LEETCODE_TIER}{" "}
                         <span className="text-[var(--color-accent)] tabular">
@@ -418,7 +420,7 @@ export default function Home() {
                   </div>
                   <span
                     aria-hidden
-                    className="font-mono text-[11px] uppercase tracking-wider text-[var(--color-text-muted)] transition-colors group-hover:text-[var(--color-accent)]"
+                    className="flex-shrink-0 font-mono text-[11px] uppercase tracking-wider text-[var(--color-text-muted)] transition-colors group-hover:text-[var(--color-accent)]"
                   >
                     verify ↗
                   </span>
@@ -430,10 +432,10 @@ export default function Home() {
       </section>
 
       {/* ═══ CONTACT-STRIP ═══════════════════════════════════════════════ */}
-      <section className="relative pt-14 pb-20 md:pt-20 md:pb-28">
+      <section className="relative pt-12 pb-16 md:pt-20 md:pb-28">
         <div className="mx-auto max-w-[76rem] px-5 md:px-6">
           <Reveal>
-            <div className="surface lit-edge relative grid items-center gap-8 overflow-hidden p-6 md:grid-cols-[1.5fr_1fr] md:gap-12 md:p-10">
+            <div className="surface lit-edge relative grid items-center gap-8 overflow-hidden p-5 sm:p-6 md:grid-cols-[1.5fr_1fr] md:gap-12 md:p-10">
               <div>
                 <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-accent)]">
                   §03 · contact

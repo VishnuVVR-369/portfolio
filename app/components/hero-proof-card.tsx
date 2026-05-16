@@ -23,10 +23,10 @@ export function HeroProofCard() {
   return (
     <aside
       aria-label="At-a-glance status"
-      className="surface lit-edge relative hidden min-w-0 overflow-hidden p-5 lg:block"
+      className="surface lit-edge relative min-w-0 overflow-hidden p-4 md:p-5"
     >
       {/* Bezel header */}
-      <div className="-mx-5 -mt-5 mb-4 flex items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-canvas-deep)] px-5 py-2.5 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
+      <div className="-mx-4 -mt-4 mb-4 flex items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-canvas-deep)] px-4 py-2.5 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)] md:-mx-5 md:-mt-5 md:px-5">
         <span className="inline-flex items-center gap-2">
           <span
             aria-hidden
@@ -38,7 +38,7 @@ export function HeroProofCard() {
         <span className="text-[var(--color-accent)]">live</span>
       </div>
 
-      <dl className="grid grid-cols-[5rem_1fr] gap-x-3 gap-y-2.5 font-mono text-[12px]">
+      <dl className="grid grid-cols-[4rem_1fr] gap-x-3 gap-y-2 font-mono text-[12px] md:grid-cols-[5rem_1fr] md:gap-y-2.5">
         <dt className="text-[var(--color-text-subtle)]">role</dt>
         <dd className="text-[var(--color-text)]">
           {ROLE_NOW} · {COMPANY}
@@ -88,7 +88,7 @@ export function HeroProofCard() {
       </dl>
 
       {/* Foot strip — version marker */}
-      <div className="-mx-5 -mb-5 mt-5 flex items-center justify-between border-t border-[var(--color-border)] bg-[var(--color-canvas-deep)] px-5 py-2 font-mono text-[9.5px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
+      <div className="-mx-4 -mb-4 mt-5 flex items-center justify-between border-t border-[var(--color-border)] bg-[var(--color-canvas-deep)] px-4 py-2 font-mono text-[9.5px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)] md:-mx-5 md:-mb-5 md:px-5">
         <span>v2.0 · 2026</span>
         <span className="text-[var(--color-accent-dim)]">hyderabad / ist</span>
       </div>

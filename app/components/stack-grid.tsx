@@ -35,7 +35,7 @@ export function StackGrid({ className = "" }: StackGridProps) {
               return (
                 <li
                   key={skill.name}
-                  className={`group flex items-start gap-3 rounded-md border bg-[var(--color-canvas-deep)] p-3 transition-colors ${
+                  className={`group flex items-start gap-2.5 rounded-md border bg-[var(--color-canvas-deep)] p-2.5 transition-colors sm:gap-3 sm:p-3 ${
                     isDaily
                       ? "border-[var(--color-accent-dim)]/40"
                       : "border-[var(--color-border)]"

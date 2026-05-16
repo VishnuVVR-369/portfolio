@@ -79,7 +79,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-[76rem] px-5 md:px-6">
           <div className="grid gap-8 md:grid-cols-[14rem_1fr] md:gap-12 lg:grid-cols-[16rem_1fr] lg:gap-16">
             <Reveal>
-              <figure className="flex max-w-[10rem] flex-col gap-3 sm:max-w-[12rem] md:max-w-none">
+              <figure className="flex max-w-[13rem] flex-col gap-3 sm:max-w-[14rem] md:max-w-none">
                 <div
                   className="surface lit-edge relative aspect-[4/5] w-full overflow-hidden"
                   aria-label="Portrait"
@@ -87,7 +87,7 @@ export default function AboutPage() {
                   <Image
                     src={portrait}
                     alt={`${NAME} portrait`}
-                    sizes="(max-width: 640px) 10rem, (max-width: 768px) 12rem, 16rem"
+                    sizes="(max-width: 640px) 13rem, (max-width: 768px) 14rem, 16rem"
                     priority
                     placeholder="blur"
                     className="h-full w-full object-cover"
@@ -97,7 +97,7 @@ export default function AboutPage() {
                     /portrait
                   </span>
                 </div>
-                <figcaption className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--color-text-subtle)]">
+                <figcaption className="whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--color-text-subtle)]">
                   {LOCATION.toLowerCase()} · ist
                 </figcaption>
               </figure>
@@ -226,7 +226,7 @@ export default function AboutPage() {
             </div>
 
             <Reveal delay={180}>
-              <div className="grid gap-3 sm:grid-cols-3">
+              <div className="grid grid-cols-3 gap-2 sm:gap-3">
                 <PracticeStat
                   metric={String(LEETCODE_STREAK)}
                   label="days consecutive"
@@ -280,7 +280,7 @@ export default function AboutPage() {
           </Reveal>
 
           <Reveal delay={120}>
-            <div className="mt-10 grid gap-x-12 gap-y-6 md:grid-cols-2">
+            <div className="mt-10 grid gap-3 md:grid-cols-2 md:gap-x-12 md:gap-y-6">
               {BELIEFS.map((b, i) => (
                 <div
                   key={i}
@@ -319,7 +319,7 @@ export default function AboutPage() {
                 {JOURNEY.map((j) => (
                   <li
                     key={j.period}
-                    className="grid gap-1 px-5 py-5 sm:grid-cols-[5rem_15rem_1fr] sm:items-baseline sm:gap-8 md:px-7 md:py-6"
+                    className="grid gap-1 px-5 py-5 md:grid-cols-[5rem_minmax(0,12rem)_1fr] md:items-baseline md:gap-6 md:px-7 md:py-6 lg:gap-8"
                   >
                     <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--color-text-subtle)]">
                       {j.period}
@@ -420,22 +420,22 @@ function PracticeStat({
 
   return (
     <div
-      className={`surface flex flex-col gap-3 p-5 md:p-6 ${
+      className={`surface flex flex-col gap-2 p-3 sm:gap-3 sm:p-5 md:p-6 ${
         accent ? "lit-edge relative overflow-hidden" : ""
       }`}
     >
       <div
         className={`font-display font-medium leading-none ${
           isLongMetric
-            ? "text-[1.85rem] tracking-[-0.04em] md:text-[2.4rem]"
-            : "text-[2.25rem] tracking-tight md:text-[3rem]"
+            ? "text-[1.1rem] tracking-[-0.04em] sm:text-[1.85rem] md:text-[2.4rem]"
+            : "text-[1.4rem] tracking-tight sm:text-[2.25rem] md:text-[3rem]"
         } ${
           accent ? "text-[var(--color-accent)]" : "text-[var(--color-text)]"
         }`}
       >
         {metric}
       </div>
-      <div className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-[var(--color-text-subtle)]">
+      <div className="font-mono text-[9.5px] uppercase tracking-[0.16em] text-[var(--color-text-subtle)] sm:text-[10.5px] sm:tracking-[0.18em]">
         {label}
       </div>
     </div>

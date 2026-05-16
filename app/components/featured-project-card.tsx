@@ -26,7 +26,7 @@ export function FeaturedProjectCard({
 }: FeaturedProjectCardProps) {
   return (
     <article
-      className={`group surface lit-edge relative flex h-full flex-col overflow-hidden p-5 transition-all hover:bg-[var(--color-surface-2)] md:p-6 ${className}`}
+      className={`group surface lit-edge relative flex h-full flex-col overflow-hidden p-5 transition-all hover:bg-[var(--color-surface-2)] active:bg-[var(--color-surface-3)] md:p-6 ${className}`}
     >
       {/* Visual region */}
       <ProjectVisual
@@ -37,7 +37,7 @@ export function FeaturedProjectCard({
 
       {/* Identity row */}
       <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <div className="mb-1.5 inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--color-signal)]">
             <span
               aria-hidden
@@ -52,14 +52,16 @@ export function FeaturedProjectCard({
               {project.year}
             </span>
           </div>
-          <h3 className="font-display text-[1.65rem] font-medium leading-tight tracking-tight text-[var(--color-text)] md:text-[1.85rem]">
+          <h3 className="font-display text-[1.5rem] font-medium leading-tight tracking-tight text-[var(--color-text)] sm:text-[1.65rem] md:text-[1.85rem]">
             {project.name}
           </h3>
         </div>
 
-        {/* Headline metric — right-aligned, the eye finds it */}
-        <div className="flex-shrink-0 text-right">
-          <div className="font-display text-3xl font-medium leading-none text-[var(--color-accent)] md:text-[2.25rem]">
+        {/* Headline metric — right-aligned, the eye finds it.
+            Capped width on mobile so the label has somewhere to breathe
+            instead of crashing into the title. */}
+        <div className="max-w-[7.5rem] flex-shrink-0 text-right sm:max-w-none">
+          <div className="font-display text-2xl font-medium leading-none text-[var(--color-accent)] sm:text-3xl md:text-[2.25rem]">
             {project.headline.metric}
           </div>
           <div className="mt-1 font-mono text-[9.5px] uppercase tracking-[0.16em] text-[var(--color-text-subtle)]">

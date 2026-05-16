@@ -116,12 +116,12 @@ export function SiteFooter() {
 
         {/* Bottom row — pure metadata, no slogans */}
         <div className="mt-6 flex flex-col items-start justify-between gap-3 font-mono text-[11px] text-[var(--color-text-subtle)] md:flex-row md:items-center">
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <div className="flex w-full min-w-0 flex-wrap items-center gap-x-3 gap-y-1">
             <span>© {YEAR} vishnuvardhan reddy</span>
-            <span aria-hidden>·</span>
+            <span aria-hidden className="hidden sm:inline">·</span>
             <a
               href={`mailto:${EMAIL}`}
-              className="transition-colors hover:text-[var(--color-accent)]"
+              className="min-w-0 break-all transition-colors hover:text-[var(--color-accent)]"
             >
               {EMAIL}
             </a>

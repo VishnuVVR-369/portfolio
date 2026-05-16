@@ -206,7 +206,8 @@ body::before {
   transition: background-size 250ms ease, color 200ms ease;
 }
 
-.link:hover {
+.link:hover,
+.link:active {
   color: var(--color-accent);
   background-size: 100% 1px;
 }
@@ -382,7 +383,8 @@ select {
   border-radius: 8px;
   padding: 0.7rem 0.85rem;
   font-family: var(--font-body), system-ui, sans-serif;
-  font-size: 0.9375rem;
+  /* 16px floor — anything smaller triggers iOS Safari auto-zoom on focus. */
+  font-size: 1rem;
   width: 100%;
   transition: border-color 150ms ease, background 150ms ease;
 }
@@ -691,4 +693,8 @@ select:focus {
   border-color: var(--color-accent-dim);
   color: var(--color-accent);
   background: var(--color-surface-2);
+}
+
+.cta-ghost:active {
+  transform: translateY(0.5px);
 }

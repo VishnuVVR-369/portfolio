@@ -139,7 +139,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
                     /{item.index}
                   </span>
                   <span
-                    className={`font-display text-3xl font-medium tracking-tight ${
+                    className={`font-display text-[1.75rem] font-medium tracking-tight sm:text-3xl ${
                       active
                         ? "text-[var(--color-accent)]"
                         : "text-[var(--color-text)]"

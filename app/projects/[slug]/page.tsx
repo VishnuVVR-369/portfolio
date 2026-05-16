@@ -97,7 +97,7 @@ export default async function ProjectPage({
         </Reveal>
 
         <Reveal delay={240}>
-          <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[11.5px] text-[var(--color-text-muted)]">
+          <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[12px] text-[var(--color-text-muted)] sm:gap-x-5">
             <span>
               <span className="text-[var(--color-text-subtle)]">year ·</span>{" "}
               {project.year}
@@ -106,7 +106,7 @@ export default async function ProjectPage({
               <span className="text-[var(--color-text-subtle)]">role ·</span>{" "}
               {project.role.toLowerCase()}
             </span>
-            <span>
+            <span className="min-w-0 truncate">
               <span className="text-[var(--color-text-subtle)]">tags ·</span>{" "}
               {project.tags.map((t) => tagLabels[t]).join(", ")}
             </span>
@@ -218,7 +218,7 @@ export default async function ProjectPage({
         <div className="mt-10 space-y-5">
           {project.decisions.map((d, i) => (
             <Reveal key={i} delay={i * 80}>
-              <div className="surface grid gap-6 p-6 md:grid-cols-[3rem_1fr] md:gap-8 md:p-8">
+              <div className="surface grid gap-5 p-5 sm:p-6 md:grid-cols-[3rem_1fr] md:gap-8 md:p-8">
                 <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--color-accent)]">
                   d/{String(i + 1).padStart(2, "0")}
                 </div>
@@ -258,7 +258,7 @@ export default async function ProjectPage({
             {project.tradeoffs.map((t, i) => (
               <li
                 key={i}
-                className="grid grid-cols-[2.5rem_1fr] gap-4 border-l-2 border-[var(--color-accent-dim)] py-1 pl-5"
+                className="grid grid-cols-[2.25rem_1fr] gap-3 border-l-2 border-[var(--color-accent-dim)] py-1 pl-4 sm:grid-cols-[2.5rem_1fr] sm:gap-4 sm:pl-5"
               >
                 <span className="font-mono text-[11px] text-[var(--color-text-subtle)]">
                   t/{String(i + 1).padStart(2, "0")}
@@ -283,18 +283,18 @@ export default async function ProjectPage({
           </h2>
         </Reveal>
         <Reveal delay={80}>
-          <div className="mt-10 grid gap-3 sm:grid-cols-3">
+          <div className="mt-10 grid grid-cols-3 gap-2 sm:gap-3">
             {project.impact.map((m, i) => (
               <div
                 key={i}
-                className={`surface flex flex-col gap-3 p-6 text-center md:p-8 ${
+                className={`surface flex flex-col gap-2 p-3 text-center sm:gap-3 sm:p-6 md:p-8 ${
                   i === 0 ? "lit-edge relative overflow-hidden" : ""
                 }`}
               >
-                <div className="font-display text-[2.5rem] font-medium leading-none tracking-tight text-[var(--color-accent)] md:text-[3.25rem]">
+                <div className="font-display text-[1.4rem] font-medium leading-none tracking-tight text-[var(--color-accent)] sm:text-[2.5rem] md:text-[3.25rem]">
                   {m.metric}
                 </div>
-                <div className="font-mono text-[10.5px] uppercase tracking-[0.2em] text-[var(--color-text-subtle)]">
+                <div className="font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--color-text-subtle)] sm:text-[10.5px] sm:tracking-[0.2em]">
                   {m.label}
                 </div>
               </div>
@@ -338,7 +338,7 @@ export default async function ProjectPage({
           {prev ? (
             <Link
               href={`/projects/${prev.slug}`}
-              className="surface group p-6 transition-colors hover:bg-[var(--color-surface-2)]"
+              className="surface group p-5 transition-colors hover:bg-[var(--color-surface-2)] active:bg-[var(--color-surface-3)] sm:p-6"
             >
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-subtle)]">
                 ← previous
@@ -353,7 +353,7 @@ export default async function ProjectPage({
           {next ? (
             <Link
               href={`/projects/${next.slug}`}
-              className="surface group p-6 text-right transition-colors hover:bg-[var(--color-surface-2)]"
+              className="surface group p-5 transition-colors hover:bg-[var(--color-surface-2)] active:bg-[var(--color-surface-3)] sm:p-6 md:text-right"
             >
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-subtle)]">
                 next →
@@ -365,7 +365,7 @@ export default async function ProjectPage({
           ) : (
             <Link
               href="/projects"
-              className="surface group p-6 text-right transition-colors hover:bg-[var(--color-surface-2)]"
+              className="surface group p-5 transition-colors hover:bg-[var(--color-surface-2)] active:bg-[var(--color-surface-3)] sm:p-6 md:text-right"
             >
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-subtle)]">
                 next →

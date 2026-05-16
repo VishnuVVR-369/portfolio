@@ -39,7 +39,7 @@ export function ContactForm() {
       onSubmit={onSubmit}
       className="surface space-y-7 p-6 md:p-8"
     >
-      <header className="flex items-baseline justify-between border-b border-[var(--color-border)] pb-5">
+      <header className="flex flex-col items-start gap-1 border-b border-[var(--color-border)] pb-5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
         <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-accent)]">
           new message
         </p>

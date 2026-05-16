@@ -43,7 +43,7 @@ export function ProjectsIndex({ projects }: { projects: Project[] }) {
           </p>
         </Reveal>
         <Reveal delay={60}>
-          <h1 className="mt-3 font-display text-[3rem] font-medium leading-[0.98] tracking-[-0.03em] text-[var(--color-text)] sm:text-[4rem] md:text-[5rem]">
+          <h1 className="mt-3 font-display text-[2.5rem] font-medium leading-[0.98] tracking-[-0.03em] text-[var(--color-text)] sm:text-[4rem] md:text-[5rem]">
             selected work
             <span className="text-[var(--color-accent)]">.</span>
           </h1>
@@ -60,8 +60,8 @@ export function ProjectsIndex({ projects }: { projects: Project[] }) {
       {/* Filter bar */}
       <section className="mx-auto max-w-[76rem] px-5 md:px-6">
         <Reveal delay={180}>
-          <div className="flex flex-wrap items-center gap-2 border-y border-[var(--color-border)] py-4">
-            <span className="mr-1 font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--color-text-subtle)]">
+          <div className="flex flex-wrap items-center gap-2.5 border-y border-[var(--color-border)] py-4">
+            <span className="mr-1 font-mono text-[10.5px] uppercase tracking-[0.2em] text-[var(--color-text-subtle)]">
               filter ·
             </span>
             {FILTERS.map((f) => {
@@ -75,7 +75,7 @@ export function ProjectsIndex({ projects }: { projects: Project[] }) {
                 <button
                   key={f.id}
                   onClick={() => setFilter(f.id)}
-                  className={`group inline-flex min-h-[34px] items-center gap-1.5 rounded-md border px-3 py-1.5 font-mono text-[12px] transition-colors ${
+                  className={`group inline-flex min-h-[40px] items-center gap-1.5 rounded-md border px-3.5 py-2 font-mono text-[12px] transition-colors active:translate-y-px ${
                     active
                       ? "border-[var(--color-accent-dim)] bg-[var(--color-accent-glow)] text-[var(--color-accent)]"
                       : "border-[var(--color-border-strong)] bg-[var(--color-surface)] text-[var(--color-text-muted)] hover:border-[var(--color-text-subtle)] hover:text-[var(--color-text)]"
