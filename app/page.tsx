@@ -29,6 +29,7 @@ import { ResumeButton } from "./components/resume-button";
 import { HeroProofCard } from "./components/hero-proof-card";
 import { FeaturedProjectCard } from "./components/featured-project-card";
 import { CopyButton } from "./components/copy-button";
+import { LeetCodeIcon } from "./components/social-icons";
 
 export const metadata: Metadata = routeMetadata({
   title: `${NAME} — ${ROLE_NOW}`,
@@ -398,9 +399,9 @@ export default function Home() {
                   <div className="flex items-center gap-3">
                     <span
                       aria-hidden
-                      className="flex h-9 w-9 items-center justify-center rounded-md border border-[var(--color-accent-dim)] bg-[var(--color-canvas-deep)] font-mono text-[11px] font-semibold tracking-wider text-[var(--color-accent)]"
+                      className="flex h-9 w-9 items-center justify-center rounded-md border border-[var(--color-accent-dim)] bg-[var(--color-canvas-deep)] text-[var(--color-accent)] transition-colors group-hover:border-[var(--color-accent)]"
                     >
-                      LC
+                      <LeetCodeIcon size={21} />
                     </span>
                     <div>
                       <div className="font-display text-[15px] font-medium text-[var(--color-text)]">
