@@ -18,6 +18,7 @@ import {
   LinkedInIcon,
   MailIcon,
 } from "./social-icons";
+import { useNow } from "./use-now";
 
 const logoMaskStyle = {
   WebkitMaskImage: "url(/logo.svg)",
@@ -43,7 +44,7 @@ interface MobileMenuProps {
 
 export function MobileMenu({ open, onClose }: MobileMenuProps) {
   const pathname = usePathname();
-  const [time, setTime] = useState<string>("");
+  const time = useNow();
   const [emailCopied, setEmailCopied] = useState(false);
 
   useEffect(() => {
@@ -62,23 +63,6 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
     return () => {
       document.body.style.overflow = prev;
     };
-  }, [open]);
-
-  useEffect(() => {
-    if (!open) return;
-    const tick = () => {
-      setTime(
-        new Intl.DateTimeFormat("en-GB", {
-          timeZone: "Asia/Kolkata",
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false,
-        }).format(new Date()) + " ist"
-      );
-    };
-    tick();
-    const id = window.setInterval(tick, 30_000);
-    return () => window.clearInterval(id);
   }, [open]);
 
   const copyEmail = async () => {

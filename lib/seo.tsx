@@ -14,7 +14,7 @@ export const DEFAULT_DESCRIPTION =
   "Vishnuvardhan Reddy — Software Engineer III at FactSet. Building AI products and data-intensive systems. LeetCode Guardian (top 1%). Two products live: chatwithpdf.pro and VoiceFlow.";
 
 export const OG_IMAGE = {
-  url: "/opengraph-image",
+  url: "/opengraph-image.png",
   width: 1200,
   height: 630,
   alt: "Vishnuvardhan Reddy - Software Engineer",
@@ -70,7 +70,7 @@ export function personJsonLd() {
     jobTitle: PERSON_TITLE,
     url: SITE_URL,
     email: `mailto:${EMAIL}`,
-    image: absoluteUrl("/image.png"),
+    image: absoluteUrl("/portrait.webp"),
     address: {
       "@type": "PostalAddress",
       addressLocality: "Hyderabad",

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import portrait from "@/public/portrait.webp";
 import { routeMetadata } from "@/lib/seo";
 import {
   COMPANY,
@@ -84,12 +85,12 @@ export default function AboutPage() {
                   aria-label="Portrait"
                 >
                   <Image
-                    src="/image.png"
+                    src={portrait}
                     alt={`${NAME} portrait`}
-                    fill
                     sizes="(max-width: 640px) 10rem, (max-width: 768px) 12rem, 16rem"
-                    loading="eager"
-                    className="object-cover"
+                    priority
+                    placeholder="blur"
+                    className="h-full w-full object-cover"
                   />
                   {/* Bottom corner badge — instrument-bureau detail */}
                   <span className="absolute bottom-2 left-2 font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--color-text-subtle)] mix-blend-difference">
