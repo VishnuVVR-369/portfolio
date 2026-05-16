@@ -342,6 +342,12 @@ html[data-engineer="on"] body::after {
     opacity: 1 !important;
     transform: none !important;
   }
+  .sweep::after {
+    animation: none !important;
+  }
+  .sweep {
+    will-change: auto !important;
+  }
 }
 
 /* ─── Scrollbar — narrow, recessed ────────────────────────────── */
