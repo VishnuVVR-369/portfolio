@@ -20,18 +20,21 @@ import {
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
@@ -61,8 +64,8 @@ export const metadata: Metadata = {
   creator: PERSON_NAME,
   publisher: PERSON_NAME,
   category: "portfolio",
-  // Icons are resolved via Next 16 file-convention from app/icon.tsx and
-  // app/apple-icon.tsx — no manual overrides needed.
+  // Icons are resolved via Next 16 file-convention from app/icon.svg and
+  // app/apple-icon.png; no manual overrides needed.
   openGraph: {
     type: "website",
     url: SITE_URL,
