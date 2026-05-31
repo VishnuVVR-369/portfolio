@@ -3,7 +3,6 @@ import Link from "next/link";
 import { featuredProjects } from "@/lib/projects";
 import {
   COMPANY,
-  HERO_PROOF,
   HERO_SUBPROOF,
   LEETCODE_PROBLEMS,
   LEETCODE_RATING,

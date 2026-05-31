@@ -5,6 +5,7 @@ import "./globals.css";
 import { SiteHeader } from "./components/site-header";
 import { SiteFooter } from "./components/site-footer";
 import { CommandPalette } from "./components/command-palette";
+import { FloatingChat } from "./components/floating-chat";
 import { Analytics } from "@vercel/analytics/next";
 import {
   DEFAULT_DESCRIPTION,
@@ -136,6 +137,7 @@ export default function RootLayout({
         </ViewTransition>
         <SiteFooter />
         <CommandPalette />
+        <FloatingChat />
         <Analytics />
       </body>
     </html>

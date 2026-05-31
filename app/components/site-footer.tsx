@@ -14,7 +14,6 @@ import {
   MailIcon,
 } from "./social-icons";
 
-const LAST_EDITED = "2026-05-11";
 const YEAR = 2026;
 
 // Five-link social cluster. Icon + label, monochrome, hover → accent.

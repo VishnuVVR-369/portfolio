@@ -19,7 +19,6 @@ export function HeaderActions() {
   // path, so the menu derives closed without a route-listening effect.
   const [openedAt, setOpenedAt] = useState<string | null>(null);
   const mobileMenuOpen = openedAt !== null && openedAt === pathname;
-  const openMenu = () => setOpenedAt(pathname);
   const closeMenu = () => setOpenedAt(null);
 
   const openPalette = () => {

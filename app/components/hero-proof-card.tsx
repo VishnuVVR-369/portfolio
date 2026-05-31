@@ -89,7 +89,7 @@ export function HeroProofCard() {
 
       {/* Foot strip — version marker */}
       <div className="-mx-4 -mb-4 mt-5 flex items-center justify-between border-t border-[var(--color-border)] bg-[var(--color-canvas-deep)] px-4 py-2 font-mono text-[9.5px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)] md:-mx-5 md:-mb-5 md:px-5">
-        <span>v2.0 · 2026</span>
+        <span>2026</span>
         <span className="text-[var(--color-accent-dim)]">hyderabad / ist</span>
       </div>
     </aside>
