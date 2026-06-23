@@ -638,7 +638,7 @@ export function FloatingChatPanel({ onClose, open }: PanelProps) {
               rows={1}
               maxLength={MAX_INPUT_LEN + 50}
               spellCheck
-              className="!min-h-[2rem] !max-h-[7rem] !flex-1 !resize-none !border-0 !bg-transparent !px-1.5 !py-1 !text-[14px] !leading-relaxed !outline-none focus:!outline-none"
+              className="!min-h-[2rem] !max-h-[7rem] !flex-1 !resize-none !border-0 !bg-transparent !px-1.5 !py-1 !text-[16px] sm:!text-[14px] !leading-relaxed !outline-none focus:!outline-none"
               style={{ boxShadow: "none" }}
               disabled={busy}
             />

@@ -14,6 +14,11 @@ type Action = {
   id: string;
   label: string;
   hint?: string;
+  // True when `hint` is a physical-keyboard affordance (a chord like "g h" or
+  // "⌘ ."). These are hidden on touch — the palette doubles as the mobile nav,
+  // where a keyboard hint is just noise. Informational hints (email address,
+  // leetcode rating, "↗") leave this unset so they show everywhere.
+  kbd?: boolean;
   group: "navigate" | "actions" | "external";
   run: () => void;
   keywords?: string;
@@ -56,6 +61,7 @@ export function CommandPaletteDialog({
         id: "nav-home",
         label: "go to home",
         hint: "g h",
+        kbd: true,
         group: "navigate",
         keywords: "/ index landing",
         run: () => router.push("/"),
@@ -64,6 +70,7 @@ export function CommandPaletteDialog({
         id: "nav-work",
         label: "go to work",
         hint: "g p",
+        kbd: true,
         group: "navigate",
         keywords: "/projects work case studies projects",
         run: () => router.push("/projects"),
@@ -72,6 +79,7 @@ export function CommandPaletteDialog({
         id: "nav-about",
         label: "go to about",
         hint: "g a",
+        kbd: true,
         group: "navigate",
         keywords: "/about bio manifesto",
         run: () => router.push("/about"),
@@ -80,6 +88,7 @@ export function CommandPaletteDialog({
         id: "nav-contact",
         label: "go to contact",
         hint: "g c",
+        kbd: true,
         group: "navigate",
         keywords: "/contact reach hire",
         run: () => router.push("/contact"),
@@ -96,6 +105,7 @@ export function CommandPaletteDialog({
         id: "act-engineer",
         label: "toggle engineer mode",
         hint: "⌘ .",
+        kbd: true,
         group: "actions",
         keywords: "grid overlay graph paper debug",
         run: toggleEngineerMode,
@@ -183,7 +193,7 @@ export function CommandPaletteDialog({
       role="dialog"
       aria-modal="true"
       aria-label="Command palette"
-      className="fixed inset-0 z-50 flex items-start justify-center px-4 pt-[18vh]"
+      className="fixed inset-0 z-50 flex items-start justify-center px-4 pt-[8vh] md:pt-[18vh]"
     >
       <div
         className="absolute inset-0 bg-[color:rgba(8,8,9,0.7)] backdrop-blur-sm"
@@ -204,19 +214,21 @@ export function CommandPaletteDialog({
             }}
             onKeyDown={onKeyDown}
             placeholder="type a command, route, or 'email'…"
-            className="!w-full !border-0 !bg-transparent !p-0 !py-3.5 font-mono !text-[13px] !text-[var(--color-text)] placeholder:!text-[var(--color-text-subtle)] focus:!outline-none"
+            className="!w-full !border-0 !bg-transparent !p-0 !py-3.5 font-mono !text-[16px] md:!text-[13px] !text-[var(--color-text)] placeholder:!text-[var(--color-text-subtle)] focus:!outline-none"
             spellCheck={false}
             autoComplete="off"
           />
           <span
-            className="kbd hidden sm:inline-flex"
+            className="kbd hidden md:inline-flex"
             style={{ minWidth: "auto" }}
           >
             esc
           </span>
         </div>
 
-        <div className="max-h-[55vh] overflow-y-auto py-2">
+        {/* Mobile gets a taller cap so all items fit without an internal
+            scrollbar; desktop keeps the tighter 55vh. */}
+        <div className="max-h-[85vh] overflow-y-auto py-2 md:max-h-[55vh]">
           {flat.length === 0 ? (
             <div className="px-4 py-6 font-mono text-xs text-[var(--color-text-subtle)]">
               no matches. try `home`, `projects`, `email`.
@@ -239,7 +251,7 @@ export function CommandPaletteDialog({
                         onClose();
                       }}
                       onMouseEnter={() => setActiveIdx(idxInFlat)}
-                      className={`flex w-full items-center justify-between gap-4 rounded-md px-3 py-2 text-left font-mono text-[13px] transition-colors ${
+                      className={`flex w-full items-center justify-between gap-4 rounded-md px-3 py-2.5 text-left font-mono text-[13px] transition-colors md:py-2 ${
                         isActive
                           ? "bg-[var(--color-surface-inset)] text-[var(--color-accent)]"
                           : "text-[var(--color-text)] hover:bg-[var(--color-surface-inset)]"
@@ -249,6 +261,8 @@ export function CommandPaletteDialog({
                       {action.hint && (
                         <span
                           className={`truncate font-mono text-[11px] ${
+                            action.kbd ? "hidden md:inline" : ""
+                          } ${
                             isActive
                               ? "text-[var(--color-accent-dim)]"
                               : "text-[var(--color-text-subtle)]"
@@ -265,7 +279,7 @@ export function CommandPaletteDialog({
           )}
         </div>
 
-        <div className="flex items-center justify-between border-t border-[var(--color-border)] px-4 py-2 font-mono text-[10px] text-[var(--color-text-subtle)]">
+        <div className="hidden items-center justify-between border-t border-[var(--color-border)] px-4 py-2 font-mono text-[10px] text-[var(--color-text-subtle)] md:flex">
           <div className="flex items-center gap-2">
             <span className="kbd" style={{ minWidth: "auto" }}>
               ↑
@@ -280,7 +294,6 @@ export function CommandPaletteDialog({
             </span>
             <span>select</span>
           </div>
-          <span>v1.0.0</span>
         </div>
       </div>
     </div>
