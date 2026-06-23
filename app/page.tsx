@@ -210,9 +210,15 @@ export default function Home() {
                   />
                   <Link
                     href="/about"
-                    className="hidden font-mono text-[12px] text-[var(--color-text-muted)] underline-offset-4 transition-colors hover:text-[var(--color-accent)] hover:underline sm:inline"
+                    className="group hidden font-mono text-[12px] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-accent)] sm:inline"
                   >
-                    more about me →
+                    more about me{" "}
+                    <span
+                      aria-hidden
+                      className="inline-block text-[var(--color-accent-dim)] transition-[color,transform] group-hover:translate-x-0.5 group-hover:text-[var(--color-accent)]"
+                    >
+                      →
+                    </span>
                   </Link>
                   <span className="ml-auto hidden font-mono text-[11px] text-[var(--color-text-subtle)] sm:inline">
                     or press{" "}
@@ -254,9 +260,15 @@ export default function Home() {
               </div>
               <Link
                 href="/projects"
-                className="hidden font-mono text-[12px] text-[var(--color-text-muted)] underline-offset-4 transition-colors hover:text-[var(--color-accent)] hover:underline md:inline"
+                className="group hidden font-mono text-[12px] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-accent)] md:inline"
               >
-                full case studies →
+                full case studies{" "}
+                <span
+                  aria-hidden
+                  className="inline-block text-[var(--color-accent-dim)] transition-[color,transform] group-hover:translate-x-0.5 group-hover:text-[var(--color-accent)]"
+                >
+                  →
+                </span>
               </Link>
             </div>
           </Reveal>
@@ -276,9 +288,15 @@ export default function Home() {
             <div className="mt-8 text-center">
               <Link
                 href="/projects"
-                className="inline-flex items-center gap-2 font-mono text-[12px] text-[var(--color-text-muted)] underline-offset-4 hover:text-[var(--color-accent)] hover:underline"
+                className="group inline-flex items-center gap-2 font-mono text-[12px] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-accent)]"
               >
-                full case studies →
+                full case studies{" "}
+                <span
+                  aria-hidden
+                  className="inline-block text-[var(--color-accent-dim)] transition-[color,transform] group-hover:translate-x-0.5 group-hover:text-[var(--color-accent)]"
+                >
+                  →
+                </span>
               </Link>
             </div>
           </Reveal>
@@ -343,10 +361,16 @@ export default function Home() {
                     href={LEETCODE_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-2 font-mono text-[12px] text-[var(--color-text-muted)] underline-offset-4 transition-colors hover:text-[var(--color-accent)] hover:underline"
+                    className="group inline-flex items-center gap-2 font-mono text-[12px] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-accent)]"
                   >
                     leetcode {LEETCODE_TIER.toLowerCase()} ·{" "}
-                    <span className="tabular">{LEETCODE_RATING}</span> ↗
+                    <span className="tabular">{LEETCODE_RATING}</span>{" "}
+                    <span
+                      aria-hidden
+                      className="inline-block text-[var(--color-accent-dim)] transition-[color,transform] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[var(--color-accent)]"
+                    >
+                      ↗
+                    </span>
                   </a>
                 </div>
               </Reveal>

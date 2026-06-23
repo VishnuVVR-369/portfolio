@@ -194,7 +194,11 @@ body::before {
 
 .link {
   color: var(--color-text);
-  text-decoration: none;
+  /* Resting cue: faint dotted amber-dim underline marks this as a link.
+     On hover the solid amber underline (below) draws in over it. */
+  text-decoration: underline dotted var(--color-accent-dim);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
   background-image: linear-gradient(
     to right,
     var(--color-accent),
@@ -203,12 +207,14 @@ body::before {
   background-size: 0% 1px;
   background-repeat: no-repeat;
   background-position: 0 100%;
-  transition: background-size 250ms ease, color 200ms ease;
+  transition: background-size 250ms ease, color 200ms ease,
+    text-decoration-color 200ms ease;
 }
 
 .link:hover,
 .link:active {
   color: var(--color-accent);
+  text-decoration-color: transparent;
   background-size: 100% 1px;
 }
 
