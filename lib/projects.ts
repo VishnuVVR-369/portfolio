@@ -55,11 +55,12 @@ export const projects: Project[] = [
     tech: [
       "Next.js",
       "Convex",
-      "Google Document AI",
+      "Mistral OCR 4",
+      "OpenAI",
       "TypeScript",
       "React",
       "Tailwind",
-      "Gemini Embedding 2",
+      "Clerk",
     ],
     pipeline: [
       "upload",
@@ -73,7 +74,7 @@ export const projects: Project[] = [
     problem:
       "Most PDF interactions are limited to keyword search — useless for scanned documents and unable to understand context. Engineers, researchers, and analysts waste hours skimming long documents to find a single passage.",
     approach:
-      "An AI-powered document Q&A system. Upload any PDF — scanned or digital — and ask questions in natural language. The system extracts text via OCR, chunks and embeds it, then retrieves relevant passages to generate accurate, contextual answers.",
+      "An AI-powered document Q&A system. Upload any PDF — scanned or digital — and ask questions in natural language. An async pipeline runs Mistral OCR to extract page text, chunks and embeds it, then answers with hybrid retrieval (vector + full-text). Every answer streams back with citations that link to the source page and highlight the referenced text in an inline PDF viewer.",
     decisions: [
       {
         chose: "Convex (real-time DB + functions)",
@@ -82,22 +83,22 @@ export const projects: Project[] = [
           "Convex gives real-time reactivity for free. Chat messages appear instantly without polling, schema changes deploy without migrations. Vendor lock-in is the cost; shipping the full backend in days instead of weeks is the gain.",
       },
       {
-        chose: "Google Document AI",
-        rejected: "Tesseract OCR",
+        chose: "Mistral OCR 4",
+        rejected: "Google Document AI",
         reason:
-          "Tesseract chokes on multi-column layouts, tables, and handwriting. Document AI handles all three at 95%+ accuracy. ~$0.01/page is the price; making 40% of real-world PDFs actually queryable is the value.",
+          "Shipped first on Document AI, then migrated. Mistral OCR returns clean, markdown-structured text — tables, headings, and reading order preserved — from a single API call, instead of Document AI's processor setup and page-by-page batching. Comparable accuracy on scanned and multi-column PDFs, a far simpler integration, and lower cost. A 100-page-per-document cap is the tradeoff.",
       },
       {
-        chose: "Embeddings stored in Convex",
+        chose: "Hybrid retrieval inside Convex",
         rejected: "Pinecone or Weaviate",
         reason:
-          "Fewer moving parts. Single data layer. Simpler deployment. Works at current scale (150+ docs); the migration to pgvector or a dedicated index becomes worth it around 10K docs, not before.",
+          "OpenAI embeddings (text-embedding-3-small) live in Convex's native vector index alongside a full-text index — one data layer, no extra service to run. Each query fans out to both, then a rerank pass merges the results and pulls neighboring chunks for context. Works at current scale; a dedicated index becomes worth it around 10K docs, not before.",
       },
     ],
     tradeoffs: [
-      "Chunk size: 512 tokens with 50-token overlap. 256 was too fragmented and lost surrounding context. 1024 dropped retrieval precision. 512 was the only size that preserved both.",
-      "OCR adds 2–3s per page. The cost of making 40% of uploaded PDFs queryable is paid once at upload, not every query.",
-      "Convex's vector search adds ~100ms over a dedicated index. Acceptable for a conversational interface; users expect a brief pause between question and answer.",
+      "Chunks target 450 words with a 75-word overlap, tracking the page span each chunk covers so citations can point back to an exact page. Smaller chunks fragmented context; larger ones dropped retrieval precision. The overlap is what keeps a passage that straddles two chunks retrievable.",
+      "OCR runs asynchronously at upload, not on every query, and retries with backoff (15s, then 60s) on transient failures. The cost of making scanned PDFs queryable is paid once; the 100-page-per-document cap keeps a single job bounded.",
+      "Hybrid retrieval adds a rerank and neighbor-expansion pass over pure vector search, plus a routing step that decides between chunk lookup and document summaries. A few hundred extra milliseconds for a conversational interface, in exchange for answers that stay grounded when the evidence is thin.",
     ],
     impact: [
       { metric: "150+", label: "documents indexed" },
