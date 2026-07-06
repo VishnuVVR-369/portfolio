@@ -8,6 +8,8 @@ import {
   LEETCODE_URL,
   PRODUCT_CHATWITHPDF_URL,
   PRODUCT_CHATWITHPDF_USERS,
+  PRODUCT_VOICEFLOW_LABEL,
+  PRODUCT_VOICEFLOW_URL,
   ROLE_NOW,
   TENURE_LINE,
 } from "@/lib/identity";
@@ -64,7 +66,14 @@ export function HeroProofCard() {
 
         <dt className="text-[var(--color-text-subtle)]">·</dt>
         <dd className="text-[var(--color-text)]">
-          voiceflow{" "}
+          <a
+            href={PRODUCT_VOICEFLOW_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="link"
+          >
+            {PRODUCT_VOICEFLOW_LABEL}
+          </a>{" "}
           <span className="text-[var(--color-text-subtle)]">· 3 platforms</span>
         </dd>
 

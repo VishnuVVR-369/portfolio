@@ -117,7 +117,10 @@ export function FeaturedProjectCard({
             {project.links.live && (
               <ExternalChip
                 href={project.links.live}
-                label={project.links.live.replace(/^https?:\/\//, "")}
+                label={
+                  project.links.liveLabel ??
+                  project.links.live.replace(/^https?:\/\//, "")
+                }
                 kind="live"
               />
             )}

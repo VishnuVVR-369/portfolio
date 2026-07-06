@@ -126,7 +126,9 @@ export default async function ProjectPage({
         </Reveal>
 
         {/* External links bar */}
-        {(project.links.live || project.links.github) && (
+        {(project.links.live ||
+          project.links.github ||
+          project.links.download) && (
           <Reveal delay={300}>
             <div className="mt-7 flex flex-wrap items-center gap-2">
               {project.links.live && (
@@ -136,7 +138,10 @@ export default async function ProjectPage({
                   rel="noreferrer"
                   className="cta-accent min-h-[40px] px-4"
                 >
-                  <span>{project.links.live.replace(/^https?:\/\//, "")}</span>
+                  <span>
+                    {project.links.liveLabel ??
+                      project.links.live.replace(/^https?:\/\//, "")}
+                  </span>
                   <span aria-hidden>↗</span>
                 </a>
               )}
@@ -148,6 +153,17 @@ export default async function ProjectPage({
                   className="cta-ghost min-h-[40px] px-4"
                 >
                   <span>github</span>
+                  <span aria-hidden>↗</span>
+                </a>
+              )}
+              {project.links.download && (
+                <a
+                  href={project.links.download}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="cta-ghost min-h-[40px] px-4"
+                >
+                  <span>download</span>
                   <span aria-hidden>↗</span>
                 </a>
               )}

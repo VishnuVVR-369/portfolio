@@ -1,6 +1,12 @@
 // Single source of truth for projects.
 // Add new projects here — pages and indexes pick them up automatically.
 
+import {
+  PRODUCT_VOICEFLOW_LABEL,
+  PRODUCT_VOICEFLOW_URL,
+  VOICEFLOW_DOWNLOAD_URL,
+} from "./identity";
+
 export type ProjectTag = "ai" | "systems" | "full-stack" | "desktop";
 
 export type ProjectStatus = "live" | "in-progress" | "archived";
@@ -18,8 +24,10 @@ export interface ImpactMetric {
 
 export interface ProjectLinks {
   live?: string;
+  liveLabel?: string;
   github?: string;
   demo?: string;
+  download?: string;
 }
 
 export interface Project {
@@ -168,9 +176,10 @@ export const projects: Project[] = [
     headline: { metric: "3–4×", label: "typing-speed improvement" },
     featured: true,
     links: {
-      // TODO(vishnu): paste live + GitHub links when ready.
-      live: undefined,
+      live: PRODUCT_VOICEFLOW_URL,
+      liveLabel: PRODUCT_VOICEFLOW_LABEL,
       github: "https://github.com/VishnuVVR-369/voice-flow",
+      download: VOICEFLOW_DOWNLOAD_URL,
     },
   },
 ];

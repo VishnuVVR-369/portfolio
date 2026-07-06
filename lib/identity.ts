@@ -29,6 +29,10 @@ export const LEETCODE_PROBLEMS = "1,200+";
 // Products live — Tier S signal
 export const PRODUCT_CHATWITHPDF_URL = "https://chatwithpdf.pro";
 export const PRODUCT_CHATWITHPDF_USERS = "100+ users";
+export const PRODUCT_VOICEFLOW_URL = "https://voice-flow-max.vercel.app/";
+export const PRODUCT_VOICEFLOW_LABEL = "voiceflow.app";
+export const VOICEFLOW_DOWNLOAD_URL =
+  "https://github.com/VishnuVVR-369/voice-flow/releases/tag/voiceflow@0.1.0";
 
 // Status pill
 export const AVAILABILITY = "available for inbound";

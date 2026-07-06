@@ -11,6 +11,8 @@ import {
   LEETCODE_URL,
   LOCATION,
   NAME,
+  PRODUCT_VOICEFLOW_LABEL,
+  PRODUCT_VOICEFLOW_URL,
   ROLE_NOW,
   ROLE_TAGLINE,
 } from "@/lib/identity";
@@ -178,9 +180,14 @@ export default function Home() {
                       </span>
                     </p>
                     <p>
-                      <Link href="/projects/voiceflow" className="link">
-                        voiceflow
-                      </Link>{" "}
+                      <a
+                        href={PRODUCT_VOICEFLOW_URL}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="link"
+                      >
+                        {PRODUCT_VOICEFLOW_LABEL}
+                      </a>{" "}
                       <span className="text-[var(--color-text-subtle)]">·</span>{" "}
                       <span className="text-[var(--color-text)]">
                         3 platforms
@@ -341,9 +348,14 @@ export default function Home() {
                       Chat with PDF
                     </a>
                     ,{" "}
-                    <Link href="/projects/voiceflow" className="link">
+                    <a
+                      href={PRODUCT_VOICEFLOW_URL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="link"
+                    >
                       VoiceFlow
-                    </Link>
+                    </a>
                     ) are where I test the version of myself I want at work.
                   </p>
                 </div>
