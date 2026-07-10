@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ModKey } from "./components/mod-key";
 
 export const metadata = {
   title: "404 — route not deployed",
@@ -23,7 +24,9 @@ export default function NotFound() {
           <span>but / is, and so is /projects.</span>
         </div>
         <div className="diff diff-meta">
-          <span>or press ⌘k and search anything.</span>
+          <span>
+            or press <ModKey /> k and search anything.
+          </span>
         </div>
       </div>
 

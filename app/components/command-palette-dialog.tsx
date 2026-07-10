@@ -9,6 +9,7 @@ import {
   LINKEDIN_URL,
   RESUME_URL,
 } from "@/lib/identity";
+import { useModKey } from "./mod-key";
 
 type Action = {
   id: string;
@@ -32,6 +33,7 @@ export function CommandPaletteDialog({
   onClose,
 }: CommandPaletteDialogProps) {
   const router = useRouter();
+  const mod = useModKey();
   const [query, setQuery] = useState("");
   const [activeIdx, setActiveIdx] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -104,7 +106,7 @@ export function CommandPaletteDialog({
       {
         id: "act-engineer",
         label: "toggle engineer mode",
-        hint: "⌘ .",
+        hint: `${mod} .`,
         kbd: true,
         group: "actions",
         keywords: "grid overlay graph paper debug",
@@ -143,7 +145,7 @@ export function CommandPaletteDialog({
         run: () => window.open(RESUME_URL, "_blank", "noreferrer"),
       },
     ],
-    [router, copyEmail, toggleEngineerMode]
+    [router, copyEmail, toggleEngineerMode, mod]
   );
 
   const filtered = useMemo(() => {

@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { useModKey } from "./mod-key";
 import { useNow } from "./use-now";
 
 const MobileMenu = dynamic(
@@ -13,6 +14,7 @@ const MobileMenu = dynamic(
 export function HeaderActions() {
   const pathname = usePathname();
   const now = useNow();
+  const mod = useModKey();
 
   // Menu open state is encoded as the pathname-at-which-menu-was-opened.
   // When the route changes, the openedAt no longer matches the current
@@ -33,9 +35,9 @@ export function HeaderActions() {
         className="hidden h-8 items-center gap-1 rounded-md border border-[var(--color-border-strong)] bg-[var(--color-surface)] px-2 text-[var(--color-text-muted)] transition-colors hover:border-[var(--color-accent-dim)] hover:text-[var(--color-accent)] md:inline-flex"
         style={{ boxShadow: "inset 0 1px 0 0 rgba(255,255,255,0.045)" }}
         aria-label="Open command palette"
-        title="Open command palette (⌘K)"
+        title={`Open command palette (${mod}K)`}
       >
-        <span aria-hidden>⌘</span>
+        <span aria-hidden>{mod}</span>
         <span aria-hidden>k</span>
       </button>
 
@@ -52,7 +54,7 @@ export function HeaderActions() {
         className="flex h-11 w-11 items-center justify-center rounded-md border border-[var(--color-border-strong)] bg-[var(--color-surface)] text-[var(--color-text)] transition-colors active:border-[var(--color-accent-dim)] active:text-[var(--color-accent)] md:hidden"
         style={{ boxShadow: "inset 0 1px 0 0 rgba(255,255,255,0.045)" }}
         aria-label="Open command palette"
-        title="Open command palette (⌘K)"
+        title={`Open command palette (${mod}K)`}
       >
         <svg aria-hidden width="16" height="12" viewBox="0 0 16 12" fill="none">
           <path

@@ -31,6 +31,7 @@ import { HeroProofCard } from "./components/hero-proof-card";
 import { FeaturedProjectCard } from "./components/featured-project-card";
 import { CopyButton } from "./components/copy-button";
 import { LeetCodeIcon } from "./components/social-icons";
+import { ModKey } from "./components/mod-key";
 
 export const metadata: Metadata = routeMetadata({
   title: `${NAME} — ${ROLE_NOW}`,
@@ -230,7 +231,7 @@ export default function Home() {
                   <span className="ml-auto hidden font-mono text-[11px] text-[var(--color-text-subtle)] sm:inline">
                     or press{" "}
                     <span className="kbd" style={{ minWidth: "auto" }}>
-                      ⌘
+                      <ModKey />
                     </span>{" "}
                     <span className="kbd" style={{ minWidth: "auto" }}>
                       k

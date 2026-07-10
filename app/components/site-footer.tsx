@@ -13,6 +13,7 @@ import {
   LinkedInIcon,
   MailIcon,
 } from "./social-icons";
+import { ModKey } from "./mod-key";
 
 const YEAR = 2026;
 
@@ -128,7 +129,7 @@ export function SiteFooter() {
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
             <span className="hidden md:inline">
               <span className="kbd" style={{ minWidth: "auto" }}>
-                ⌘
+                <ModKey />
               </span>{" "}
               <span className="kbd" style={{ minWidth: "auto" }}>
                 .
