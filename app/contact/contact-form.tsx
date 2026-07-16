@@ -2,33 +2,30 @@
 
 import { useState } from "react";
 import { Select } from "../components/select";
+import { ROLE_TYPES } from "@/lib/contact";
 
-type Status = "idle" | "submitting" | "sent" | "error";
-
-const ROLE_TYPES = [
-  { value: "full-time", label: "full-time role" },
-  { value: "contract", label: "contract / consulting" },
-  { value: "advisory", label: "advisory / fractional" },
-  { value: "collab", label: "collaboration / project" },
-  { value: "saying-hi", label: "just saying hi" },
-];
+type Status = "idle" | "submitting" | "sent" | "error" | "rate-limited";
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
     setStatus("submitting");
     try {
-      // TODO(vishnu): wire this up to a real handler — Resend, a route handler,
-      // a serverless function, or a forwarding service like Formspree.
-      // For now: simulate a network round-trip and log to console.
-      const formData = new FormData(e.currentTarget);
-      const payload = Object.fromEntries(formData.entries());
-      console.info("[contact-form/stub]", payload);
-      await new Promise((r) => setTimeout(r, 700));
-      setStatus("sent");
-      e.currentTarget.reset();
+      const payload = Object.fromEntries(new FormData(form).entries());
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        setStatus("sent");
+        form.reset();
+        return;
+      }
+      setStatus(res.status === 429 ? "rate-limited" : "error");
     } catch {
       setStatus("error");
     }
@@ -47,6 +44,19 @@ export function ContactForm() {
           fields without a hint are optional
         </p>
       </header>
+
+      {/* Honeypot — hidden from real users; bots that fill it get dropped. */}
+      <div aria-hidden className="absolute left-[-9999px] top-[-9999px]">
+        <label>
+          leave this empty
+          <input
+            type="text"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </label>
+      </div>
 
       {/* Name + email row */}
       <div className="grid gap-5 md:grid-cols-2">
@@ -113,7 +123,7 @@ export function ContactForm() {
               ? "sending…"
               : status === "sent"
                 ? "sent — thanks"
-                : status === "error"
+                : status === "error" || status === "rate-limited"
                   ? "try again"
                   : "send message"}
           </span>
@@ -125,9 +135,11 @@ export function ContactForm() {
         >
           {status === "sent"
             ? "i'll reply within 48 hours."
-            : status === "error"
-              ? "something went wrong. try the email instead."
-              : "encrypted in transit. no third-party trackers."}
+            : status === "rate-limited"
+              ? "too many sends. wait a bit, or use the email instead."
+              : status === "error"
+                ? "something went wrong. try the email instead."
+                : "encrypted in transit. no third-party trackers."}
         </span>
       </div>
     </form>

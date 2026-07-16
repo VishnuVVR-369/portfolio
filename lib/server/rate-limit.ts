@@ -62,4 +62,49 @@ export async function checkRateLimit(key: string): Promise<LimitResult> {
   return { success: true };
 }
 
+// Contact form gets its own, tighter budget on a separate prefix so it can't
+// be drained by (or drain) the chat limiter:
+//   - burst:  3 submissions / 10 min
+//   - daily: 15 submissions / 24h
+const contactBurst = redis
+  ? new Ratelimit({
+      redis,
+      limiter: Ratelimit.slidingWindow(3, "10 m"),
+      analytics: false,
+      prefix: "vvr:contact:burst",
+    })
+  : null;
+
+const contactDaily = redis
+  ? new Ratelimit({
+      redis,
+      limiter: Ratelimit.slidingWindow(15, "1 d"),
+      analytics: false,
+      prefix: "vvr:contact:daily",
+    })
+  : null;
+
+export async function checkContactRateLimit(key: string): Promise<LimitResult> {
+  if (!contactBurst || !contactDaily) {
+    return { success: true, reason: "configured-off" };
+  }
+  const b = await contactBurst.limit(key);
+  if (!b.success) {
+    return {
+      success: false,
+      reason: "burst",
+      retryAfterSec: Math.max(1, Math.ceil((b.reset - Date.now()) / 1000)),
+    };
+  }
+  const d = await contactDaily.limit(key);
+  if (!d.success) {
+    return {
+      success: false,
+      reason: "daily",
+      retryAfterSec: Math.max(1, Math.ceil((d.reset - Date.now()) / 1000)),
+    };
+  }
+  return { success: true };
+}
+
 export const rateLimitConfigured = haveUpstash;

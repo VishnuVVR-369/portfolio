@@ -10,7 +10,7 @@ export interface SelectOption {
 
 interface SelectProps {
   name: string;
-  options: SelectOption[];
+  options: readonly SelectOption[];
   placeholder: string;
   required?: boolean;
   defaultValue?: string;
