@@ -56,7 +56,7 @@ export function SiteFooter() {
     <footer className="mt-0 border-t border-[var(--color-border)]">
       <div className="container-page py-14">
         {/* Now line — the line that makes the site feel alive.
-            Three rows: building / reading / verifying.  */}
+            Two rows: building / reading.  */}
         <div className="grid gap-10 md:grid-cols-[1fr_auto] md:items-start">
           <div>
             <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
@@ -77,14 +77,6 @@ export function SiteFooter() {
                     reading ·{" "}
                   </span>
                   {NOW.reading}
-                </span>
-              </div>
-              <div className="diff diff-meta">
-                <span className="diff-body">
-                  <span className="text-[var(--color-text-muted)]">
-                    verifying ·{" "}
-                  </span>
-                  {NOW.verifying}
                 </span>
               </div>
             </div>

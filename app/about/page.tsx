@@ -63,12 +63,14 @@ const JOURNEY = [
   },
 ];
 
+// Framed as the problems that pull me in, not a list of company
+// categories — the right team recognizes its own work in these lines.
 const OPEN_TO = [
-  "software engineering at product-based companies",
-  "senior IC roles at AI-first companies",
-  "infra / devtools companies",
-  "early-stage startups (series A–B) building real systems",
-  "remote-first or bay area teams",
+  "systems where retrieval quality is the product",
+  "pipelines where correctness is non-negotiable",
+  "ai features with real users and real failure modes",
+  "products where the data model is the hard part",
+  "teams that argue about tradeoffs out loud",
 ];
 
 export default function AboutPage() {
@@ -345,15 +347,15 @@ export default function AboutPage() {
             <div>
               <Reveal>
                 <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-accent)]">
-                  §05 · open to
+                  §05 · the work
                 </p>
               </Reveal>
               <Reveal delay={60}>
                 <h2 className="mt-3 font-display text-[2rem] font-medium tracking-tight text-[var(--color-text)] md:text-[2.5rem]">
-                  What I&apos;m
+                  Problems that
                   <br />
                   <span className="text-[var(--color-text-muted)]">
-                    looking for.
+                    pull me in.
                   </span>
                 </h2>
               </Reveal>

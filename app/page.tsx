@@ -4,11 +4,6 @@ import { featuredProjects } from "@/lib/projects";
 import {
   COMPANY,
   HERO_SUBPROOF,
-  LEETCODE_PROBLEMS,
-  LEETCODE_RATING,
-  LEETCODE_STREAK,
-  LEETCODE_TIER,
-  LEETCODE_URL,
   LOCATION,
   NAME,
   PRODUCT_VOICEFLOW_LABEL,
@@ -30,7 +25,6 @@ import { ResumeButton } from "./components/resume-button";
 import { HeroProofCard } from "./components/hero-proof-card";
 import { FeaturedProjectCard } from "./components/featured-project-card";
 import { CopyButton } from "./components/copy-button";
-import { LeetCodeIcon } from "./components/social-icons";
 import { ModKey } from "./components/mod-key";
 
 export const metadata: Metadata = routeMetadata({
@@ -367,24 +361,9 @@ export default function Home() {
                     href="/about"
                     className="cta-ghost min-h-[40px] px-4"
                   >
-                    <span>about · stack · leetcode</span>
+                    <span>about · stack · beliefs</span>
                     <span aria-hidden>→</span>
                   </Link>
-                  <a
-                    href={LEETCODE_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="group inline-flex items-center gap-2 font-mono text-[12px] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-accent)]"
-                  >
-                    leetcode {LEETCODE_TIER.toLowerCase()} ·{" "}
-                    <span className="tabular">{LEETCODE_RATING}</span>{" "}
-                    <span
-                      aria-hidden
-                      className="inline-block text-[var(--color-accent-dim)] transition-[color,transform] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[var(--color-accent)]"
-                    >
-                      ↗
-                    </span>
-                  </a>
                 </div>
               </Reveal>
             </div>
@@ -424,43 +403,6 @@ export default function Home() {
                     ))}
                   </ol>
                 </div>
-              </Reveal>
-
-              {/* LeetCode micro-card under the timeline */}
-              <Reveal delay={140}>
-                <a
-                  href={LEETCODE_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group surface mt-4 flex items-center justify-between gap-3 p-4 transition-colors hover:bg-[var(--color-surface-2)] active:bg-[var(--color-surface-3)] md:gap-4 md:p-5"
-                >
-                  <div className="flex min-w-0 items-center gap-3">
-                    <span
-                      aria-hidden
-                      className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md border border-[var(--color-accent-dim)] bg-[var(--color-canvas-deep)] text-[var(--color-accent)] transition-colors group-hover:border-[var(--color-accent)]"
-                    >
-                      <LeetCodeIcon size={21} />
-                    </span>
-                    <div className="min-w-0">
-                      <div className="font-display text-[15px] font-medium text-[var(--color-text)]">
-                        {LEETCODE_TIER}{" "}
-                        <span className="text-[var(--color-accent)] tabular">
-                          {LEETCODE_RATING}
-                        </span>
-                      </div>
-                      <div className="font-mono text-[11px] text-[var(--color-text-subtle)]">
-                        {LEETCODE_STREAK}-day streak · {LEETCODE_PROBLEMS}{" "}
-                        problems
-                      </div>
-                    </div>
-                  </div>
-                  <span
-                    aria-hidden
-                    className="flex-shrink-0 font-mono text-[11px] uppercase tracking-wider text-[var(--color-text-muted)] transition-colors group-hover:text-[var(--color-accent)]"
-                  >
-                    verify ↗
-                  </span>
-                </a>
               </Reveal>
             </div>
           </div>

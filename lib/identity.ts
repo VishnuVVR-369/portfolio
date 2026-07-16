@@ -47,5 +47,4 @@ export const HERO_SUBPROOF =
 export const NOW = {
   building: "RAG eval harness for Chat with PDF v2.",
   reading: "Designing Data-Intensive Applications, again.",
-  verifying: `LeetCode streak · day ${LEETCODE_STREAK}+`,
 };

@@ -1,11 +1,5 @@
-import Link from "next/link";
 import {
   COMPANY,
-  LEETCODE_PROBLEMS,
-  LEETCODE_RATING,
-  LEETCODE_STREAK,
-  LEETCODE_TIER,
-  LEETCODE_URL,
   PRODUCT_CHATWITHPDF_URL,
   PRODUCT_CHATWITHPDF_USERS,
   PRODUCT_VOICEFLOW_LABEL,
@@ -13,10 +7,11 @@ import {
   ROLE_NOW,
   TENURE_LINE,
 } from "@/lib/identity";
+import { heroStack } from "@/lib/stack";
 
 // Hero status panel — the right-aside counterweight to the big type.
 // Five readouts that collectively encode the Tier S signals in 200px:
-//   role / tenure / live · A / live · B / leetcode
+//   role / tenure / live · A / live · B / stack
 //
 // Built like an instrument cluster — labels in mono, values in display,
 // amber accents on the highest-signal cells. Hidden on mobile (the
@@ -77,22 +72,9 @@ export function HeroProofCard() {
           <span className="text-[var(--color-text-subtle)]">· 3 platforms</span>
         </dd>
 
-        <dt className="text-[var(--color-accent)]">solved</dt>
-        <dd>
-          <Link
-            href={LEETCODE_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="group inline-flex flex-col gap-0.5"
-          >
-            <span className="text-[var(--color-text)] group-hover:text-[var(--color-accent)]">
-              leetcode {LEETCODE_TIER.toLowerCase()} ·{" "}
-              <span className="tabular">{LEETCODE_RATING}</span>
-            </span>
-            <span className="font-mono text-[10px] text-[var(--color-text-subtle)]">
-              {LEETCODE_STREAK}-day streak · {LEETCODE_PROBLEMS} problems
-            </span>
-          </Link>
+        <dt className="text-[var(--color-accent)]">stack</dt>
+        <dd className="text-[var(--color-text)]">
+          {heroStack.join(" · ").toLowerCase()}
         </dd>
       </dl>
 

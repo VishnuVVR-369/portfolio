@@ -64,7 +64,6 @@ function renderIdentity(): string {
     `# Now`,
     `- Building: ${NOW.building}`,
     `- Reading: ${NOW.reading}`,
-    `- Verifying: ${NOW.verifying}`,
   ].join("\n");
 }
 
