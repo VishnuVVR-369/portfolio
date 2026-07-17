@@ -6,12 +6,17 @@ interface CopyButtonProps {
   value: string;
   label?: string;
   className?: string;
+  // Wrap the label onto multiple lines instead of truncating. Use in
+  // narrow containers where the value (an email address) must stay
+  // fully readable.
+  wrap?: boolean;
 }
 
 export function CopyButton({
   value,
   label,
   className = "",
+  wrap = false,
 }: CopyButtonProps) {
   const [copied, setCopied] = useState(false);
 
@@ -30,10 +35,14 @@ export function CopyButton({
       type="button"
       onClick={onClick}
       title={value}
-      className={`group inline-flex max-w-full items-center gap-2 overflow-hidden font-mono text-sm text-[var(--color-text)] transition-colors hover:text-[var(--color-accent)] ${className}`}
+      className={`group inline-flex max-w-full gap-2 overflow-hidden font-mono text-sm text-[var(--color-text)] transition-colors hover:text-[var(--color-accent)] ${
+        wrap ? "items-start text-left" : "items-center"
+      } ${className}`}
       aria-label={`Copy ${label ?? value}`}
     >
-      <span className="min-w-0 truncate">{label ?? value}</span>
+      <span className={`min-w-0 ${wrap ? "break-all" : "truncate"}`}>
+        {label ?? value}
+      </span>
       <span
         aria-hidden
         className={`inline-flex h-5 flex-shrink-0 items-center rounded border px-1.5 text-[10px] uppercase tracking-wider transition-all ${

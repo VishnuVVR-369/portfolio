@@ -94,8 +94,8 @@ export function FeaturedProjectCard({
 
       {/* Footer — tech list + the stretched primary link + external chips */}
       <div className="mt-auto pt-6">
-        <div className="flex items-center justify-between border-t border-[var(--color-border)] pt-4 font-mono text-[11.5px]">
-          <span className="min-w-0 truncate text-[var(--color-text-subtle)]">
+        <div className="flex flex-wrap items-center justify-between gap-y-2 border-t border-[var(--color-border)] pt-4 font-mono text-[11.5px]">
+          <span className="min-w-0 text-[var(--color-text-subtle)]">
             {project.tech.slice(0, 3).join(" · ")}
             {project.tech.length > 3 && " · …"}
           </span>
@@ -106,7 +106,7 @@ export function FeaturedProjectCard({
           */}
           <Link
             href={`/projects/${project.slug}`}
-            className="ml-3 flex-shrink-0 font-mono text-[var(--color-text-muted)] transition-colors after:absolute after:inset-0 after:z-0 after:content-[''] group-hover:text-[var(--color-accent)]"
+            className="ml-auto flex-shrink-0 pl-3 font-mono text-[var(--color-text-muted)] transition-colors after:absolute after:inset-0 after:z-0 after:content-[''] group-hover:text-[var(--color-accent)]"
           >
             read case study →
           </Link>

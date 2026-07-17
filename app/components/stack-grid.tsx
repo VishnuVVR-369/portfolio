@@ -14,10 +14,17 @@ interface StackGridProps {
 export function StackGrid({ className = "" }: StackGridProps) {
   return (
     <div className={`grid gap-3 sm:gap-4 md:grid-cols-2 ${className}`}>
-      {stack.map((category) => (
+      {stack.map((category, idx) => {
+        // With an odd category count the final card would leave a
+        // half-row hole in the 2-col grid — span it across both
+        // columns and let its chips flow in two columns instead.
+        const spansRow = stack.length % 2 === 1 && idx === stack.length - 1;
+        return (
         <section
           key={category.name}
-          className="surface flex flex-col p-5 md:p-6"
+          className={`surface flex flex-col p-5 md:p-6 ${
+            spansRow ? "md:col-span-2" : ""
+          }`}
         >
           <div className="flex items-center justify-between border-b border-[var(--color-border)] pb-3">
             <h3 className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
@@ -28,7 +35,13 @@ export function StackGrid({ className = "" }: StackGridProps) {
             </span>
           </div>
 
-          <ul className="mt-4 flex flex-col gap-2.5">
+          <ul
+            className={`mt-4 gap-2.5 ${
+              spansRow
+                ? "grid md:grid-cols-2 md:items-start"
+                : "flex flex-col"
+            }`}
+          >
             {category.skills.map((skill) => {
               const Icon = getStackIcon(skill.name);
               const isDaily = skill.tier === "daily";
@@ -83,7 +96,8 @@ export function StackGrid({ className = "" }: StackGridProps) {
             })}
           </ul>
         </section>
-      ))}
+        );
+      })}
     </div>
   );
 }

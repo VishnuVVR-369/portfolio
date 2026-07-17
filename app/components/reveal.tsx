@@ -13,7 +13,11 @@ function getObserver() {
   sharedObserver = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
-        if (entry.isIntersecting) {
+        // Also reveal when the element sits fully above the viewport:
+        // a fast flick-scroll can jump it from below to above between
+        // two observer checks without ever reporting isIntersecting,
+        // which would leave it invisible when the user scrolls back.
+        if (entry.isIntersecting || entry.boundingClientRect.bottom < 0) {
           entry.target.classList.add("is-visible");
           sharedObserver?.unobserve(entry.target);
         }

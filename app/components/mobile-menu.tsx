@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import {
   EMAIL,
   GITHUB_URL,
@@ -32,6 +33,7 @@ const logoMaskStyle = {
 } as const;
 
 const NAV = [
+  { href: "/", label: "home", index: "00" },
   { href: "/projects", label: "work", index: "01" },
   { href: "/about", label: "about", index: "02" },
   { href: "/contact", label: "contact", index: "03" },
@@ -78,7 +80,11 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
 
   if (!open) return null;
 
-  return (
+  // Portal to <body>: the menu is mounted inside the sticky site header,
+  // whose backdrop-filter makes it the containing block for fixed
+  // descendants — without the portal, `inset-0` would resolve against
+  // the 56px header box instead of the viewport.
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
@@ -88,14 +94,19 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
     >
       {/* Top bar — mirrors the desktop status line so chrome feels continuous. */}
       <header className="flex h-14 items-center justify-between border-b border-[var(--color-border)] px-5">
-        <div className="flex items-center gap-2.5 font-mono text-[12px] text-[var(--color-text)]">
+        <Link
+          href="/"
+          onClick={onClose}
+          className="flex items-center gap-2.5 font-mono text-[12px] text-[var(--color-text)]"
+          aria-label="Home"
+        >
           <span
             aria-hidden
             className="block h-7 w-[56px] flex-shrink-0 bg-[var(--color-accent)]"
             style={logoMaskStyle}
           />
           <span>~/vvr.dev</span>
-        </div>
+        </Link>
         <button
           type="button"
           onClick={onClose}
@@ -126,7 +137,10 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
           className="border-b border-[var(--color-border)]"
         >
           {NAV.map((item) => {
-            const active = pathname.startsWith(item.href);
+            const active =
+              item.href === "/"
+                ? pathname === "/"
+                : pathname.startsWith(item.href);
             return (
               <Link
                 key={item.href}
@@ -291,6 +305,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
           </span>
         </div>
       </footer>
-    </div>
+    </div>,
+    document.body
   );
 }

@@ -50,11 +50,11 @@ export function HeaderActions() {
 
       <button
         type="button"
-        onClick={openPalette}
+        onClick={() => setOpenedAt(pathname)}
         className="flex h-11 w-11 items-center justify-center rounded-md border border-[var(--color-border-strong)] bg-[var(--color-surface)] text-[var(--color-text)] transition-colors active:border-[var(--color-accent-dim)] active:text-[var(--color-accent)] md:hidden"
         style={{ boxShadow: "inset 0 1px 0 0 rgba(255,255,255,0.045)" }}
-        aria-label="Open command palette"
-        title={`Open command palette (${mod}K)`}
+        aria-label="Open menu"
+        aria-expanded={mobileMenuOpen}
       >
         <svg aria-hidden width="16" height="12" viewBox="0 0 16 12" fill="none">
           <path

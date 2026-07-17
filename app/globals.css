@@ -14,7 +14,9 @@
 
   --color-text: #eceae6;
   --color-text-muted: #9a9a95;
-  --color-text-subtle: #5c5c58;
+  /* Faintest text step. Keep ≥4:1 against canvas/surface — this drives
+     the tiny 10–11px mono labels used across the whole site. */
+  --color-text-subtle: #757570;
 
   /* The single identity color. Lamplight, instruments, calibration LEDs. */
   --color-accent: #f5b454;

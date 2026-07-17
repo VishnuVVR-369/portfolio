@@ -65,7 +65,7 @@ export default function ContactPage() {
 
       {/* ═══ FORM + SIDE RAIL ═══════════════════════════════════════ */}
       <section className="mx-auto max-w-[76rem] px-5 pb-24 md:px-6">
-        <div className="grid gap-6 lg:grid-cols-[1fr_minmax(0,20rem)] lg:gap-10">
+        <div className="grid gap-6 lg:grid-cols-[1fr_minmax(0,21rem)] lg:gap-10">
           <Reveal delay={180}>
             <ContactForm />
           </Reveal>
@@ -78,7 +78,7 @@ export default function ContactPage() {
                   direct
                 </p>
                 <div className="surface-recess mt-3 p-3">
-                  <CopyButton value={EMAIL} className="w-full" />
+                  <CopyButton value={EMAIL} className="w-full" wrap />
                 </div>
                 <p className="mt-2 font-mono text-[11px] text-[var(--color-text-subtle)]">
                   click to copy. short emails get short replies fast.
