@@ -125,24 +125,27 @@ export default function AboutPage() {
 
                 <div className="mt-7 max-w-xl space-y-4 text-pretty text-[var(--color-text-muted)] md:text-[1.05rem] md:leading-relaxed">
                   <p>
-                    {ROLE_NOW} at {COMPANY}, working on data-intensive systems
-                    financial professionals lean on to do their actual jobs.
-                    Three years in: intern to {ROLE_NOW.split(" ").pop()}, each
-                    rung earned, not gifted. The work pays the rent. The
-                    obsession — the version that gets shipped on weekends — is
-                    the part that doesn&apos;t.
+                    I&apos;m a {ROLE_NOW} at {COMPANY}, building data-intensive
+                    systems that financial professionals rely on every day. I
+                    joined as an intern in 2023 and progressed to{" "}
+                    {ROLE_NOW.split(" ").pop()} in three years, moving from
+                    shipping production features to owning critical pipeline
+                    components and contributing to architecture decisions.
                   </p>
                   <p>
-                    I build the version of the system I can still defend a
-                    year later, when the constraints have changed and the
-                    alternative looks tempting. The unglamorous part of
-                    engineering, judgment, doesn&apos;t fit on a resume but it
-                    decides everything that does.
+                    I care about building systems that remain understandable
+                    when requirements change and scale exposes the shortcuts.
+                    The most important work is often unglamorous: making
+                    tradeoffs explicit, finding root causes, and designing for
+                    failure modes before they become incidents.
                   </p>
                   <p>
-                    Outside of code: long walks, slow reading, coffee that
-                    takes too long to make. In another life I&apos;d have
-                    taught, and I think the best engineers secretly do.
+                    Outside work, I build products that turn frustrating
+                    workflows into useful tools. I also enjoy long walks, slow
+                    reading, and coffee that takes too long to make. I&apos;m drawn
+                    to teaching—good engineering includes leaving both the
+                    codebase and the people around it clearer than you found
+                    them.
                   </p>
                 </div>
 
