@@ -22,7 +22,7 @@ export const RESUME_URL = "/resume.pdf";
 // LeetCode — Tier S signal
 export const LEETCODE_URL = "https://leetcode.com/u/vishnuvardhanganji";
 export const LEETCODE_TIER = "Guardian";
-export const LEETCODE_RATING = "2150+";
+export const LEETCODE_RATING = "2200+";
 export const LEETCODE_STREAK = 365;
 export const LEETCODE_PROBLEMS = "1,200+";
 

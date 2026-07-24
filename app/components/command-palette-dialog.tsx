@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   EMAIL,
   GITHUB_URL,
+  LEETCODE_RATING,
   LEETCODE_URL,
   LINKEDIN_URL,
   RESUME_URL,
@@ -131,7 +132,7 @@ export function CommandPaletteDialog({
       {
         id: "ext-leetcode",
         label: "open leetcode",
-        hint: "guardian · 2150+",
+        hint: `guardian · ${LEETCODE_RATING}`,
         group: "external",
         keywords: "leetcode guardian algorithms practice",
         run: () => window.open(LEETCODE_URL, "_blank", "noreferrer"),
