@@ -24,7 +24,7 @@ export const LEETCODE_URL = "https://leetcode.com/u/vishnuvardhanganji";
 export const LEETCODE_TIER = "Guardian";
 export const LEETCODE_RATING = "2200+";
 export const LEETCODE_STREAK = 365;
-export const LEETCODE_PROBLEMS = "1,200+";
+export const LEETCODE_PROBLEMS = "1,500+";
 
 // Products live — Tier S signal
 export const PRODUCT_CHATWITHPDF_URL = "https://chatwithpdf.pro";
@@ -45,6 +45,6 @@ export const HERO_SUBPROOF =
 
 // "Now" line — kept short, updated when context shifts.
 export const NOW = {
-  building: "RAG eval harness for Chat with PDF v2.",
+  building: "Chat with PDF v2.",
   reading: "Designing Data-Intensive Applications, again.",
 };

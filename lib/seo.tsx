@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { projects } from "@/lib/projects";
 
-export const SITE_URL = "https://vvr.dev";
+// Final public origin. The apex (vvr.dev) 301-redirects here, so
+// canonicals, sitemap, robots host, and OG URLs all use www.
+export const SITE_URL = "https://www.vvr.dev";
 export const SITE_NAME = "vvr.dev";
 export const PERSON_NAME = "Vishnuvardhan Reddy";
 export const PERSON_TITLE = "Software Engineer";

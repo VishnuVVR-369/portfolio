@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import {
   EMAIL,
@@ -48,11 +48,45 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
   const pathname = usePathname();
   const time = useNow();
   const [emailCopied, setEmailCopied] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Dialog focus contract: focus moves to the close button on open,
+  // Tab cycles inside the dialog, and focus returns to the opener
+  // (the hamburger button) on close.
+  useEffect(() => {
+    if (!open) return;
+    const opener = document.activeElement as HTMLElement | null;
+    closeButtonRef.current?.focus();
+    return () => opener?.focus();
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const root = dialogRef.current;
+      if (!root) return;
+      const focusables = Array.from(
+        root.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const current = document.activeElement;
+      if (e.shiftKey && (current === first || !root.contains(current))) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && (current === last || !root.contains(current))) {
+        e.preventDefault();
+        first.focus();
+      }
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
@@ -86,6 +120,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
   // the 56px header box instead of the viewport.
   return createPortal(
     <div
+      ref={dialogRef}
       role="dialog"
       aria-modal="true"
       aria-label="Site navigation"
@@ -108,6 +143,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
           <span>~/vvr.dev</span>
         </Link>
         <button
+          ref={closeButtonRef}
           type="button"
           onClick={onClose}
           aria-label="Close menu"

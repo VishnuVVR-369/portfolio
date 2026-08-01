@@ -82,7 +82,7 @@ export const projects: Project[] = [
     problem:
       "Most PDF interactions are limited to keyword search — useless for scanned documents and unable to understand context. Engineers, researchers, and analysts waste hours skimming long documents to find a single passage.",
     approach:
-      "An AI-powered document Q&A system. Upload any PDF — scanned or digital — and ask questions in natural language. An async pipeline runs Mistral OCR to extract page text, chunks and embeds it, then answers with hybrid retrieval (vector + full-text). Every answer streams back with citations that link to the source page and highlight the referenced text in an inline PDF viewer.",
+      "An AI-powered document Q&A system. Upload any PDF — scanned or digital — and ask questions in natural language. An async pipeline runs Mistral OCR to extract page text, chunks and embeds it, then answers with hybrid retrieval (vector + full-text). Every answer streams back with citations that link to the source page and highlight the referenced text in an inline PDF viewer. A citation-validation pass verifies generated quotes against the source text, measured at 82% citation accuracy on a 50-question evaluation set.",
     decisions: [
       {
         chose: "Convex (real-time DB + functions)",
@@ -109,11 +109,11 @@ export const projects: Project[] = [
       "Hybrid retrieval adds a rerank and neighbor-expansion pass over pure vector search, plus a routing step that decides between chunk lookup and document summaries. A few hundred extra milliseconds for a conversational interface, in exchange for answers that stay grounded when the evidence is thin.",
     ],
     impact: [
-      { metric: "150+", label: "documents indexed" },
+      { metric: "82%", label: "citation accuracy" },
       { metric: "100+", label: "active users" },
-      { metric: "<3s", label: "average answer time" },
+      { metric: "2s", label: "first token latency" },
     ],
-    headline: { metric: "150+", label: "documents indexed" },
+    headline: { metric: "82%", label: "citation accuracy" },
     featured: true,
     links: {
       live: "https://chatwithpdf.pro",
@@ -136,13 +136,13 @@ export const projects: Project[] = [
       "TypeScript",
       "React",
       "Node.js",
-      "GPToss-120b",
+      "gpt-oss-120b",
     ],
     pipeline: ["hotkey", "capture", "transcribe", "clean-up", "inject"],
     problem:
       "Voice input on desktop is broken. System dictation produces transcripts the writer disowns. Per-app integrations make the universal case impossible. Power users who think faster than they type have no good option.",
     approach:
-      "A system-level desktop app. Hold a hotkey, speak, release — polished text appears at your cursor in any application. Two-stage AI pipeline: Whisper for raw transcription, then GPToss for intelligent cleanup that removes filler words while preserving intent.",
+      "A system-level desktop app. Hold a hotkey, speak, release — polished text appears at your cursor in any application. Two-stage AI pipeline: Whisper for raw transcription, then gpt-oss for intelligent cleanup that removes filler words while preserving intent.",
     decisions: [
       {
         chose: "Rust native key listener for global hotkey",
@@ -151,22 +151,22 @@ export const projects: Project[] = [
           "Electron's globalShortcut becomes unreliable when the app loses focus. Rust intercepts at the OS layer (IOKit on macOS, Win32 API on Windows), capturing 100% of hotkey presses regardless of which app is in front.",
       },
       {
-        chose: "Two-stage pipeline (Whisper → GPToss)",
+        chose: "Two-stage pipeline (Whisper → gpt-oss)",
         rejected: "Single end-to-end model",
         reason:
-          "Whisper is excellent at transcription but outputs verbatim speech, fillers and all. GPToss handles contextual cleanup — it knows when 'like' is a filler vs. meaningful. Separating concerns lets each stage be tuned independently.",
+          "Whisper is excellent at transcription but outputs verbatim speech, fillers and all. gpt-oss handles contextual cleanup — it knows when 'like' is a filler vs. meaningful. Separating concerns lets each stage be tuned independently.",
       },
       {
-        chose: "Clipboard-based text injection",
-        rejected: "Programmatic text-field insertion",
+        chose: "macOS Accessibility-based text injection",
+        rejected: "Clipboard paste simulation",
         reason:
-          "Programmatic insertion behaves differently in every app. The clipboard approach (copy → simulate Cmd+V) works in any text field, anywhere. Original clipboard contents are saved and restored in <50ms.",
+          "Simulating a paste (copy, then Cmd+V) works in any text field, but it overwrites the user's clipboard and can race with clipboard managers. The macOS Accessibility APIs insert text at the cursor directly, so injection is safe in any focused field and the clipboard is never touched.",
       },
     ],
     tradeoffs: [
       "Electron adds ~150–200MB memory overhead vs. a native app. The cost of one codebase running on macOS, Windows, and Linux is paid once in RAM.",
       "API-based Whisper adds ~500ms latency vs. a local whisper.cpp model. The latency buys consistently better accuracy on technical vocabulary and accents — non-negotiable for the writing use case.",
-      "Clipboard injection briefly overwrites user clipboard. Mitigated with atomic save-inject-restore in under 50ms, well below human perception.",
+      "Accessibility-based injection needs an explicit macOS Accessibility permission grant. One-time setup friction, in exchange for text insertion that never touches the user's clipboard.",
     ],
     impact: [
       { metric: "3–4×", label: "typing-speed improvement" },

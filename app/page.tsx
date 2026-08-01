@@ -329,7 +329,7 @@ export default function Home() {
                     Software engineer at {COMPANY}, working on data-intensive
                     systems financial professionals use to do their actual
                     jobs. Intern to {ROLE_NOW.split(" ").pop()} in three
-                    years — each rung earned, not gifted.
+                    years.
                   </p>
                   <p>
                     I build the version of the system I can still defend a

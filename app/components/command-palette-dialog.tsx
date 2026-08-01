@@ -206,7 +206,7 @@ export function CommandPaletteDialog({
       <div className="relative w-full max-w-xl overflow-hidden rounded-xl border border-[var(--color-border-strong)] bg-[var(--color-surface)] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]">
         <div className="flex items-center gap-3 border-b border-[var(--color-border)] px-4">
           <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--color-text-subtle)]">
-            ⌘
+            {mod}
           </span>
           <input
             ref={inputRef}

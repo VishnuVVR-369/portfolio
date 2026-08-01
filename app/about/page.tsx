@@ -213,7 +213,7 @@ export default function AboutPage() {
               </Reveal>
               <Reveal delay={60}>
                 <h2 className="mt-3 font-display text-[2rem] font-medium tracking-tight text-[var(--color-text)] md:text-[2.5rem]">
-                  The obsession,
+                  Consistency,
                   <br />
                   <span className="text-[var(--color-accent)]">
                     in numbers.
@@ -223,9 +223,8 @@ export default function AboutPage() {
               <Reveal delay={120}>
                 <p className="mt-5 max-w-md text-pretty text-[var(--color-text-muted)] md:text-[1.05rem] md:leading-relaxed">
                   Daily reps. For a year. Unbroken. Algorithms aren&apos;t the
-                  work — but a year of uninterrupted daily practice is the
-                  kind of evidence I can&apos;t fake. It shows up in the work
-                  that is.
+                  work. Consistency is, and the same habit shows up in
+                  everything I ship.
                 </p>
               </Reveal>
             </div>
@@ -247,10 +246,7 @@ export default function AboutPage() {
                 />
               </div>
 
-              <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
-                <span className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
-                  last verified · {new Date().toISOString().slice(0, 7)}
-                </span>
+              <div className="mt-5 flex flex-wrap items-center justify-end gap-3">
                 <a
                   href={LEETCODE_URL}
                   target="_blank"

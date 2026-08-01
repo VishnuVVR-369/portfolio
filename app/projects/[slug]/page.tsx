@@ -13,8 +13,6 @@ import { Reveal } from "../../components/reveal";
 import { DiffRow } from "../../components/diff";
 import { ProjectVisual } from "../../components/project-visual";
 
-const LAST_EDITED = "2026-05-11";
-
 export function generateStaticParams() {
   return allProjectSlugs();
 }
@@ -344,8 +342,7 @@ export default async function ProjectPage({
       {/* ═══ FOOTER / next case ════════════════════════════════════════ */}
       <section className="mx-auto max-w-[76rem] px-5 py-14 md:px-6">
         <div className="border-t border-[var(--color-border)] pt-8">
-          <div className="flex items-center justify-between font-mono text-[11px] text-[var(--color-text-subtle)]">
-            <span>last edited · {LAST_EDITED}</span>
+          <div className="flex items-center justify-end font-mono text-[11px] text-[var(--color-text-subtle)]">
             <span>~{minutes} min read</span>
           </div>
         </div>

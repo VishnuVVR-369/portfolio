@@ -14,9 +14,10 @@
 
   --color-text: #eceae6;
   --color-text-muted: #9a9a95;
-  /* Faintest text step. Keep ≥4:1 against canvas/surface — this drives
-     the tiny 10–11px mono labels used across the whole site. */
-  --color-text-subtle: #757570;
+  /* Faintest text step. Keep ≥4.5:1 against canvas and all surface
+     steps (WCAG AA) — this drives the tiny 9–11px mono labels used
+     across the whole site. */
+  --color-text-subtle: #888882;
 
   /* The single identity color. Lamplight, instruments, calibration LEDs. */
   --color-accent: #f5b454;
@@ -228,11 +229,13 @@ body::before {
   border-radius: 2px;
 }
 
-button:focus,
-a:focus,
-input:focus,
-textarea:focus,
-select:focus {
+/* Suppress the ring only for pointer-driven focus — keyboard focus
+   (:focus-visible) keeps the outline defined above. */
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible),
+select:focus:not(:focus-visible) {
   outline: none;
 }
 
