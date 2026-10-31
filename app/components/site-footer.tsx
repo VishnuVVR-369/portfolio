@@ -54,7 +54,7 @@ const SOCIAL = [
 export function SiteFooter() {
   return (
     <footer className="mt-0 border-t border-[var(--color-border)]">
-      <div className="container-page py-14">
+      <div className="mx-auto max-w-[76rem] px-5 py-14 md:px-6">
         {/* Now line — the line that makes the site feel alive.
             Two rows: building / reading.  */}
         <div className="grid gap-10 md:grid-cols-[1fr_auto] md:items-start">
@@ -118,8 +118,8 @@ export function SiteFooter() {
               {EMAIL}
             </a>
           </div>
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-            <span className="hidden md:inline">
+          <div className="flex flex-shrink-0 flex-wrap items-center gap-x-3 gap-y-1">
+            <span className="hidden whitespace-nowrap md:inline">
               <span className="kbd" style={{ minWidth: "auto" }}>
                 <ModKey />
               </span>{" "}

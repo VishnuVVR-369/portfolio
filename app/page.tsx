@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { featuredProjects } from "@/lib/projects";
+import { featuredProjects, leadProject } from "@/lib/projects";
 import {
   COMPANY,
   HERO_SUBPROOF,
   LOCATION,
   NAME,
+  PRODUCT_OPENBOT_LABEL,
+  PRODUCT_OPENBOT_NOTE,
+  PRODUCT_OPENBOT_URL,
   PRODUCT_VOICEFLOW_LABEL,
   PRODUCT_VOICEFLOW_URL,
   ROLE_NOW,
@@ -24,6 +27,7 @@ import { GuardianBadge } from "./components/guardian-badge";
 import { ResumeButton } from "./components/resume-button";
 import { HeroProofCard } from "./components/hero-proof-card";
 import { FeaturedProjectCard } from "./components/featured-project-card";
+import { LeadProjectCard } from "./components/lead-project-card";
 import { CopyButton } from "./components/copy-button";
 import { ModKey } from "./components/mod-key";
 
@@ -65,13 +69,8 @@ const TIMELINE = [
 ];
 
 export default function Home() {
+  const lead = leadProject();
   const projects = featuredProjects();
-  // Pair each featured project with the visualization variant that
-  // best matches its data shape (pipeline-flow vs. input/process/output).
-  const featuredPairs = projects.map((p, i) => ({
-    project: p,
-    variant: (i === 0 ? "pipeline" : "rack") as "pipeline" | "rack",
-  }));
 
   return (
     <>
@@ -160,6 +159,20 @@ export default function Home() {
                     live ›
                   </dt>
                   <dd className="space-y-1">
+                    <p>
+                      <a
+                        href={PRODUCT_OPENBOT_URL}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="link"
+                      >
+                        {PRODUCT_OPENBOT_LABEL}
+                      </a>{" "}
+                      <span className="text-[var(--color-text-subtle)]">·</span>{" "}
+                      <span className="text-[var(--color-text)]">
+                        {PRODUCT_OPENBOT_NOTE}
+                      </span>
+                    </p>
                     <p>
                       <a
                         href="https://chatwithpdf.pro"
@@ -253,10 +266,10 @@ export default function Home() {
                   §01 · selected work
                 </p>
                 <h2 className="mt-3 font-display text-[2rem] font-medium tracking-tight text-[var(--color-text)] md:text-[2.75rem]">
-                  Two products live.
+                  Three products live.
                   <br />
                   <span className="text-[var(--color-text-muted)]">
-                    Both with real users.
+                    All built for real use.
                   </span>
                 </h2>
               </div>
@@ -275,13 +288,16 @@ export default function Home() {
             </div>
           </Reveal>
 
-          <div className="mt-10 grid gap-6 md:mt-14 md:grid-cols-2">
-            {featuredPairs.map(({ project, variant }, i) => (
-              <Reveal key={project.slug} delay={120 + i * 80}>
-                <FeaturedProjectCard
-                  project={project}
-                  visualVariant={variant}
-                />
+          {lead && (
+            <Reveal delay={120} className="mt-10 block md:mt-14">
+              <LeadProjectCard project={lead} />
+            </Reveal>
+          )}
+
+          <div className="mt-6 grid gap-6 md:grid-cols-2">
+            {projects.map((project, i) => (
+              <Reveal key={project.slug} delay={200 + i * 80}>
+                <FeaturedProjectCard project={project} />
               </Reveal>
             ))}
           </div>
@@ -334,6 +350,10 @@ export default function Home() {
                   <p>
                     I build the version of the system I can still defend a
                     year later. Side projects (
+                    <Link href="/projects/open-bot" className="link">
+                      open-bot
+                    </Link>
+                    ,{" "}
                     <a
                       href="https://chatwithpdf.pro"
                       target="_blank"

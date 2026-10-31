@@ -902,3 +902,13 @@ select:focus {
 .cta-ghost:active {
   transform: translateY(0.5px);
 }
+
+/* Captions on case-study videos: a quiet dark plate in the body font
+   instead of the browser's default gray box. */
+video::cue {
+  background: rgba(6, 6, 7, 0.82);
+  color: #f5f5f4;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 0.95em;
+  line-height: 1.4;
+}

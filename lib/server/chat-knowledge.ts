@@ -17,6 +17,7 @@ import {
   NAME,
   NAME_SHORT,
   NOW,
+  PRODUCT_OPENBOT_URL,
   PRODUCT_CHATWITHPDF_URL,
   PRODUCT_CHATWITHPDF_USERS,
   RESUME_URL,
@@ -59,6 +60,7 @@ function renderIdentity(): string {
     `- Profile: ${LEETCODE_URL}`,
     ``,
     `# Live products`,
+    `- open-bot: ${PRODUCT_OPENBOT_URL} (public launch tour; the app itself is a private single-user deployment on Railway)`,
     `- Chat with PDF — ${PRODUCT_CHATWITHPDF_URL} (${PRODUCT_CHATWITHPDF_USERS})`,
     ``,
     `# Now`,
@@ -73,11 +75,21 @@ function renderProjects(): string {
     lines.push(``);
     lines.push(`## ${p.name} (slug: ${p.slug}, ${p.year}, ${p.status})`);
     lines.push(`Tagline: ${p.tagline}`);
+    if (p.built) lines.push(`Built in: ${p.built}`);
     lines.push(`Tags: ${p.tags.join(", ")}`);
     lines.push(`Tech: ${p.tech.join(", ")}`);
     lines.push(`Pipeline: ${p.pipeline.join(" → ")}`);
     lines.push(`Problem: ${p.problem}`);
     lines.push(`Approach: ${p.approach}`);
+    if (p.media?.shots.length) {
+      lines.push(`What it does:`);
+      for (const shot of p.media.shots) {
+        lines.push(`  - ${shot.title}: ${shot.caption}`);
+      }
+    }
+    if (p.highlights?.length) {
+      lines.push(`Also: ${p.highlights.join(", ")}`);
+    }
     if (p.decisions.length) {
       lines.push(`Key decisions:`);
       for (const d of p.decisions) {
@@ -160,6 +172,7 @@ export function getAllowedExternalHosts(): string[] {
     "linkedin.com",
     "leetcode.com",
     "chatwithpdf.pro",
+    new URL(PRODUCT_OPENBOT_URL).host,
   ];
 }
 

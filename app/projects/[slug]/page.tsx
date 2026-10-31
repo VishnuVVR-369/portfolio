@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
 import {
   allProjectSlugs,
@@ -12,6 +13,7 @@ import { JsonLd, projectJsonLd, routeMetadata } from "@/lib/seo";
 import { Reveal } from "../../components/reveal";
 import { DiffRow } from "../../components/diff";
 import { ProjectVisual } from "../../components/project-visual";
+import { TourPlayer } from "../../components/tour-player";
 
 export function generateStaticParams() {
   return allProjectSlugs();
@@ -32,6 +34,12 @@ export async function generateMetadata({
       .join(", ")} by Vishnuvardhan Reddy.`,
     path: `/projects/${project.slug}`,
     type: "article",
+    image: project.media?.ogImage
+      ? {
+          url: project.media.ogImage,
+          alt: `${project.name}: ${project.tagline}`,
+        }
+      : undefined,
   });
 }
 
@@ -41,8 +49,23 @@ function ProjectStructuredData({ slug }: { slug: string }) {
   return <JsonLd data={data} />;
 }
 
-function visualVariantFor(slug: string): "pipeline" | "rack" {
-  return slug === "voiceflow" ? "rack" : "pipeline";
+type SectionKey =
+  | "tour"
+  | "product"
+  | "architecture"
+  | "problem"
+  | "approach"
+  | "decisions"
+  | "tradeoffs"
+  | "impact"
+  | "stack";
+
+// Section numbers follow what a project actually has: a case study
+// without a tour or impact numbers doesn't skip from §01 to §03.
+function sectionNumbers(keys: (SectionKey | false)[]) {
+  const order = keys.filter((k): k is SectionKey => k !== false);
+  return (key: SectionKey) =>
+    `§${String(order.indexOf(key) + 1).padStart(2, "0")}`;
 }
 
 export default async function ProjectPage({
@@ -58,7 +81,19 @@ export default async function ProjectPage({
   const idx = projects.findIndex((p) => p.slug === slug);
   const prev = idx > 0 ? projects[idx - 1] : null;
   const next = idx < projects.length - 1 ? projects[idx + 1] : null;
-  const variant = visualVariantFor(project.slug);
+  const media = project.media;
+  const shots = media?.shots ?? [];
+  const n = sectionNumbers([
+    Boolean(media?.tour) && "tour",
+    shots.length > 0 && "product",
+    "architecture",
+    "problem",
+    "approach",
+    "decisions",
+    "tradeoffs",
+    project.impact.length > 0 && "impact",
+    "stack",
+  ]);
 
   return (
     <article>
@@ -104,6 +139,14 @@ export default async function ProjectPage({
               <span className="text-[var(--color-text-subtle)]">role ·</span>{" "}
               {project.role.toLowerCase()}
             </span>
+            {project.built && (
+              <span>
+                <span className="text-[var(--color-text-subtle)]">
+                  built in ·
+                </span>{" "}
+                {project.built}
+              </span>
+            )}
             <span className="min-w-0 truncate">
               <span className="text-[var(--color-text-subtle)]">tags ·</span>{" "}
               {project.tags.map((t) => tagLabels[t]).join(", ")}
@@ -172,11 +215,134 @@ export default async function ProjectPage({
 
       <div className="border-t border-[var(--color-border)]" />
 
-      {/* ═══ §01 VISUAL ════════════════════════════════════════════════ */}
-      <section className="mx-auto max-w-[76rem] px-5 py-14 md:px-6 md:py-20">
+      {/* ═══ TOUR ══════════════════════════════════════════════════════ */}
+      {media?.tour && (
+        <section className="mx-auto max-w-[76rem] px-5 py-14 md:px-6 md:py-20">
+          <Reveal>
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-accent)]">
+              {n("tour")} · tour
+            </p>
+          </Reveal>
+          <Reveal delay={60}>
+            <h2 className="mt-3 max-w-2xl font-display text-[1.75rem] font-medium tracking-tight text-[var(--color-text)] md:text-[2.25rem]">
+              See it{" "}
+              <span className="text-[var(--color-accent)]">do the work</span>.
+            </h2>
+          </Reveal>
+          <Reveal delay={120}>
+            <div className="mt-8">
+              <TourPlayer
+                tour={media.tour}
+                poster={media.loop.poster}
+                posterAvif={media.loop.posterAvif}
+                name={project.name}
+              />
+            </div>
+          </Reveal>
+        </section>
+      )}
+
+      {/* ═══ PRODUCT ═══════════════════════════════════════════════════ */}
+      {shots.length > 0 && (
+        <section className="mx-auto max-w-[76rem] border-t border-[var(--color-border)] px-5 py-14 md:px-6 md:py-20">
+          <Reveal>
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
+              {n("product")} · the product
+            </p>
+            <h2 className="mt-3 font-display text-[2rem] font-medium tracking-tight text-[var(--color-text)] md:text-[2.75rem]">
+              What it does.
+              <br />
+              <span className="text-[var(--color-text-muted)]">
+                Straight from the running app.
+              </span>
+            </h2>
+          </Reveal>
+
+          <div className="mt-10 space-y-12 md:mt-14 md:space-y-20">
+            {shots.map((shot, i) => {
+              const flipped = i % 2 === 1;
+              return (
+                <Reveal key={shot.src}>
+                  <figure
+                    className={`grid items-center gap-5 md:gap-10 ${
+                      flipped
+                        ? "md:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)]"
+                        : "md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]"
+                    }`}
+                  >
+                    <div
+                      className={`overflow-hidden rounded-xl border border-[var(--color-border-strong)] bg-[var(--color-surface)] ${
+                        flipped ? "md:order-2" : ""
+                      }`}
+                      style={{
+                        boxShadow:
+                          "0 1px 0 rgba(255,255,255,0.03), 0 28px 60px -34px rgba(0,0,0,0.9)",
+                      }}
+                    >
+                      <Image
+                        src={shot.src}
+                        width={shot.width}
+                        height={shot.height}
+                        alt={shot.alt}
+                        sizes="(min-width: 1216px) 690px, (min-width: 768px) 58vw, 100vw"
+                        className="block h-auto w-full"
+                      />
+                    </div>
+                    <figcaption className={flipped ? "md:order-1" : ""}>
+                      <span className="font-mono text-[11px] tabular text-[var(--color-accent)]">
+                        {String(i + 1).padStart(2, "0")}
+                        <span className="text-[var(--color-text-subtle)]">
+                          {" "}
+                          / {String(shots.length).padStart(2, "0")}
+                        </span>
+                      </span>
+                      <h3 className="mt-2 font-display text-[1.5rem] font-medium leading-tight tracking-tight text-[var(--color-text)] md:text-[1.85rem]">
+                        {shot.title}
+                      </h3>
+                      <p className="mt-3 max-w-md text-pretty text-[var(--color-text-muted)] md:text-[1.0625rem] md:leading-relaxed">
+                        {shot.caption}
+                      </p>
+                    </figcaption>
+                  </figure>
+                </Reveal>
+              );
+            })}
+          </div>
+
+          {project.highlights && project.highlights.length > 0 && (
+            <Reveal>
+              <div className="mt-14 border-t border-[var(--color-border)] pt-8 md:mt-20">
+                <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
+                  and the rest
+                </p>
+                <ul className="mt-4 flex flex-wrap gap-2">
+                  {project.highlights.map((h) => (
+                    <li
+                      key={h}
+                      className="rounded-md border border-[var(--color-border-strong)] bg-[var(--color-surface)] px-3 py-1.5 text-[13.5px] text-[var(--color-text)]"
+                      style={{
+                        boxShadow: "inset 0 1px 0 0 rgba(255,255,255,0.045)",
+                      }}
+                    >
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+          )}
+        </section>
+      )}
+
+      {/* ═══ ARCHITECTURE ══════════════════════════════════════════════ */}
+      <section
+        className={`mx-auto max-w-[76rem] px-5 py-14 md:px-6 md:py-20 ${
+          media ? "border-t border-[var(--color-border)]" : ""
+        }`}
+      >
         <Reveal>
           <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
-            §01 · architecture
+            {n("architecture")} · architecture
           </p>
         </Reveal>
         <Reveal delay={60}>
@@ -186,18 +352,22 @@ export default async function ProjectPage({
           </h2>
         </Reveal>
         <Reveal delay={120}>
-          <div className="mt-8 max-w-3xl">
-            <ProjectVisual project={project} variant={variant} />
+          <div
+            className={`mt-8 ${
+              project.visual === "topology" ? "max-w-5xl" : "max-w-3xl"
+            }`}
+          >
+            <ProjectVisual project={project} />
           </div>
         </Reveal>
       </section>
 
-      {/* ═══ §02 PROBLEM + APPROACH ════════════════════════════════════ */}
+      {/* ═══ PROBLEM + APPROACH ════════════════════════════════════════ */}
       <section className="mx-auto max-w-[76rem] border-t border-[var(--color-border)] px-5 py-14 md:px-6 md:py-20">
         <div className="grid gap-12 md:grid-cols-2 md:gap-16">
           <Reveal>
             <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
-              §02 · problem
+              {n("problem")} · problem
             </p>
             <p className="mt-5 text-pretty text-[var(--color-text)] md:text-[1.0625rem] md:leading-relaxed">
               {project.problem}
@@ -205,7 +375,7 @@ export default async function ProjectPage({
           </Reveal>
           <Reveal delay={80}>
             <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-accent)]">
-              §03 · approach
+              {n("approach")} · approach
             </p>
             <p className="mt-5 text-pretty text-[var(--color-text)] md:text-[1.0625rem] md:leading-relaxed">
               {project.approach}
@@ -214,11 +384,11 @@ export default async function ProjectPage({
         </div>
       </section>
 
-      {/* ═══ §04 DECISIONS ═════════════════════════════════════════════ */}
+      {/* ═══ DECISIONS ═════════════════════════════════════════════════ */}
       <section className="mx-auto max-w-[76rem] border-t border-[var(--color-border)] px-5 py-14 md:px-6 md:py-20">
         <Reveal>
           <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
-            §04 · decisions
+            {n("decisions")} · decisions
           </p>
           <h2 className="mt-3 font-display text-[2rem] font-medium tracking-tight text-[var(--color-text)] md:text-[2.75rem]">
             What was chosen.
@@ -257,11 +427,11 @@ export default async function ProjectPage({
         </div>
       </section>
 
-      {/* ═══ §05 TRADEOFFS ═════════════════════════════════════════════ */}
+      {/* ═══ TRADEOFFS ═════════════════════════════════════════════════ */}
       <section className="mx-auto max-w-[76rem] border-t border-[var(--color-border)] px-5 py-14 md:px-6 md:py-20">
         <Reveal>
           <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
-            §05 · tradeoffs
+            {n("tradeoffs")} · tradeoffs
           </p>
           <h2 className="mt-3 font-display text-[2rem] font-medium tracking-tight text-[var(--color-text)] md:text-[2.75rem]">
             What this costs.
@@ -286,11 +456,12 @@ export default async function ProjectPage({
         </Reveal>
       </section>
 
-      {/* ═══ §06 IMPACT ════════════════════════════════════════════════ */}
+      {/* ═══ IMPACT ═══════════════════════════════════════════════════ */}
+      {project.impact.length > 0 && (
       <section className="mx-auto max-w-[76rem] border-t border-[var(--color-border)] px-5 py-14 md:px-6 md:py-20">
         <Reveal>
           <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
-            §06 · impact
+            {n("impact")} · impact
           </p>
           <h2 className="mt-3 font-display text-[2rem] font-medium tracking-tight text-[var(--color-text)] md:text-[2.75rem]">
             What this returned.
@@ -316,12 +487,13 @@ export default async function ProjectPage({
           </div>
         </Reveal>
       </section>
+      )}
 
-      {/* ═══ §07 STACK ═════════════════════════════════════════════════ */}
+      {/* ═══ STACK ═════════════════════════════════════════════════════ */}
       <section className="mx-auto max-w-[76rem] border-t border-[var(--color-border)] px-5 py-14 md:px-6 md:py-20">
         <Reveal>
           <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--color-text-subtle)]">
-            §07 · stack
+            {n("stack")} · stack
           </p>
         </Reveal>
         <Reveal delay={60}>

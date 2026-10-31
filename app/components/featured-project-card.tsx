@@ -7,7 +7,6 @@ import { ProjectVisual } from "./project-visual";
 
 interface FeaturedProjectCardProps {
   project: Project;
-  visualVariant?: "pipeline" | "rack";
   className?: string;
 }
 
@@ -21,7 +20,6 @@ interface FeaturedProjectCardProps {
 // anchor in the a11y tree, full-card click target, no nested <a>s.
 export function FeaturedProjectCard({
   project,
-  visualVariant = "pipeline",
   className = "",
 }: FeaturedProjectCardProps) {
   return (
@@ -29,11 +27,7 @@ export function FeaturedProjectCard({
       className={`group surface lit-edge relative flex h-full flex-col overflow-hidden p-5 transition-all hover:bg-[var(--color-surface-2)] active:bg-[var(--color-surface-3)] md:p-6 ${className}`}
     >
       {/* Visual region */}
-      <ProjectVisual
-        project={project}
-        variant={visualVariant}
-        className="mb-6"
-      />
+      <ProjectVisual project={project} className="mb-6" />
 
       {/* Identity row */}
       <div className="flex items-start justify-between gap-3">
@@ -60,14 +54,16 @@ export function FeaturedProjectCard({
         {/* Headline metric — right-aligned, the eye finds it.
             Capped width on mobile so the label has somewhere to breathe
             instead of crashing into the title. */}
-        <div className="max-w-[7.5rem] flex-shrink-0 text-right sm:max-w-none">
-          <div className="font-display text-2xl font-medium leading-none text-[var(--color-accent)] sm:text-3xl md:text-[2.25rem]">
-            {project.headline.metric}
+        {project.headline && (
+          <div className="max-w-[7.5rem] flex-shrink-0 text-right sm:max-w-none">
+            <div className="font-display text-2xl font-medium leading-none text-[var(--color-accent)] sm:text-3xl md:text-[2.25rem]">
+              {project.headline.metric}
+            </div>
+            <div className="mt-1 font-mono text-[9.5px] uppercase tracking-[0.16em] text-[var(--color-text-subtle)]">
+              {project.headline.label}
+            </div>
           </div>
-          <div className="mt-1 font-mono text-[9.5px] uppercase tracking-[0.16em] text-[var(--color-text-subtle)]">
-            {project.headline.label}
-          </div>
-        </div>
+        )}
       </div>
 
       <p className="mt-3 max-w-md text-pretty text-[var(--color-text-muted)]">
@@ -138,7 +134,7 @@ export function FeaturedProjectCard({
   );
 }
 
-function ExternalChip({
+export function ExternalChip({
   href,
   label,
   kind,

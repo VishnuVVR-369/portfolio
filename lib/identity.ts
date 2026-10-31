@@ -27,6 +27,11 @@ export const LEETCODE_STREAK = 365;
 export const LEETCODE_PROBLEMS = "1,500+";
 
 // Products live — Tier S signal
+// open-bot's app is private (single user); the public link is its launch
+// tour. Swap the URL here when it moves to its own domain.
+export const PRODUCT_OPENBOT_URL = "https://open-bot.vishnuvardhanganji.workers.dev";
+export const PRODUCT_OPENBOT_LABEL = "open-bot tour";
+export const PRODUCT_OPENBOT_NOTE = "ai teammates";
 export const PRODUCT_CHATWITHPDF_URL = "https://chatwithpdf.pro";
 export const PRODUCT_CHATWITHPDF_USERS = "100+ users";
 export const PRODUCT_VOICEFLOW_URL = "https://voice-flow-max.vercel.app/";
@@ -41,10 +46,10 @@ export const AVAILABILITY = "available for inbound";
 export const HERO_PROOF =
   "Currently SWE III at FactSet · intern → swe III in 3 years.";
 export const HERO_SUBPROOF =
-  "Two products live: chatwithpdf.pro (100+ users), VoiceFlow (3 platforms).";
+  "Three products live: open-bot (AI teammates on their own computer), chatwithpdf.pro (100+ users), VoiceFlow (3 platforms).";
 
 // "Now" line — kept short, updated when context shifts.
 export const NOW = {
-  building: "Chat with PDF v2.",
+  building: "open-bot, AI teammates with a computer of their own.",
   reading: "Designing Data-Intensive Applications, again.",
 };

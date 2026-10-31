@@ -13,7 +13,7 @@ export const LINKEDIN_URL = "https://www.linkedin.com/in/vishnu-vvr";
 export const GITHUB_URL = "https://github.com/VishnuVVR-369";
 
 export const DEFAULT_DESCRIPTION =
-  "Vishnuvardhan Reddy — Software Engineer III at FactSet. Building AI products and data-intensive systems. Two products live: chatwithpdf.pro and VoiceFlow.";
+  "Vishnuvardhan Reddy — Software Engineer III at FactSet. Building AI products and data-intensive systems. Three products live: open-bot, chatwithpdf.pro and VoiceFlow.";
 
 export const OG_IMAGE = {
   url: "/opengraph-image.png",
@@ -31,13 +31,19 @@ export function routeMetadata({
   description,
   path,
   type = "website",
+  image,
 }: {
   title: string;
   description: string;
   path: string;
   type?: "website" | "article";
+  /** A 1200x630 page-specific social preview; defaults to the site card. */
+  image?: { url: string; alt: string };
 }): Metadata {
   const url = absoluteUrl(path);
+  const ogImage = image
+    ? { url: image.url, width: OG_IMAGE.width, height: OG_IMAGE.height, alt: image.alt }
+    : OG_IMAGE;
 
   return {
     title,
@@ -51,13 +57,13 @@ export function routeMetadata({
       title: title === PERSON_NAME ? `${PERSON_NAME} - ${PERSON_TITLE}` : title,
       description,
       siteName: SITE_NAME,
-      images: [OG_IMAGE],
+      images: [ogImage],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [OG_IMAGE.url],
+      images: [ogImage.url],
     },
   };
 }
@@ -86,6 +92,8 @@ export function personJsonLd() {
     knowsAbout: [
       "Software engineering",
       "Full-stack development",
+      "AI agents",
+      "Computer-use agents",
       "Retrieval-augmented generation",
       "Voice AI",
       "TypeScript",

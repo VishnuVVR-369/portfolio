@@ -1,5 +1,8 @@
 import {
   COMPANY,
+  PRODUCT_OPENBOT_LABEL,
+  PRODUCT_OPENBOT_NOTE,
+  PRODUCT_OPENBOT_URL,
   PRODUCT_CHATWITHPDF_URL,
   PRODUCT_CHATWITHPDF_USERS,
   PRODUCT_VOICEFLOW_LABEL,
@@ -45,6 +48,21 @@ export function HeroProofCard() {
         <dd className="text-[var(--color-text)]">{TENURE_LINE}</dd>
 
         <dt className="text-[var(--color-text-subtle)]">shipped</dt>
+        <dd className="text-[var(--color-text)]">
+          <a
+            href={PRODUCT_OPENBOT_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="link"
+          >
+            {PRODUCT_OPENBOT_LABEL}
+          </a>{" "}
+          <span className="text-[var(--color-text-subtle)]">
+            · {PRODUCT_OPENBOT_NOTE}
+          </span>
+        </dd>
+
+        <dt className="text-[var(--color-text-subtle)]">·</dt>
         <dd className="text-[var(--color-text)]">
           <a
             href={PRODUCT_CHATWITHPDF_URL}

@@ -19,7 +19,7 @@ My professional story started at FactSet, where I joined as an intern in 2023 an
 
 Much of my professional work sits at the intersection of product engineering and data systems. I have built analyst-facing tools, asynchronous processing pipelines, real-time features, reporting workflows, and systems that turn large volumes of operational data into something people can act on. I enjoy work where the backend constraints are real, but the final measure of success is whether the product makes a difficult workflow feel simpler.
 
-Outside my day job, I build products that start with an inconvenient experience I want to fix. Chat with PDF came from seeing how badly scanned reports, research documents, and long PDFs fail ordinary search. VoiceFlow came from wanting voice input that works across applications and produces writing worth keeping. Playoff Pulse started as a way to make complicated tournament qualification scenarios interactive and shareable rather than something people calculate manually.
+Outside my day job, I build products that start with an inconvenient experience I want to fix. open-bot came from wanting AI assistants that do the work instead of describing it: teammates with a real computer, a browser and my accounts, that I can watch and stop at any moment. Chat with PDF came from seeing how badly scanned reports, research documents, and long PDFs fail ordinary search. VoiceFlow came from wanting voice input that works across applications and produces writing worth keeping. Playoff Pulse started as a way to make complicated tournament qualification scenarios interactive and shareable rather than something people calculate manually.
 
 I like problems where the happy path is easy but earning a user's trust is not. A generated answer is simple; proving where it came from is harder. Speech-to-text is simple; making it fast, universal, and safe inside whichever application has focus is harder. A chart is simple; encoding what an experienced analyst considers a meaningful comparison is harder.
 
@@ -79,6 +79,18 @@ My general rule is simple: understand the user, simplify the system, state the c
  *   …
  */
 export const PROJECTS_DETAIL = `
+## open-bot
+
+open-bot is my newest and most ambitious project: AI teammates that do real work on a computer of their own. I designed and built it in two weeks, it is open source, and it runs on Railway as my own single-user deployment. Grok Bot, OpenAI Dots and Meta Muse showed that agents with their own computer can handle real errands. I wanted a version that is personal and open source, that I can watch, interrupt and trust with my own accounts.
+
+Each teammate has a job and its own screen on one shared cloud computer: a Linux desktop, Chromium, a shell and files. I can watch any screen live, take it over to type a password or solve a 2FA prompt, and hand it back with a note. Anything that sends, buys, publishes or deletes waits for my approval. Saved logins and cards live in a vault that teammates can use but never read, and each teammate has a monthly budget. Teammates also run on schedules, watch pages for changes, work together in group chats, share a task board, split big jobs across parallel helpers on separate screens, and keep a memory I can inspect, correct and erase.
+
+The most interesting decision was where the agent runs. Codex's shell and file tools act on the machine Codex runs on, and a ChatGPT plan is only reachable through Codex, so the agent runs inside the shared computer and my worker drives it over the app-server JSON-RPC protocol. The teammates' own tools, like desktop control, approvals, takeovers, schedules and handoffs, are served back to Codex as dynamic tools. When the plan's usage runs out, the same path switches to an OpenAI API key under a hard monthly cap.
+
+Other choices I would defend: Postgres is the only queue (FOR UPDATE SKIP LOCKED plus NOTIFY), so run state and queue state change in the same transaction and there is no extra service. Every screen has a lease, held by a teammate's run or by me, and a daemon inside the computer checks it on every click and keystroke, so a takeover cannot be bypassed. Browser traffic can leave through the Electron desktop app on my Mac over a multiplexed tunnel, so websites see a home connection instead of a datacenter IP. Memory is versioned and scoped in Postgres, with keyword and vector recall merged by reciprocal rank fusion, and forgetting removes old revisions and vectors too.
+
+The honest tradeoffs: teammates share one OS user, which is fine for a single-user app but would need a computer per user in a multi-user version. Codex hands control back about 30 seconds into a tool call, so a teammate never blocks on a human; a slow approval ends the turn and my answer starts a new run. Screenshot-driven computer use costs tokens and each awake screen holds about 330 MB, so screens sleep when idle. There is a narrated launch tour on its landing page and the full case study on this site.
+
 ## Chat with PDF
 
 I built Chat with PDF for the documents that ordinary search gives up on: scanned reports, dense research, and long PDFs where finding one grounded answer can mean an hour of reading. The product turns an immutable upload into an asynchronous OCR, chunking, embedding, retrieval, and answer pipeline. Ingestion is eventually consistent by design: a document becomes queryable when processing completes, rather than making an upload request wait for expensive work.

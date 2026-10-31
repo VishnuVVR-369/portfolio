@@ -80,9 +80,10 @@ const STARTER_GROUPS: { group: string; items: Starter[] }[] = [
     group: "projects",
     items: [
       {
-        id: "pdf",
-        label: "how does chat with pdf work?",
-        prompt: "Tell me about Chat with PDF — what's the architecture?",
+        id: "open-bot",
+        label: "how does open-bot work?",
+        prompt:
+          "Tell me about open-bot. How do the AI teammates use their own computer?",
       },
       {
         id: "proud",

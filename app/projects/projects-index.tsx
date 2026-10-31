@@ -5,6 +5,7 @@ import type { Project, ProjectTag } from "@/lib/projects";
 import { tagLabels } from "@/lib/projects";
 import { Reveal } from "../components/reveal";
 import { FeaturedProjectCard } from "../components/featured-project-card";
+import { LeadProjectCard } from "../components/lead-project-card";
 
 const FILTERS: ({ id: "all" } | { id: ProjectTag })[] = [
   { id: "all" },
@@ -13,14 +14,6 @@ const FILTERS: ({ id: "all" } | { id: ProjectTag })[] = [
   { id: "full-stack" },
   { id: "desktop" },
 ];
-
-// Per-project visual variant. Pipeline-shape projects get the
-// vertical flow visual; system-level / input-process-output projects
-// get the patchbay rack.
-function visualVariantFor(slug: string): "pipeline" | "rack" {
-  if (slug === "voiceflow") return "rack";
-  return "pipeline";
-}
 
 export function ProjectsIndex({ projects }: { projects: Project[] }) {
   const [filter, setFilter] = useState<"all" | ProjectTag>("all");
@@ -114,11 +107,16 @@ export function ProjectsIndex({ projects }: { projects: Project[] }) {
         ) : (
           <div className="grid gap-6 md:grid-cols-2">
             {visible.map((p, i) => (
-              <Reveal key={p.slug} delay={i * 60}>
-                <FeaturedProjectCard
-                  project={p}
-                  visualVariant={visualVariantFor(p.slug)}
-                />
+              <Reveal
+                key={p.slug}
+                delay={i * 60}
+                className={p.lead ? "md:col-span-2" : undefined}
+              >
+                {p.lead ? (
+                  <LeadProjectCard project={p} />
+                ) : (
+                  <FeaturedProjectCard project={p} />
+                )}
               </Reveal>
             ))}
           </div>
