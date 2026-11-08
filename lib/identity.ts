@@ -27,7 +27,7 @@ export const LEETCODE_STREAK = 365;
 export const LEETCODE_PROBLEMS = "1,500+";
 
 // Products live — Tier S signal
-// open-bot's app is private (single user); the public link is its landing
+// the open-bot's public link is its landing
 // page, which carries the launch tour and the docs.
 export const PRODUCT_OPENBOT_URL = "https://useopenbot.com";
 export const PRODUCT_OPENBOT_LABEL = "useopenbot.com";
