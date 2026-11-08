@@ -60,7 +60,7 @@ function renderIdentity(): string {
     `- Profile: ${LEETCODE_URL}`,
     ``,
     `# Live products`,
-    `- open-bot: ${PRODUCT_OPENBOT_URL} (public landing page with a narrated launch tour and the docs; open source at https://github.com/VishnuVVR-369/open-bot; the app itself is a private single-user deployment on Railway)`,
+    `- open-bot: ${PRODUCT_OPENBOT_URL} (public landing page with a narrated launch tour and the docs; open source at https://github.com/VishnuVVR-369/open-bot;)`,
     `- Chat with PDF — ${PRODUCT_CHATWITHPDF_URL} (${PRODUCT_CHATWITHPDF_USERS})`,
     ``,
     `# Now`,
