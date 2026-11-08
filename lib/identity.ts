@@ -27,10 +27,10 @@ export const LEETCODE_STREAK = 365;
 export const LEETCODE_PROBLEMS = "1,500+";
 
 // Products live — Tier S signal
-// open-bot's app is private (single user); the public link is its launch
-// tour. Swap the URL here when it moves to its own domain.
-export const PRODUCT_OPENBOT_URL = "https://open-bot.vishnuvardhanganji.workers.dev";
-export const PRODUCT_OPENBOT_LABEL = "open-bot tour";
+// the open-bot's public link is its landing
+// page, which carries the launch tour and the docs.
+export const PRODUCT_OPENBOT_URL = "https://useopenbot.com";
+export const PRODUCT_OPENBOT_LABEL = "useopenbot.com";
 export const PRODUCT_OPENBOT_NOTE = "ai teammates";
 export const PRODUCT_CHATWITHPDF_URL = "https://chatwithpdf.pro";
 export const PRODUCT_CHATWITHPDF_USERS = "100+ users";
